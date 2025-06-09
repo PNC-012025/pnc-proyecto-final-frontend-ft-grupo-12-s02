@@ -1,6 +1,7 @@
 import Header from "../../components/header/Header";
 import backgroundImage from '../../assets/images/backgroundImage.jpg';
 
+
 export default function LandingPage() {
     return (
         <div
