@@ -11,7 +11,7 @@ export default function Header() {
                     <Button href="/signin">
                         Registrarse
                     </Button>
-                    <Button href="">
+                    <Button href="/login">
                         Iniciar sesión
                     </Button>
                 </nav>
