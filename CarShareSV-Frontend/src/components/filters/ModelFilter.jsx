@@ -48,8 +48,7 @@ const ModelFilter = ({ selectedBrand }) => {
             </option>
           ))}
       </select>
-
-      {/* Tooltip visible si no hay marca seleccionada */}
+      
       {!selectedBrand && showTooltip && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-3 py-1 text-sm text-white bg-red-600 rounded shadow-md whitespace-nowrap z-50">
           No has seleccionado marca
