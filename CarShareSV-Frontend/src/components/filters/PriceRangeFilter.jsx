@@ -12,6 +12,9 @@ const PriceRangeFilter = () => {
         placeholder="Max $"
         className="rounded px-2 py-1 w-20"
       />
+      <span className="text-sm text-gray-800 italic font-bold ml-2 whitespace-nowrap">
+      /precio por día
+      </span>
     </div>
   );
 };
