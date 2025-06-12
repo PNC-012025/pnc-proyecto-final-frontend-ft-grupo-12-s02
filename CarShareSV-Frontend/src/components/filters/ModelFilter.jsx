@@ -10,12 +10,12 @@ const modelsByBrand = {
   Honda: ["Civic", "Accord", "CR-V", "HR-V", "Fit", "Pilot", "Ridgeline", "Odyssey" ],
   Mitsubishi: ["Lancer", "Outlander", "Montero", "Outlander Sport", "Eclipse Cross", "ASX", "Mirage", "L200"],
   Suzuki: ["Swift", "Vitara", "Baleno", "S-Cross", "Jimny"],
-  Mazda: ["3", "6", "CX-5", "CX-30", "MX-5", "CX-9", "CX-3", "CX-30"],
+  Mazda: ["3", "6", "CX-3", "CX-30", "CX-5", "CX-60", "CX-9", "CX-90", "BT-50", "MX-5"  ],
   Volkswagen: ["Golf", "Jetta", "Tiguan", "Passat", "Teramont", "T-Cross", "Taos", "Amarok", "Virtus", "Nivus"],
-  "Mercedes-Benz": ["C-Class", "E-Class", "GLA", "GLC", "GLE", "A-Class", "CLA", "S-Class", "GLS", "G-Class", "AMG GT", "A45", "C43", "E53"],
-  BMW: ["X2", "X3", "X5", "X1", "X4", "X6", "X7", "230i", "235i"],
-  Audi: ["A3", "A4", "Q5", "Q2", "Q3", "A6", "Q7",],
-  Isuzu: ["D-Max", "MU-X"],
+  "Mercedes-Benz": ["A-Class", "C-Class", "E-Class", "S-Class", "CLA", "GLB", "GLC", "GLE", "GLS", "G-Class", "Sprinter"],
+  BMW: ["X1", "X2", "X3", "X4", "X5", "X6", "X7", "Serie 3", "Serie 5", "Serie 6"],
+  Audi: ["A3", "A4", "A6", "A8", "Q2", "Q3", "Q5", "Q7", "Q8"],
+  Isuzu: ["D-Max", "MU-X"],   
   Jeep: ["Wrangler", "Cherokee", "Compass", "Renegade", "Grand Cherokee", "Gladiator", "Patriot"],
 };
 
@@ -48,7 +48,7 @@ const ModelFilter = ({ selectedBrand }) => {
             </option>
           ))}
       </select>
-      
+
       {!selectedBrand && showTooltip && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 px-3 py-1 text-sm text-white bg-red-600 rounded shadow-md whitespace-nowrap z-50">
           No has seleccionado marca
