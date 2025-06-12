@@ -17,7 +17,7 @@ export default function Explore() {
       image: "https://i.imgur.com/7YARv8z.png"
     },
     {
-      model: "Kia Soul Verde",
+      model: "Kia Soul",
       brand: "Kia",
       year: 2016,
       rating: 4.8,
@@ -28,7 +28,7 @@ export default function Explore() {
       image: "https://i.imgur.com/qbR6J4Z.png"
     },
     {
-      model: "Kia Soul Óxido",
+      model: "Kia Soul",
       brand: "Kia",
       year: 2016,
       rating: 4.8,
