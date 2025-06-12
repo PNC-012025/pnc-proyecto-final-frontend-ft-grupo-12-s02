@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import YearFilter from "./YearFilter";
-import BrandFilter from "./BrandFilter";
-import ModelFilter from "./ModelFilter";
-import TransmissionFilter from "./TransmissionFilter";
+import YearFilter from "../generalfilters/YearFilter";
+import BrandFilter from "../generalfilters/BrandFilter";
+import ModelFilter from "../generalfilters/ModelFilter";
+import TransmissionFilter from "../generalfilters/TransmissionFilter";
 import PriceRangeFilter from "./PriceRangeFilter";
-import PassengersFilter from "./PassengersFilter";
-import Button from "../../components/button/Button";
+import PassengersFilter from "../generalfilters/PassengersFilter";
+import Button from "../../button/Button";
 
 const Filters = () => {
 
