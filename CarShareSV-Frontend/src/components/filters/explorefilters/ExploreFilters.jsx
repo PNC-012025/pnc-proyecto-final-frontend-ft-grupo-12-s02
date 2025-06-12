@@ -20,10 +20,14 @@ const Filters = () => {
       <PassengersFilter />
       <PriceRangeFilter />
       <div className="flex flex-row flex-wrap gap-4 items-center font-semibold">
-  <Button className="min-w-[150px] whitespace-nowrap bg-pink-600 border-pink-600 hover:text-pink-600 hover:border-pink-600">
+  <Button 
+  href="submit"
+  className="min-w-[150px] whitespace-nowrap bg-pink-600 border-pink-600 hover:text-pink-600 hover:border-pink-600">
     Aplicar filtros
   </Button>
-  <Button className="min-w-[150px] whitespace-nowrap text-pink-600 border-pink-600 hover:bg-pink-600 hover:border-pink-600">
+  <Button
+  href="submit"
+  className="min-w-[150px] whitespace-nowrap text-pink-600 border-pink-600 hover:bg-pink-600 hover:border-pink-600">
     Reiniciar filtros
   </Button>
 </div>
