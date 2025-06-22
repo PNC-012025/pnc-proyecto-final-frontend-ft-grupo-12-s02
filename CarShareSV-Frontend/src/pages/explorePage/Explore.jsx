@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CarCard from "../../components/card/CarCard";
+import CarCard from "../../components/cards/CarCard/CarCard";
 import Header from "../../components/header/Header";
 import Filters from "../../components/filters/explorefilters/ExploreFilters";
 import card1 from "../../assets/images/card1.jpg";

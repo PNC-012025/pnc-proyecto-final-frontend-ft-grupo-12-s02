@@ -5,6 +5,7 @@ import LogIn from "./pages/logIn/LogIn";
 import Explore from "./pages/explorePage/Explore";
 import MyProfile from "./pages/myProfile/MyProfile";
 import MyCars from "./pages/myCars/MyCars";
+import PostPage from "./pages/postPage/PostPage";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
         <Route path="/explore" element={<Explore/>} />
         <Route path="/myprofile" element={<MyProfile/>} />
         <Route path="/mycars" element={<MyCars/>} />
-        
+        <Route path="/post/new" element={<PostPage/>} />
       </Routes>
     </Router>
   )

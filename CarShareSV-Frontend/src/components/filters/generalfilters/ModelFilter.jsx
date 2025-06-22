@@ -19,7 +19,7 @@ const modelsByBrand = {
   Jeep: ["Wrangler", "Cherokee", "Compass", "Renegade", "Grand Cherokee", "Gladiator", "Patriot"],
 };
 
-const ModelFilter = ({ selectedBrand }) => {
+const ModelFilter = ({ selectedBrand, className }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleMouseEnter = () => {
@@ -37,7 +37,7 @@ const ModelFilter = ({ selectedBrand }) => {
       onMouseLeave={handleMouseLeave}
     >
       <select
-        className="rounded-lg bg-white/30 backdrop-blur-md border border-black text-lg h-12 px-4 font-light disabled:cursor-not-allowed"
+        className={className}
         disabled={!selectedBrand}
       >
         <option value="">Modelo</option>

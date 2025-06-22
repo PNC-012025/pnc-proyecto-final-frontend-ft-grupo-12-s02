@@ -1,7 +1,7 @@
 import Header from '../../components/header/Header';
 import card1 from "../../assets/images/card1.jpg";
 import card2 from "../../assets/images/card2.jpg";
-import MyCarsCard from '../../components/myCarsCard/MyCarsCard';
+import MyCarsCard from "../../components/cards/myCarsCard/MyCarsCard";
 import { useState } from 'react';
 
 export default function MyCars() {

@@ -1,6 +1,6 @@
 import { FaUser, FaCar, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
-import Button from '../button/Button';
+import Button from '../../button/Button';
 
 export default function MyCarsCard({car}) {
 

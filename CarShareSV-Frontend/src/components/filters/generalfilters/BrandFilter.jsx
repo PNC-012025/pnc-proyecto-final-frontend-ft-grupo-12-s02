@@ -1,7 +1,7 @@
-const BrandFilter = ({ selectedBrand, onBrandChange }) => {
+const BrandFilter = ({ selectedBrand, onBrandChange, className }) => {
   return (
     <select
-      className="rounded-lg bg-white/30 backdrop-blur-md border border-black text-lg h-12 px-4 font-light"
+      className={className}
       value={selectedBrand}
       onChange={(e) => onBrandChange(e.target.value)}
     >

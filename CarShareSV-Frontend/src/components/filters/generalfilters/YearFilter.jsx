@@ -1,7 +1,7 @@
-const YearFilter = () => {
+const YearFilter = ( {className} ) => {
   return (
     <select
-     className="rounded-lg bg-white/30 backdrop-blur-md border border-black text-lg h-12 px-4 font-light"
+     className={className}
     >
       <option value="">Año</option>
       <option value="2015">2015</option>
