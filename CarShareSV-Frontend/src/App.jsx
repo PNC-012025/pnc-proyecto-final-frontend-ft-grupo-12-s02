@@ -9,6 +9,7 @@ import PostPage from "./pages/postPage/PostPage";
 import ActualRents from "./pages/actualRents/ActualRents";
 import PastRents from "./pages/pastRents/PastRents";
 import CarDetails from "./pages/carDetails/CarDetails";
+import AdminProfile from "./pages/adminView/myProfileAdmin/myProfileAdmin";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/rents/actuals" element={<ActualRents/>} />
         <Route path="/rents/pasts" element={<PastRents/>} />
         <Route path="/car/1" element={<CarDetails />} />
+        <Route path="/admin/myprofile" element={<AdminProfile />} />
 
       </Routes>
     </Router>
