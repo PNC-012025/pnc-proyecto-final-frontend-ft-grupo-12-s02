@@ -6,6 +6,8 @@ import Explore from "./pages/explorePage/Explore";
 import MyProfile from "./pages/myProfile/MyProfile";
 import MyCars from "./pages/myCars/MyCars";
 import PostPage from "./pages/postPage/PostPage";
+import ActualRents from "./pages/actualRents/ActualRents";
+import PastRents from "./pages/pastRents/PastRents";
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/myprofile" element={<MyProfile/>} />
         <Route path="/mycars" element={<MyCars/>} />
         <Route path="/post/new" element={<PostPage/>} />
+        <Route path="/rents/actuals" element={<ActualRents/>} />
+        <Route path="/rents/pasts" element={<PastRents/>} />
       </Routes>
     </Router>
   )

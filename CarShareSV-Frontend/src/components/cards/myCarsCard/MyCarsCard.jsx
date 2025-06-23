@@ -7,7 +7,7 @@ export default function MyCarsCard({car}) {
   return (
    
     <div className="flex items-center space-x-6"> 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[600px]"> 
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[650px]"> 
         <div className="p-6">
           <div className="flex justify-between items-start">
   
@@ -19,26 +19,26 @@ export default function MyCarsCard({car}) {
               
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
                 <div className="flex items-center">
-                  <FaUser className="mr-1 text-pink-600" />
+                  <FaUser className="mr-1 text-primary" />
                   <span>{car.capacity} pasajeros</span>
                 </div>
                 <div className="flex items-center">
-                  <GiCarDoor className="mr-1 text-pink-600" />
+                  <GiCarDoor className="mr-1 text-primary" />
                   <span>{car.doors} puertas</span>
                 </div>
                 <div className="flex items-center">
-                  <GiGearStick className="mr-1 text-pink-600" />
+                  <GiGearStick className="mr-1 text-primary" />
                   <span>{car.transmission}</span>
                 </div>
                 <div className="flex items-center">
-                <FaCar className="mr-1 text-pink-600" /> 
+                <FaCar className="mr-1 text-primary" /> 
                 <span>{car.type}</span> 
               </div>
               </div>
 
               <div className="flex items-center mb-4">
                 <span className="text-sm text-gray-600">Calificación:</span>
-                <FaStar className="ml-2 mr-1 text-pink-600" />
+                <FaStar className="ml-2 mr-1 text-primary" />
                 <span className="font-medium text-gray-900">{car.rating}</span>
                 <span className="text-sm text-gray-500 ml-1">({car.reviewCount} reseñas)</span>
               </div>
