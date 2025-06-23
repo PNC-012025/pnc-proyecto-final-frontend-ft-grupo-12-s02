@@ -1,3 +1,4 @@
+// Explore.jsx
 import { useState } from "react";
 import CarCard from "../../components/cards/CarCard/CarCard";
 import Header from "../../components/header/Header";
@@ -7,7 +8,6 @@ import card2 from "../../assets/images/card2.jpg";
 import card3 from "../../assets/images/card3.jpg";
 
 export default function Explore() {
-  
   const allCars = [
     {
       model: "Honda Civic",
@@ -18,7 +18,8 @@ export default function Explore() {
       doors: 4,
       transmission: "A",
       price: 24,
-      image: card1    },
+      image: card1
+    },
     {
       model: "Picachito nuevo",
       brand: "Ni el sabe",
@@ -46,14 +47,15 @@ export default function Explore() {
   const [cars] = useState(allCars);
 
   return (
-    <div className="min-h-screen font-light bg-gradient-to-b from-pink-200 via-white">
+    <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="max-w-6xl mx-auto px-4 pt-10 pb-6 space-y-20">
-        <h2 className="text-2xl font-semibold"></h2>
+      <div className="max-w-6xl mx-auto pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-6">Explorar vehículos</h1>
+          <Filters />
+        </div>
 
-        <Filters />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {cars.map((car, index) => (
             <CarCard key={index} car={car} />
           ))}

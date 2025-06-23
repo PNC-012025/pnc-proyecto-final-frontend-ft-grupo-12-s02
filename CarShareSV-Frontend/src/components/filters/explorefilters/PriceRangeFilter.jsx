@@ -1,20 +1,18 @@
 const PriceRangeFilter = () => {
   return (
-    <div className="flex items-center gap-2 rounded-lg bg-white/30 backdrop-blur-md border text-lg h-12 px-4 font-light">
+    <div className="flex items-center gap-2 text-sm text-gray-700">
       <input
         type="number"
         placeholder="Min $"
-        className="rounded px-2 py-1 w-20"
+        className="bg-white border border-gray-300 rounded-md px-2 py-1 w-20 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-primary"
       />
-      <span>-</span>
+      <span className="text-gray-400">-</span>
       <input
         type="number"
         placeholder="Max $"
-        className="rounded px-2 py-1 w-20"
+        className="bg-white border border-gray-300 rounded-md px-2 py-1 w-20 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-primary"
       />
-      <span className="text-sm text-gray-800 italic font-bold ml-2 whitespace-nowrap">
-      /precio por día
-      </span>
+      <span className="text-xs text-gray-500 ml-1 whitespace-nowrap">/día</span>
     </div>
   );
 };

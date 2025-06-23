@@ -40,7 +40,7 @@ export default function CurrentDetailCard({ car }) {
             </div>
 
             <div className="flex justify-center">
-                <Button>
+                <Button className="w-full ">
                     Cancelar
                 </Button>
             </div>

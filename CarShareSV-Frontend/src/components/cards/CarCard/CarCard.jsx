@@ -1,20 +1,34 @@
-import { FaStar, FaUser} from "react-icons/fa";
-import { GiCarDoor } from "react-icons/gi";
-import { GiGearStick } from "react-icons/gi";
+// CarCard.jsx
+import { FaStar, FaUser } from "react-icons/fa";
+import { GiCarDoor, GiGearStick } from "react-icons/gi";
 
 export default function CarCard({ car }) {
   return (
-    <div className="bg-white rounded-xl shadow-md p-3 w-full max-w-xs duration-500 hover:scale-115">
-      <img src={car.image} alt={car.model} className="rounded-md h-40 w-full object-cover" />
-      <h2 className="text-lg font-semibold mt-2">{car.model} {car.year}</h2>
-      <div className="flex flex-wrap items-center gap-2 text-pink-600 text-sm mt-1">
-        <FaStar /><span>{car.rating}</span>
-        <FaUser /><span>{car.capacity}</span>
-        <GiCarDoor /><span>{car.doors}</span>
-        <GiGearStick /><span>{car.transmission}</span>
-      </div>
-      <div className="mt-2 font-bold text-base">
-        ${car.price} <span className="text-sm font-normal text-gray-500">/día</span>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:scale-[1.01] transition-transform duration-200">
+      <img src={car.image} alt={car.model} className="w-full h-55 object-cover" />
+      <div className="p-4 space-y-2">
+        <h3 className="text-lg font-semibold text-gray-900">
+          {car.model} <span className="text-gray-500 font-normal">{car.year}</span>
+        </h3>
+
+        <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+          <div className="flex items-center gap-1">
+            <FaStar className="text-primary" /> {car.rating}
+          </div>
+          <div className="flex items-center gap-1">
+            <FaUser className="text-primary" /> {car.capacity}
+          </div>
+          <div className="flex items-center gap-1">
+            <GiCarDoor className="text-primary" /> {car.doors}
+          </div>
+          <div className="flex items-center gap-1">
+            <GiGearStick className="text-primary" /> {car.transmission === 'A' ? 'Automático' : 'Manual'}
+          </div>
+        </div>
+
+        <div className="pt-2 text-base font-semibold text-gray-900">
+          ${car.price} <span className="text-sm text-gray-500 font-normal">/día</span>
+        </div>
       </div>
     </div>
   );

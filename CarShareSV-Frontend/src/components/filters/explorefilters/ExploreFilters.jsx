@@ -11,30 +11,22 @@ const Filters = () => {
   const [selectedBrand, setSelectedBrand] = useState("");
 
   return (
-    <div className="flex items-center justify-center gap-4 font-light flex-wrap">
-      <YearFilter />
-      <BrandFilter selectedBrand={selectedBrand} onBrandChange={setSelectedBrand} />
-      <ModelFilter selectedBrand={selectedBrand} />
-      <TransmissionFilter />
-      <PassengersFilter />
-      <PriceRangeFilter />
-      
-      <Button 
-        href="submit"
-        className="px-4 py-2 whitespace-nowrap rounded-md"
-      >
-        Aplicar filtros
-      </Button>
-      
-      <Button
-        href="submit"
-        className="px-4 py-2 whitespace-nowrap rounded-md"
-      >
-        Reiniciar filtros
-      </Button>
+    <div className="bg-white/30 backdrop-blur-md border border-gray-200 rounded-xl px-6 py-4 w-full flex flex-wrap gap-4 items-center justify-between">
+      <div className="flex flex-wrap gap-4 items-center">
+        <YearFilter />
+        <BrandFilter selectedBrand={selectedBrand} onBrandChange={setSelectedBrand} />
+        <ModelFilter selectedBrand={selectedBrand} />
+        <TransmissionFilter />
+        <PassengersFilter />
+        <PriceRangeFilter />
+      </div>
+
+      <div className="flex gap-2">
+        <Button>Aplicar</Button>
+        <Button>Reiniciar</Button>
+      </div>
     </div>
   );
 };
-
 
 export default Filters;
