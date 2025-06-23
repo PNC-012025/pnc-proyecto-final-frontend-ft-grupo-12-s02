@@ -11,6 +11,7 @@ import PastRents from "./pages/pastRents/PastRents";
 import CarDetails from "./pages/carDetails/CarDetails";
 import AdminProfile from "./pages/adminView/myProfileAdmin/myProfileAdmin";
 import UsersList from "./pages/adminView/UsersList/userlist";
+import CarDetailsAdmin from "./pages/adminView/carDetails/carDetailsAdmin";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/car/1" element={<CarDetails />} />
         <Route path="/admin/myprofile" element={<AdminProfile />} />
         <Route path="/admin/users" element={<UsersList />} />
+        <Route path="/admin/cardetails" element={<CarDetailsAdmin />} />
 
       </Routes>
     </Router>
