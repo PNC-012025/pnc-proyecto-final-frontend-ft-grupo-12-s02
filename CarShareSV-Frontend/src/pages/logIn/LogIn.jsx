@@ -34,7 +34,6 @@ export default function Login() {
                                 type="email"
                                 name="correo"
                                 placeholder="Correo electrónico"
-                                value={formData.email}
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
                                 required
@@ -46,7 +45,6 @@ export default function Login() {
                                 type="password"
                                 name="contraseña"
                                 placeholder="Contraseña"
-                                value={formData.password}
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
                                 required
