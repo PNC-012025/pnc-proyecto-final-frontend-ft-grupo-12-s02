@@ -1,5 +1,7 @@
 import React from 'react';
 
+//reutilizar el componente en todos los errores/notificaciones
+
 const AlertPopup = ({ message, isOpen, onClose }) => {
     if (!isOpen) return null;
 
