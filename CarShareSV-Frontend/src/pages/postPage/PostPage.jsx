@@ -5,9 +5,23 @@ import card2 from "../../assets/images/card2.jpg";
 import card3 from "../../assets/images/card3.jpg";
 import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
+import AlertPopup from "../../components/exceptionsMessages/alert";
 
 const PostPage = () => {
   const images = [card1, card2, card3];
+
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+const handlePost = async () => {
+    try {
+      // Simula un error para probar el AlertPopup
+      throw new Error('Simulación de error');
+    } catch (error) {
+      setAlertMessage('Ocurrió un error al publicar. Intenta de nuevo.');
+      setAlertOpen(true);
+    }
+};
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-10">
@@ -40,6 +54,12 @@ const PostPage = () => {
           </div>
         </div>
       </div>
+
+      <AlertPopup
+        message={alertMessage}
+        isOpen={alertOpen}
+        onClose={() => setAlertOpen(false)}
+      />
     </div>
   );
 };
