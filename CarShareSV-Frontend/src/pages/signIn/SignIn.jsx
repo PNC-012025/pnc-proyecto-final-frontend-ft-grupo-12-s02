@@ -17,7 +17,7 @@ export default function SignIn() {
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.firstName]: e.target.value
+            [e.target.name]: e.target.value
         });
     };
 
@@ -43,7 +43,7 @@ export default function SignIn() {
                         <div>
                             <input
                                 type="text"
-                                name="nombre"
+                                name="firstName"
                                 placeholder="Nombre"
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
@@ -53,7 +53,7 @@ export default function SignIn() {
                         <div>
                             <input
                                 type="text"
-                                name="apellido"
+                                name="lastName"
                                 placeholder="Apellido"
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
@@ -83,7 +83,7 @@ export default function SignIn() {
                         <div>
                             <input
                                 type="email"
-                                name="correo"
+                                name="email"
                                 placeholder="Correo electrónico"
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
@@ -93,7 +93,7 @@ export default function SignIn() {
                         <div>
                             <input
                                 type="tel"
-                                name="telefono"
+                                name="phoneNumber"
                                 placeholder="Número de teléfono"
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
@@ -103,7 +103,7 @@ export default function SignIn() {
                         <div>
                             <input
                                 type="password"
-                                name="contraseña"
+                                name="password"
                                 placeholder="Contraseña"
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
