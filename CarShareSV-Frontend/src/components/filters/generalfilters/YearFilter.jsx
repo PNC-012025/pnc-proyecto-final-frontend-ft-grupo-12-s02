@@ -1,7 +1,14 @@
-const YearFilter = ( {className} ) => {
+const YearFilter = ( {className, setFilter} ) => {
   return (
     <select
      className={className}
+      onChange={(e) => {
+        const year = e.target.value ? parseInt(e.target.value) : null;
+        setFilter((prevFilter) => ({
+          ...prevFilter,
+          year: year
+        }));
+      }}
     >
       <option value="">Año</option>
       <option value="2015">2015</option>
