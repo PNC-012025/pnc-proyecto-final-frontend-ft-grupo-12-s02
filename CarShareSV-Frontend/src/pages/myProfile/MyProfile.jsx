@@ -85,7 +85,7 @@ export default function MyProfile() {
               <div className="flex justify-center mt-8">
                 <Button onClick={() => {
                   logout(); 
-                  navigate('/login');
+                  navigate('/');
                 }} className="bg-primary hover:bg-primary/90">
                   Cerrar sesión
                 </Button>
