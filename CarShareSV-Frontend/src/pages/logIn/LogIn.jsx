@@ -18,7 +18,7 @@ export default function Login() {
     useEffect(() => {
       if (hasLoginError) console.log("ERROR EN LOGIN"); //TODO -navigate("/LoginError");
 
-      console.log("IS LOGGED: " + isLogged + "\nUSER: " + JSON.stringify(user));
+      console.log("IS LOGGED: " + isLogged + "\nUSER: " + JSON.stringify(user)); // debugging
 
       if (isLogged) {
         if (user?.roles?.includes(ROLES.ADMIN)) console.log("NAVEGAR A VISTA ADMIN"); //TODO - navigate("/Admin/AdminHome");
