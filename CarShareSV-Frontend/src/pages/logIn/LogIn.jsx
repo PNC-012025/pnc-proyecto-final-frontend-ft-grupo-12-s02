@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Button from '../../components/button/Button';
 import useUser from '../../hooks/useUser';
+import AlertPopup from '../../components/alerts/alert';
 
 const ROLES = {
     SYSADMIN: 'ROLE_SYSADMIN',
@@ -15,15 +16,27 @@ export default function Login() {
         password: ''
     });
 
-    useEffect(() => {
-      if (hasLoginError) console.log("ERROR EN LOGIN"); //TODO -navigate("/LoginError");
+    // Estado para el alert
+    const [alert, setAlert] = useState({
+        isOpen: false,
+        message: ''
+    });
 
-      console.log("IS LOGGED: " + isLogged + "\nUSER: " + JSON.stringify(user)); // debugging
+    useEffect(() => {
+      if (hasLoginError) {
+        setAlert({
+          isOpen: true,
+          message: "Credenciales inválidas, usuario y/o contraseña incorrectas."
+        });
+      }
 
       if (isLogged) {
-        if (user?.roles?.includes(ROLES.ADMIN)) console.log("NAVEGAR A VISTA ADMIN"); //TODO - navigate("/Admin/AdminHome");
-        if (user?.roles?.includes(ROLES.SYSADMIN)) console.log("NAVEGAR A VISTA ADMIN"); //TODO - navigate("/Admin/AdminHome");
-        if (user?.roles?.includes(ROLES.USER)) console.log("NAVEGAR A VISTA USUARIO"); //TODO - navigate("/user/UserHome");
+        setAlert({
+          isOpen: true,
+          message: "Inicio de sesión con éxito."
+        });
+        // Aquí luego puedes navegar a /explore
+        // Por ejemplo: setTimeout(() => navigate("/explore"), 1500);
       }
     }, [hasLoginError, isLogged, user]);
 
@@ -36,22 +49,27 @@ export default function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Datos del formulario:', formData);
-        
         login(formData);
+    };
+
+    const handleCloseAlert = () => {
+        setAlert({ isOpen: false, message: '' });
     };
 
     return (
         <div className="h-screen flex">
+            {/* Alert */}
+            <AlertPopup
+                isOpen={alert.isOpen}
+                message={alert.message}
+                onClose={handleCloseAlert}
+            />
+
             {/*Izquierda */}
-            { isLoginLoading && <strong>Validando credenciales...</strong> }
-            {!isLoginLoading && (
             <div className="w-3/5 bg-white flex items-center justify-center p-8 h-full">
                 <div className="w-full max-w-md">
                     <h1 className="text-5xl font-bold text-primary mb-8 text-center">Inicia sesión</h1>
-
                     <form onSubmit={handleSubmit} className="space-y-4">
-                  
                         <div>
                             <input
                                 type="text"
@@ -60,9 +78,9 @@ export default function Login() {
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
                                 required
+                                disabled={isLoginLoading}
                             />
                         </div>
-                        
                         <div>
                             <input
                                 type="password"
@@ -71,6 +89,7 @@ export default function Login() {
                                 onChange={handleChange}
                                 className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
                                 required
+                                disabled={isLoginLoading}
                             />
                         </div>
                         <div className="text-center mt-6">
@@ -80,14 +99,17 @@ export default function Login() {
                                     Regístrate aquí
                                 </a>
                             </p>
-                            <Button type="submit" className="px-8 py-3">
-                                Iniciar sesión
-                            </Button>
+                            {isLoginLoading ? (
+                                <strong>Validando credenciales...</strong>
+                            ) : (
+                                <Button type="submit" className="px-8 py-3">
+                                    Iniciar sesión
+                                </Button>
+                            )}
                         </div>
                     </form>
                 </div>
             </div>
-            )}
             {/*Derecha*/}
             <div className="w-2/5 bg-gradient-to-br from-primary to-secondary via-[#7a2c7d] flex items-center justify-center text-white h-full">
                 <div className="text-center px-8">

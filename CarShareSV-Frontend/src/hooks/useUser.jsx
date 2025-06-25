@@ -29,7 +29,7 @@ export default function useUser() {
       })
       .catch(err => {
         window.sessionStorage.removeItem("token");
-        setState({ loading: true, error: true });
+        setState({ loading: false, error: true });
         console.error(err);
       });
   }, [setToken]);
