@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import useUser from '../../hooks/useUser';
 
@@ -9,6 +10,7 @@ const ROLES = {
 }
 
 export default function Login() {
+    const navigate = useNavigate();
     const { isLogged, isLoginLoading, hasLoginError, login, user } = useUser();  
     const [formData, setFormData] = useState({
         username: '',
@@ -16,16 +18,16 @@ export default function Login() {
     });
 
     useEffect(() => {
-      if (hasLoginError) console.log("ERROR EN LOGIN"); //TODO -navigate("/LoginError");
-
-      console.log("IS LOGGED: " + isLogged + "\nUSER: " + JSON.stringify(user)); // debugging
+      if (hasLoginError) {
+        console.log("ERROR EN LOGIN"); 
+      }
 
       if (isLogged) {
-        if (user?.roles?.includes(ROLES.ADMIN)) console.log("NAVEGAR A VISTA ADMIN"); //TODO - navigate("/Admin/AdminHome");
-        if (user?.roles?.includes(ROLES.SYSADMIN)) console.log("NAVEGAR A VISTA ADMIN"); //TODO - navigate("/Admin/AdminHome");
-        if (user?.roles?.includes(ROLES.USER)) console.log("NAVEGAR A VISTA USUARIO"); //TODO - navigate("/user/UserHome");
+        if (user?.data?.roles?.includes(ROLES.ADMIN)) navigate("/Admin/AdminHome");
+        else if (user?.data?.roles?.includes(ROLES.SYSADMIN)) navigate("/Admin/AdminHome");
+        else if (user?.data?.roles?.includes(ROLES.USER)) navigate("/explore");
       }
-    }, [hasLoginError, isLogged, user]);
+    }, [hasLoginError, isLogged, user, navigate]);
 
     const handleChange = (e) => {
         setFormData({
@@ -43,7 +45,7 @@ export default function Login() {
 
     return (
         <div className="h-screen flex">
-            {/*Izquierda */}
+            
             { isLoginLoading && <strong>Validando credenciales...</strong> }
             {!isLoginLoading && (
             <div className="w-3/5 bg-white flex items-center justify-center p-8 h-full">
@@ -88,7 +90,7 @@ export default function Login() {
                 </div>
             </div>
             )}
-            {/*Derecha*/}
+
             <div className="w-2/5 bg-gradient-to-br from-primary to-secondary via-[#7a2c7d] flex items-center justify-center text-white h-full">
                 <div className="text-center px-8">
                     <h2 className="text-6xl font-bold leading-tight hover:scale-105 transition-transform duration-300">
