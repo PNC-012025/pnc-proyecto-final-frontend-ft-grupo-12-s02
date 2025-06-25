@@ -19,7 +19,7 @@ const modelsByBrand = {
   Jeep: ["Wrangler", "Cherokee", "Compass", "Renegade", "Grand Cherokee", "Gladiator", "Patriot"],
 };
 
-const ModelFilter = ({ selectedBrand, className }) => {
+const ModelFilter = ({ selectedBrand, className, setFilter }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleMouseEnter = () => {
@@ -30,6 +30,14 @@ const ModelFilter = ({ selectedBrand, className }) => {
     setShowTooltip(false);
   };
 
+  const handleChange = (e) => {
+    const model = e.target.value ? e.target.value : ""; // Set to empty string if no model is selected
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      model: model,
+    }));
+  }
+
   return (
     <div
       className="relative inline-block"
@@ -39,6 +47,7 @@ const ModelFilter = ({ selectedBrand, className }) => {
       <select
         className={className}
         disabled={!selectedBrand}
+        onChange={handleChange}
       >
         <option value="">Modelo</option>
         {selectedBrand &&
