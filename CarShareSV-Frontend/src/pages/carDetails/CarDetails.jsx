@@ -7,7 +7,8 @@ import { DateRange } from "react-date-range";
 import { es } from "date-fns/locale";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import card1 from "../../assets/images/card1.jpg";
+import { useLocation } from "react-router-dom";
+//import card1 from "../../assets/images/card1.jpg";
 
 
 function formatDate(date) {
@@ -19,7 +20,7 @@ function formatDate(date) {
 }
 
 export default function CarDetails() {
-    const car = {
+    /* const car = {
         id: '1',
         model: 'Kia Soul',
         year: 2016,
@@ -36,7 +37,9 @@ export default function CarDetails() {
         dailyRate: 17,
         serviceFee: 2.0,
         address: 'Calle El Mirador y 85a Ave Norte 648, San Salvador, El Salvador',
-    };
+    }; */
+    const location = useLocation();
+    const car = location.state?.car;
 
     const [range, setRange] = useState({
         startDate: new Date(),

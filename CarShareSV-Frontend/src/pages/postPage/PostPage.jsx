@@ -19,6 +19,7 @@ const PostPage = () => {
     try {
       throw new Error('Simulación de error');
     } catch (error) {
+      console.error('Error al publicar el vehículo:', error);
       setAlertMessage('Ocurrió un error al publicar, intenta de nuevo.');
       setAlertOpen(true);
     }

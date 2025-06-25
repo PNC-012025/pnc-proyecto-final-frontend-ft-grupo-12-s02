@@ -1,5 +1,6 @@
 // Explore.jsx
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CarCard from "../../components/cards/CarCard/CarCard";
 import Header from "../../components/header/Header";
 import Filters from "../../components/filters/explorefilters/ExploreFilters";
@@ -55,6 +56,7 @@ export default function Explore() {
     minPrice: null,
     maxPrice: null
   });
+  const navigate = useNavigate();
 
   //  const [cars] = useState(allCars);
 
@@ -90,7 +92,7 @@ export default function Explore() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {filteredCars.map((car, index) => (
-            <CarCard key={index} car={car} />
+            <CarCard key={index} car={car} onClick={() => navigate(`/car-details/${car.carId || index}`, { state: { car } })} />
           ))}
         </div>
       </div>

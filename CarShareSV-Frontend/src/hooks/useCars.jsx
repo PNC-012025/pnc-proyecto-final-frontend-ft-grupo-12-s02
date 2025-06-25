@@ -1,8 +1,9 @@
 import { useState, useCallback } from "react";
-import { fetchVisibleCars } from "../services/car.service";
+import { fetchVisibleCars, fetchUserCars } from "../services/car.service";
 
 export default function useCars() {
   const [cars, setCars] = useState([]);
+  const [userCars, setUserCars] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -18,9 +19,23 @@ export default function useCars() {
     }
   }, []);
 
+  const getUserCars = useCallback(async () => {
+    try {
+      setLoading(true);
+      const fetchedUserCars = await fetchUserCars();
+      setUserCars(fetchedUserCars);
+    } catch (error) {
+      console.error("Error fetching user cars:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     cars,
+    userCars,
     loading,
-    getVisibleCars
+    getVisibleCars,
+    getUserCars
   };
 }
