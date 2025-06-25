@@ -60,8 +60,9 @@ export default function MyProfile() {
                 <h1 className="text-2xl font-bold text-gray-900 mb-2">
                   {userData.firstName || 'N/A'} {userData.lastName || ''}
                 </h1>
-                <p className="text-gray-600 mb-6">{userData.email || 'N/A'}</p>
-                <Button className="mb-8">
+                <p className="text-gray-600 mb-2">{userData.username || 'N/A'}</p>
+                <p className="text-gray-600 mb-4">{userData.email || 'N/A'}</p>
+                <Button className="mb-2">
                   Editar perfil 
                 </Button>
               </div>
