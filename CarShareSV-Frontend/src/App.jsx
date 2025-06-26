@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage"
 import SignIn from "./pages/signIn/SignIn";
 import LogIn from "./pages/logIn/LogIn";
@@ -18,7 +18,7 @@ function App() {
 
   return (
     <UserContextProvider>
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<LandingPage/>} />
           <Route path="/signin" element={<SignIn/>} />
@@ -33,9 +33,8 @@ function App() {
           <Route path="/admin/myprofile" element={<AdminProfile />} />
           <Route path="/admin/users" element={<UsersList />} />
           <Route path="/admin/cardetails" element={<CarDetailsAdmin />} />
-
-          </Routes>
-      </Router>
+        </Routes>
+      </BrowserRouter>
     </UserContextProvider>
   )
 }
