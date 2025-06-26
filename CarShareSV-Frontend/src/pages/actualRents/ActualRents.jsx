@@ -58,8 +58,10 @@ export default function ActualRents() {
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
-            <div className="max-w-6xl mx-auto pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-semibold text-gray-900 mb-8">Mis rentas</h1>
+            <div className="max-w-6xl mx-auto pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+                <h2 className="text-4xl font-semibold text-gray-900 mb-12">
+                Publica tu vehículo
+                </h2>
                 
                 <RentsSwitcher />
 

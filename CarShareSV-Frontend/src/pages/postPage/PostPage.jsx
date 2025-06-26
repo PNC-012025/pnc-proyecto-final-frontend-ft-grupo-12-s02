@@ -3,13 +3,15 @@ import PostFilters from "../../components/filters/postfilters/PostFilters";
 import card1 from "../../assets/images/card1.jpg";
 import card2 from "../../assets/images/card2.jpg";
 import card3 from "../../assets/images/card3.jpg";
+import card4 from "../../assets/images/mister.jpeg";
+import card5 from "../../assets/images/bajaj.jpeg";
 import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
 import Alert from "../../components/alerts/alert";
 import Header from "../../components/header/Header";
 
 const PostPage = () => {
-  const images = [card1, card2, card3];
+  const images = [card1, card2, card3, card4, card5];
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -30,13 +32,13 @@ const PostPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-16">
-        <h2 className="text-4xl font-semibold text-gray-900 mb-12 text-center">
+        <h2 className="text-4xl font-semibold text-gray-900 mb-12">
           Publica tu vehículo
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Slider de imágenes */}
-          <div className="lg:w-1/3 w-full">
+          <div className="lg:w-1/2 w-full">
             <div className="rounded-2xl border border-gray-200 bg-white shadow-md p-4">
               <ImageSlider images={images} />
               <p className="text-center text-sm text-primary mt-3 font-medium">
