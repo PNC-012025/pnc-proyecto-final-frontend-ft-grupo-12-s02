@@ -7,11 +7,31 @@ import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
 import Alert from "../../components/alerts/alert";
 import Header from "../../components/header/Header";
+import useUploadImage from "../../hooks/useUploadImage"; 
+import useManageCars from "../../hooks/useManageCars";
 
 const PostPage = () => {
   const images = [card1, card2, card3];
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [rawImages, setRawImages] = useState([]);
+  const [preview, setPreview] = useState([]);
+  const { uploadImages, imagesLoading } = useUploadImage();
+  const { uploadCar, isLoading, hasError } = useManageCars();
+
+  const onDrop = useCallback(acceptedFiles => {
+    setRawImages(acceptedFiles);
+    let imgPrevs = [];
+
+    for (const acceptedFile of acceptedFiles) {
+      imgPrevs.push({
+        name: acceptedFile.name,
+        url: URL.createObjectURL(acceptedFile)
+      });
+    }
+
+    setPreview(imgPrevs);
+  }, []);
 
   const handlePost = async () => {
     try {
