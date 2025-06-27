@@ -68,7 +68,7 @@ export default function Explore() {
     return cars.filter(car => {
       return (
         (selectedFilter.year !== null ? (car.year === selectedFilter.year) : car.year) &&
-        (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.service) &&
+        (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.brand) &&
         (selectedFilter.model !== "" ? (car.model === selectedFilter.model) : car.model) &&
         (selectedFilter.transmission !== "" ? (car.transmission === selectedFilter.transmission) : car.transmission) &&
         (selectedFilter.passengers !== null ? (car.capacity === selectedFilter.passengers) : car.capacity) &&
