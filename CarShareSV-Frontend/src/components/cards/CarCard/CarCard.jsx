@@ -24,7 +24,7 @@ export default function CarCard({ car }) {
             <GiCarDoor className="text-primary" /> {car.doors}
           </div>
           <div className="flex items-center gap-1">
-            <GiGearStick className="text-primary" /> {car.transmission === 'A' ? 'Automático' : 'Manual'}
+            <GiGearStick className="text-primary" /> {car.transmission === 'Automatic' ? 'Automático' : 'Manual'}
           </div>
         </div>
 
