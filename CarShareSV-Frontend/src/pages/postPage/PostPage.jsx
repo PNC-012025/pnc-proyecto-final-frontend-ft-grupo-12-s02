@@ -36,8 +36,8 @@ const YEARS = [
 ];
 
 const TRANSMISSIONS = [
-  { value: "A", label: "Automática" },
-  { value: "M", label: "Manual" }
+  { value: "Automatic", label: "Automática" },
+  { value: "Standard", label: "Manual" }
 ];
 
 const CAPACITY = [2, 4, 5, 7];

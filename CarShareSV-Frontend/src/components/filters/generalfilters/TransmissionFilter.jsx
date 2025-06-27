@@ -11,8 +11,8 @@ const TransmissionFilter = ( {className, setFilter} ) => {
   return (
     <select className={className} onChange={handleChange}>
       <option value="">Transmisión</option>
-      <option value="A">Automática</option>
-      <option value="M">Manual</option>
+      <option value="Automatic">Automática</option>
+      <option value="Standard">Manual</option>
     </select>
   );
 };
