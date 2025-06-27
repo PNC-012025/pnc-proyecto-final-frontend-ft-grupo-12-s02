@@ -10,6 +10,7 @@ export default function CarCard({ car }) {
       <img src={mainImage} alt={`${car.brand} ${car.model}`} className="w-full h-55 object-cover" />
       <div className="p-4 space-y-2">
         <h3 className="text-lg font-semibold text-gray-900">
+          {car.brand} <span className="text-gray-500 font-normal"></span>
           {car.model} <span className="text-gray-500 font-normal">{car.year}</span>
         </h3>
 

@@ -3,6 +3,8 @@ import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import Button from '../../button/Button';
 
 export default function MyCarsCard({car}) {
+    const mainImage = Array.isArray(car.images) && car.images.length > 0
+    ? car.images[0]: null;
 
   return (
    
@@ -30,10 +32,6 @@ export default function MyCarsCard({car}) {
                   <GiGearStick className="mr-1 text-primary" />
                   <span>{car.transmission}</span>
                 </div>
-                <div className="flex items-center">
-                <FaCar className="mr-1 text-primary" /> 
-                <span>{car.type}</span> 
-              </div>
               </div>
 
               <div className="flex items-center mb-4">
@@ -55,7 +53,7 @@ export default function MyCarsCard({car}) {
 
             <div className="ml-6">
               <img 
-                src={car.image} 
+                src={mainImage} 
                 alt={car.model}
                 className="w-56 h-40 object-cover rounded-lg" 
               />
@@ -69,8 +67,8 @@ export default function MyCarsCard({car}) {
         <Button > 
           Eliminar
         </Button>
-        <Button > 
-          Editar
+         <Button> 
+          {car.visible ? "Visible" : "Oculto"}
         </Button>
       </div>
     </div>
