@@ -2,6 +2,8 @@ import React, { use, useState } from "react";
 import card1 from "../../assets/images/card1.jpg";
 import card2 from "../../assets/images/card2.jpg";
 import card3 from "../../assets/images/card3.jpg";
+import card4 from "../../assets/images/mister.jpeg";
+import card5 from "../../assets/images/bajaj.jpeg";
 import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
 import Alert from "../../components/alerts/alert";
@@ -146,7 +148,7 @@ const PostPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-16">
-        <h2 className="text-4xl font-semibold text-gray-900 mb-12 text-center">
+        <h2 className="text-4xl font-semibold text-gray-900 mb-12">
           Publica tu vehículo
         </h2>
 
