@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { fetchVisibleCars, fetchUserCars } from "../services/car.service";
+import { fetchVisibleCars, fetchUserCars, fetchCarById } from "../services/car.service";
 
 export default function useCars() {
   const [cars, setCars] = useState([]);
@@ -32,11 +32,12 @@ export default function useCars() {
     }
   }, []);
 
+
   return {
     cars,
     userCars,
     loading,
     getVisibleCars,
-    getUserCars
+    getUserCars,
   };
 }

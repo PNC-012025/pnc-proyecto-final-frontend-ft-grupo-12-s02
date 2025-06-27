@@ -2,9 +2,9 @@
 import { FaStar, FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGearStick } from "react-icons/gi";
 
-export default function CarCard({ car }) {
+export default function CarCard({ car, onClick }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:scale-[1.01] transition-transform duration-200">
+    <div onClick={onClick} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:scale-[1.01] transition-transform duration-200">
       <img src={car.image} alt={car.model} className="w-full h-55 object-cover" />
       <div className="p-4 space-y-2">
         <h3 className="text-lg font-semibold text-gray-900">

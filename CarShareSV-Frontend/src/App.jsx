@@ -29,7 +29,7 @@ function App() {
           <Route path="/post/new" element={<PostPage/>} />
           <Route path="/rents/actuals" element={<ActualRents/>} />
           <Route path="/rents/pasts" element={<PastRents/>} />
-          <Route path="/car/1" element={<CarDetails />} />
+          <Route path="/car/:carId" element={<CarDetails />} />
           <Route path="/admin/myprofile" element={<AdminProfile />} />
           <Route path="/admin/users" element={<UsersList />} />
           <Route path="/admin/cardetails" element={<CarDetailsAdmin />} />

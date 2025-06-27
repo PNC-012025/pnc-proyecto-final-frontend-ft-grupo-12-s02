@@ -4,10 +4,12 @@ import MyRentsCard from "../../components/cards/myRentsCard/MyRentsCard";
 import Button from "../../components/button/Button";
 import { useState } from "react";
 import { DateRange } from "react-date-range";
-import { es } from "date-fns/locale";
+import { ca, es } from "date-fns/locale";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import Alert from "../../components/alerts/alert";
 import { useLocation } from "react-router-dom";
+import useReservation from '../../hooks/useReservation';
 //import card1 from "../../assets/images/card1.jpg";
 
 
@@ -20,27 +22,13 @@ function formatDate(date) {
 }
 
 export default function CarDetails() {
-    /* const car = {
-        id: '1',
-        model: 'Kia Soul',
-        year: 2016,
-        capacity: 5,
-        doors: 4,
-        transmission: 'Automático',
-        type: 'SUV',
-        rating: 4.8,
-        reviewCount: 3,
-        renterName: 'Diego Calvo',
-        image: card1,
-        description:
-            'Padre nuestro que estás en el cielo, santificado sea tu nombre; venga a nosotros tu reino; hágase tu voluntad, en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.',
-        dailyRate: 17,
-        serviceFee: 2.0,
-        address: 'Calle El Mirador y 85a Ave Norte 648, San Salvador, El Salvador',
-    }; */
     const location = useLocation();
     const car = location.state?.car;
+    const { createReservation, isLoading, hasError } = useReservation();
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
+    //console.log("Car Details: ", car);
     const [range, setRange] = useState({
         startDate: new Date(),
         endDate: new Date(),
@@ -52,8 +40,28 @@ export default function CarDetails() {
     };
 
     const totalDays = Math.ceil((range.endDate - range.startDate) / (1000 * 60 * 60 * 24)) + 1;
-    const rentalCost = totalDays * car.dailyRate;
-    const total = rentalCost + car.serviceFee;
+    const rentalCost = totalDays * car.dailyPrice;
+    const serviceFee = rentalCost * 0.1;
+    const total = rentalCost + serviceFee;
+
+    const handleCarDetails = async () => {
+
+        try {
+        const reservationDetails = {
+            startDate: range.startDate.toISOString().split('T')[0],
+            endDate: range.endDate.toISOString().split('T')[0],
+            address: car.location,
+            carPlateNumber: car.plateNumber
+        }
+        console.log("Reservation Details: ", reservationDetails);
+        createReservation(reservationDetails);
+        setAlertMessage("Reserva publicada con éxito.");
+        setAlertOpen(true);
+    } catch (error) {
+        console.error("Error al crear la reserva:", error);
+        setAlertMessage("Error al crear la reserva. Inténtalo de nuevo más tarde.");
+        setAlertOpen(true);
+    }};
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -84,7 +92,7 @@ export default function CarDetails() {
                             <div className="flex-1 flex flex-col justify-center space-y-8 text-sm text-gray-700">
                                 <div className="flex items-center gap-2 text-primary font-medium">
                                     <FaMapMarkerAlt />
-                                    {car.address}
+                                    {car.location}
                                 </div>
                                 <div>
                                     <p><span className="font-semibold">Reserva:</span> {formatDate(range.startDate)} - {formatDate(range.endDate)}</p>
@@ -106,7 +114,7 @@ export default function CarDetails() {
                     {/* Columna derecha - Detalle de precio */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">$17 <span className="text-sm text-gray-600">al día</span></h3>
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">${car.dailyPrice} <span className="text-sm text-gray-600"> al día</span></h3>
                             <ul className="text-sm text-gray-700 mb-6 space-y-1">
                                 <li>- Cancelación gratis antes de la fecha de reservación</li>
                                 <li>- Pago al recoger el vehículo</li>
@@ -117,38 +125,48 @@ export default function CarDetails() {
                             <h4 className="font-semibold mb-3 text-gray-900">Detalle de precio:</h4>
                             <div className="space-y-2 text-sm text-gray-700 mb-4">
                                 <div className="flex justify-between">
-                                    <span>Tarifa de servicio / día:</span>
-                                    <span>${car.dailyRate.toFixed(2)}</span>
+                                    <span>Tarifa de servicio / día: {car.dailyPrice}</span>
+                                    <span></span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Tarifa de alquiler * {totalDays} días:</span>
-                                    <span>${rentalCost.toFixed(2)}</span>
+                                    <span>Tarifa de alquiler  días: {totalDays}</span>
+                                    <span></span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Tarifa de servicio:</span>
-                                    <span>${car.serviceFee.toFixed(2)}</span>
+                                    <span>Tarifa por {totalDays} días: {rentalCost}</span>
+                                    <span></span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>Tarifa de servicio: {serviceFee.toFixed(2)}</span>
+                                    <span></span>
                                 </div>
                                 <hr className="border-gray-200" />
                                 <div className="flex justify-between font-semibold text-black">
                                     <span>Total:</span>
-                                    <span>${total.toFixed(2)}</span>
+                                    <span></span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
                                     <span>Pagar al recoger:</span>
-                                    <span>${total.toFixed(2)}</span>
+                                    <span></span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
                                     <span>Pagar ahorita:</span>
-                                    <span>$0.00</span>
+                                    <span>${total}</span>
                                 </div>
                             </div>
 
-                            <Button className="w-full mt-4">
+                            <Button className="w-full mt-4"
+                                onClick={handleCarDetails}>
                                 Reservar
                             </Button>
                         </div>
                     </div>
                 </div>
+                <Alert
+                    message={alertMessage}
+                    isOpen={alertOpen}
+                    onClose={() => setAlertOpen(false)}
+                />
             </div>
         </div>
     );
