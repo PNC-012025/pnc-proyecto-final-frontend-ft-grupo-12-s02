@@ -74,7 +74,7 @@ export default function Login() {
                 <div className="w-full max-w-md">
                     {isLoginLoading ? (
                         <div className="flex items-center justify-center h-[400px]">
-                            <strong className="text-2xl text-primary">Validando credenciales...</strong>
+                            <strong className="text-6xl text-primary">Validando credenciales...</strong>
                         </div>
                     ) : (
                         <>

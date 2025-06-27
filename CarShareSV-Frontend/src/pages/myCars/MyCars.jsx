@@ -9,7 +9,7 @@ export default function MyCars() {
     const { getUserCars, userCars, loading } = useCars();
 
     useEffect(() => {
-        getUserCars();  
+        getUserCars()
     }, [getUserCars]);
 
     return (

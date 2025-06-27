@@ -44,7 +44,7 @@ const CAPACITY = [2, 4, 5, 7];
 
 const DOORS = [2, 4];
 
-const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
+const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
 
   let images = editMode ? toEditPost.images : [];
 
@@ -71,19 +71,22 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
 
   const [errors, setErrors] = useState({});
 
-   const onDrop = useCallback(acceptedFiles => {
-    setRawImages(acceptedFiles);
-    let imgPrevs = [];
+  const onDrop = useCallback(acceptedFiles => {
+    setRawImages(prev => [...prev, ...acceptedFiles]);
+    setPreview(prev => [
+      ...prev,
+      ...acceptedFiles.map(file => ({
+        name: file.name,
+        url: URL.createObjectURL(file)
+      }))
+    ]);
+  }, []);
 
-    for (const acceptedFile of acceptedFiles) {
-      imgPrevs.push({
-        name: acceptedFile.name,
-        url: URL.createObjectURL(acceptedFile)
-      });
-    }
+  const handleRemoveImage = (index) => {
+    setPreview(prev => prev.filter((_, i) => i !== index));
+    setRawImages(prev => prev.filter((_, i) => i !== index));
+  };
 
-    setPreview(imgPrevs);
-  }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -132,8 +135,7 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
         images
       };
 
-      console.log("Datos del vehículo a publicar:", carData);
-      console.log("Imágenes a publicar:", images);
+
       await uploadCar(carData);
 
       setAlertMessage("Vehículo publicado con éxito.");
@@ -149,9 +151,6 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
     "rounded-full px-4 py-2 border border-gray-300 w-full max-w-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300";
 
 
-  //dropzone
-
-  
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <Header />
@@ -160,13 +159,13 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
           Publica tu vehículo
         </h2>
 
-            <div className="flex flex-col lg:flex-row gap-10">
-          <div className="lg:w-1/3 w-full">
+        <div className="flex flex-col lg:flex-row gap-10">
+          <div className="">
             <div className="rounded-2xl border border-gray-200 bg-white shadow-md p-4">
               {/* Dropzone */}
               <div
                 {...getRootProps()}
-                className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-64 flex flex-col items-center justify-center transition hover:bg-primary/10"
+                className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-164 w-full max-w-[420px] flex flex-col items-center justify-center transition hover:bg-primary/10"
               >
                 <input {...getInputProps()} />
                 {isDragActive ? (
@@ -175,20 +174,30 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
                   <p className="text-gray-500">Arrastra o haz click para seleccionar imágenes</p>
                 )}
                 <div className="flex flex-wrap gap-2 mt-4 justify-center">
-                  {(preview.length > 0 ? preview : images)?.map(img =>
-                    <img
-                      key={img.name || img}
-                      src={img.url || img}
-                      alt="preview"
-                      className="w-20 h-20 object-cover rounded-lg border"
-                    />
-                  )}
+                  {(preview.length > 0 ? preview : images)?.map((img, idx) => (
+                    <div key={img.name || img} className="relative">
+                      <img
+                        src={img.url || img}
+                        alt="preview"
+                        className="w-20 h-20 object-cover rounded-lg border"
+                      />
+                      <button
+                        type="button"
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleRemoveImage(idx);
+                        }}
+                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-700"
+                        title="Eliminar"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <p className="text-center text-sm text-primary mt-3 font-medium">
-                Agregar imágenes
-              </p>
             </div>
+
           </div>
 
           {/* Formulario */}
@@ -310,16 +319,16 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
 
               {/* Placa del carro */}
               <div>
-              <input
-                type="text"
-                placeholder="Placa del vehículo"
-                className={commonClass + " mt-6"}
-                value={plateNumber}
-                onChange={e => setPlateNumber(e.target.value)}
-                required
-                maxLength={255}
-              />
-              {errors.plateNumber && <p className="text-red-500">{errors.plateNumber}</p>}
+                <input
+                  type="text"
+                  placeholder="Placa del vehículo"
+                  className={commonClass + " mt-6"}
+                  value={plateNumber}
+                  onChange={e => setPlateNumber(e.target.value)}
+                  required
+                  maxLength={255}
+                />
+                {errors.plateNumber && <p className="text-red-500">{errors.plateNumber}</p>}
               </div>
 
               {/* Ubicación */}
@@ -343,9 +352,9 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
               />
               {errors.description && <p className="text-red-500">{errors.description}</p>}
 
-              <div className="flex justify-center pt-4">
+              <div className="flex justify-center">
                 <Button
-                  className="px-6 py-2 bg-primary text-white rounded-full text-sm"
+                  className="bg-primary text-white rounded-full text-sm"
                   onClick={handlePost}
                 >
                   Publicar

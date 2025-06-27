@@ -15,7 +15,7 @@ export default function MyCarsCard({car}) {
   
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {car.model}
+                {car.brand} {car.model}
               </h3>
               <p className="text-gray-600 mb-4">{car.year}</p>
               
