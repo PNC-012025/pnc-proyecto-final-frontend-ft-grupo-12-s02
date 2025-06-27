@@ -34,13 +34,13 @@ export function postCar ({
   brand,
   transmission,
   images
- }, token) {
+ }, token ) {
   return fetch(`${BASE_URL}/cars/create`, {
     method: 'POST',
     mode: 'cors',
     headers: {
       'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` })
+      ...(token && { 'Authorization': `Bearer ${token}` })
     },
     body: JSON.stringify({
       doors,

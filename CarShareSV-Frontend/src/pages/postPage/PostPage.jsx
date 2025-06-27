@@ -5,6 +5,7 @@ import Alert from "../../components/alerts/alert";
 import Header from "../../components/header/Header";
 import useUploadImage from "../../hooks/useUploadImage";
 import useManageCars from "../../hooks/useManageCars";
+import { useDropzone } from 'react-dropzone'
 
 const BRANDS = [
   "Toyota", "Hyundai", "Nissan", "Kia", "Chevrolet", "Ford", "Honda", "Mitsubishi",
@@ -35,16 +36,18 @@ const YEARS = [
 ];
 
 const TRANSMISSIONS = [
-  { value: "A", label: "Automática" },
-  { value: "M", label: "Manual" }
+  { value: "Automatic", label: "Automática" },
+  { value: "Standard", label: "Manual" }
 ];
 
 const CAPACITY = [2, 4, 5, 7];
 
 const DOORS = [2, 4];
 
-const PostPage = () => {
-  let images = [];
+const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
+
+  let images = editMode ? toEditPost.images : [];
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [rawImages, setRawImages] = useState([]);
@@ -81,6 +84,8 @@ const PostPage = () => {
 
     setPreview(imgPrevs);
   }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handlePost = async () => {
     const newErrors = {};
@@ -127,6 +132,8 @@ const PostPage = () => {
         images
       };
 
+      console.log("Datos del vehículo a publicar:", carData);
+      console.log("Imágenes a publicar:", images);
       await uploadCar(carData);
 
       setAlertMessage("Vehículo publicado con éxito.");
@@ -141,6 +148,10 @@ const PostPage = () => {
   const commonClass =
     "rounded-full px-4 py-2 border border-gray-300 w-full max-w-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300";
 
+
+  //dropzone
+
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <Header />
@@ -149,10 +160,31 @@ const PostPage = () => {
           Publica tu vehículo
         </h2>
 
-        <div className="flex flex-col lg:flex-row gap-10">
+            <div className="flex flex-col lg:flex-row gap-10">
           <div className="lg:w-1/3 w-full">
             <div className="rounded-2xl border border-gray-200 bg-white shadow-md p-4">
-              <ImageSlider images={images} />
+              {/* Dropzone */}
+              <div
+                {...getRootProps()}
+                className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-64 flex flex-col items-center justify-center transition hover:bg-primary/10"
+              >
+                <input {...getInputProps()} />
+                {isDragActive ? (
+                  <p className="text-primary">Suelta las imágenes aquí...</p>
+                ) : (
+                  <p className="text-gray-500">Arrastra o haz click para seleccionar imágenes</p>
+                )}
+                <div className="flex flex-wrap gap-2 mt-4 justify-center">
+                  {(preview.length > 0 ? preview : images)?.map(img =>
+                    <img
+                      key={img.name || img}
+                      src={img.url || img}
+                      alt="preview"
+                      className="w-20 h-20 object-cover rounded-lg border"
+                    />
+                  )}
+                </div>
+              </div>
               <p className="text-center text-sm text-primary mt-3 font-medium">
                 Agregar imágenes
               </p>
