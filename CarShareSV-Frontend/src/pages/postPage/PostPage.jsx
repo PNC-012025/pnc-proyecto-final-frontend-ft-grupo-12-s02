@@ -1,13 +1,10 @@
-import React, { use, useState } from "react";
-import card1 from "../../assets/images/card1.jpg";
-import card2 from "../../assets/images/card2.jpg";
-import card3 from "../../assets/images/card3.jpg";
-import card4 from "../../assets/images/mister.jpeg";
-import card5 from "../../assets/images/bajaj.jpeg";
+import React, { useCallback, useState } from "react";
 import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
 import Alert from "../../components/alerts/alert";
 import Header from "../../components/header/Header";
+import useUploadImage from "../../hooks/useUploadImage";
+import useManageCars from "../../hooks/useManageCars";
 
 const BRANDS = [
   "Toyota", "Hyundai", "Nissan", "Kia", "Chevrolet", "Ford", "Honda", "Mitsubishi",

@@ -7,7 +7,6 @@ import Filters from "../../components/filters/explorefilters/ExploreFilters";
 import useCars from "../../hooks/useCars";
 
 export default function Explore() {
-
   const { loading, getVisibleCars, cars } = useCars();
   const [selectedFilter, setSelectedFilter] = useState({
     year: null,
@@ -26,8 +25,10 @@ export default function Explore() {
     getVisibleCars();
   }, [getVisibleCars]);
 
-  const filterCars = (cars) => {
-    return cars.filter(car => {
+  const filterCars = (cars=[]) => {
+    console.log(cars.tipeofcars);
+
+    return Array.isArray(cars) ? cars.filter(car => {
       return (
         (selectedFilter.year !== null ? (car.year === selectedFilter.year) : car.year) &&
         (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.brand) &&
@@ -37,7 +38,7 @@ export default function Explore() {
         (selectedFilter.minPrice !== null ? (car.dailyPrice >= selectedFilter.minPrice) : car.dailyPrice) &&
         (selectedFilter.maxPrice !== null ? (car.dailyPrice <= selectedFilter.maxPrice) : car.dailyPrice)
       );
-    })
+    }) : [];
   }
 
   const filteredCars = filterCars(cars);
