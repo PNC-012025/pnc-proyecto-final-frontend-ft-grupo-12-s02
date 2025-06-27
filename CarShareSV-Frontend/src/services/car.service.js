@@ -68,3 +68,47 @@ export function postCar ({
     return message;
   });
  };
+
+ export function setCarVisibility (carId, visible, token ) {
+  return fetch(`${BASE_URL}/cars/setCarVisibility/${carId}?visible=${visible}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error en setCarVisibility: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    const { message } =  response;
+    console.log("API RESPONSE: ", message);
+
+    return message;
+  });
+ };
+
+  export function deleteCar (carId, token ) {
+  return fetch(`${BASE_URL}/cars/delete/${carId}`, {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error en deleteCar: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    const { message } =  response;
+    console.log("API RESPONSE: ", message);
+
+    return message;
+  });
+ };
