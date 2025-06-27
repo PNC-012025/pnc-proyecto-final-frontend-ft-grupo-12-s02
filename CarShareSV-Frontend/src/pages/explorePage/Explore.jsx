@@ -44,23 +44,23 @@ export default function Explore() {
     }) : [];
   }
 
-  const filteredCars = filterCars(cars);
+  const filteredCars = filterCars(cars).reverse();
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
    
-      <div className="max-w-6xl mx-auto pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h2 className="text-4xl font-semibold text-gray-900 mb-12">
-          Explorar Vehículos
+      <div className="max-w-6xl mx-auto pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h2 className="text-4xl font-semibold text-gray-900 mb-8">
+          Explorar Vehículos Disponibles
           </h2>
           <Filters setFilter={setSelectedFilter}/>
         </div>
 
         {loading ? <p>Cars Loading...</p> :
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 ">
           {filteredCars.map((car, index) => (
             <CarCard key={index} car={car} onClick={() => navigate(`/car-details/${car.carId || index}`, { state: { car } })} />
           ))}
