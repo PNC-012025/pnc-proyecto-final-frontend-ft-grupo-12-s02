@@ -22,6 +22,16 @@ export async function fetchUserCars (userId) {
   }
 }
 
+export async function fetchCarById (carId) {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/cars/getCarById/${carId}`);
+
+    return data.data;
+  } catch (error) {
+    throw new Error('Error fetching car by ID: ' + error.message);
+  }
+}
+
 export function postCar ({ 
   doors,
   capacity,

@@ -28,10 +28,6 @@ export default function MyRentsCard({ car }) {
                     <GiGearStick className="mr-2 text-primary" />
                     <span>{car.transmission}</span>
                   </div>
-                  <div className="flex items-center">
-                    <FaCar className="mr-2 text-primary" />
-                    <span>{car.type}</span>
-                  </div>
                 </div>
 
                 <div className="flex items-center text-base text-gray-800">
@@ -43,14 +39,14 @@ export default function MyRentsCard({ car }) {
 
                 <div className="flex items-center text-sm text-gray-600 pt-2">
                   <FaUser className="mr-2 text-primary" />
-                  <span className="font-medium">{car.renterName}</span>
+                  <span className="font-medium">{car.username}</span>
                 </div>
               </div>
             </div>
 
             <div className="ml-6 self-center">
               <img
-                src={car.image}
+                src={car.images[0]}
                 alt={car.model}
                 className="w-80 h-[250px] object-cover rounded-lg"
               />
