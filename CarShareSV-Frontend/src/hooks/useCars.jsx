@@ -11,6 +11,7 @@ export default function useCars() {
     try {
       setLoading(true);
       const fetchedCars = await fetchVisibleCars();
+      //console.log("Fetched Cars:", fetchedCars);
       setCars(fetchedCars);
     } catch (error) {
       console.error("Error fetching visible cars:", error);

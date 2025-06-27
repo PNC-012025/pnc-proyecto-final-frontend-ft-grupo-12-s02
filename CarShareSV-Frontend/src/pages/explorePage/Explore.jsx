@@ -25,8 +25,8 @@ export default function Explore() {
     getVisibleCars();
   }, [getVisibleCars]);
 
-  const filterCars = (cars=[]) => {
-    console.log(cars.tipeofcars);
+  const filterCars = (cars) => {
+    console.log("CARS: ",  JSON.stringify(cars, null, 2));
 
     return Array.isArray(cars) ? cars.filter(car => {
       return (

@@ -6,7 +6,7 @@ export async function fetchVisibleCars () {
   try {
     const { data } = await axios.get(`${BASE_URL}/cars/getAllVisible`);
 
-    return data;
+    return data.data;
   } catch (error) {
     throw new Error('Error fetching visible cars: ' + error.message);
   }
@@ -16,7 +16,7 @@ export async function fetchUserCars (userId) {
   try {
     const { data } = await axios.get(`${BASE_URL}/cars/getCarByUserId/${userId}`);
 
-    return data;
+    return data.data;
   } catch (error) {
     throw new Error('Error fetching user cars: ' + error.message);
   }
