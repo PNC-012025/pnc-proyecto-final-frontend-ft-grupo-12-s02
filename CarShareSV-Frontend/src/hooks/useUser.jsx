@@ -3,12 +3,11 @@ import Context from "../context/UserContext";
 import { login as loginService, getUser } from "../services/auth.service";
 
 export default function useUser() {
-  const { token, setToken } = useContext(Context);
+  const { token, setToken, user, setUser } = useContext(Context);
   const [state, setState] = useState({
     loading: false,
     error: false
   });
-  const [user, setUser] = useState({});
 
   useEffect(() => {
     const getUserFromApi = async() => {
@@ -16,6 +15,9 @@ export default function useUser() {
     }
 
     if(token) getUserFromApi();
+
+    window.sessionStorage.setItem("user", user);
+    console.log("useUser - user:", user);
   }, [token]);
 
   const login = useCallback(({ username, password }) => {
@@ -36,9 +38,10 @@ export default function useUser() {
 
   const logout = useCallback(() => {
     window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("user");
     setToken(null);
     setUser({});
-  }, [setToken]); 
+  }, [setToken, setUser]); 
 
   return {
     isLogged: Boolean(token),

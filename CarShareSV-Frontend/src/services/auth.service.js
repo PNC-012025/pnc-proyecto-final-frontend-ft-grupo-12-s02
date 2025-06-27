@@ -62,5 +62,5 @@ export async function getUser (token = null) {
 
   const { data } = await axios.get(`${BASE_URL}/auth/whoami`);
 
-  return data;
+  return data.data;
 }
