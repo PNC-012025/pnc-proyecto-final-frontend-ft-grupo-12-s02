@@ -40,6 +40,7 @@ export default function useCars() {
     userCars,
     loading,
     getVisibleCars,
-    getUserCars
+    getUserCars,
+    setUserCars
   };
 }

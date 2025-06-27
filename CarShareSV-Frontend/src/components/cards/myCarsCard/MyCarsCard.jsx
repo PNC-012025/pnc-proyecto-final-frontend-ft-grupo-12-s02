@@ -1,13 +1,28 @@
-import { FaUser, FaCar, FaStar } from 'react-icons/fa';
+import { FaUser, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import Button from '../../button/Button';
+import useManageCars from '../../../hooks/useManageCars';
+import { useState } from 'react';
 
-export default function MyCarsCard({car}) {
-    const mainImage = Array.isArray(car.images) && car.images.length > 0
-    ? car.images[0]: null;
+export default function MyCarsCard({car, onDelete}) {
+  const mainImage = Array.isArray(car.images) && car.images.length > 0
+  ? car.images[0]: null;
+  const [visibility, setVisibility] = useState(car.visible);
+  const { changeVisibility, deleteCar } = useManageCars();
+
+  const handleOnClick = () => {
+    changeVisibility(car.carId, !car.visible);
+    setVisibility(!visibility);
+  }
+
+  const handleDeleteClick = () => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este auto? Esta acción no se puede deshacer.")) {
+      deleteCar(car.carId);
+      onDelete(car.carId);
+    }
+  }
 
   return (
-   
     <div className="flex items-center space-x-6"> 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[650px]"> 
         <div className="p-6">
@@ -64,11 +79,11 @@ export default function MyCarsCard({car}) {
 
       
       <div className="flex flex-col space-y-3"> 
-        <Button > 
+        <Button onClick={handleDeleteClick}> 
           Eliminar
         </Button>
-         <Button> 
-          {car.visible ? "Visible" : "Oculto"}
+         <Button onClick={handleOnClick}> 
+          {visibility ? "Visible" : "Oculto"}
         </Button>
       </div>
     </div>

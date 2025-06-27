@@ -1,16 +1,20 @@
 import Header from '../../components/header/Header';
 import MyCarsCard from "../../components/cards/myCarsCard/MyCarsCard";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useCars from '../../hooks/useCars';
 
 export default function MyCars() {
 
     //const [cars] = useState(allCars);
-    const { getUserCars, userCars, loading } = useCars();
-
+    const { getUserCars, userCars, loading, setUserCars } = useCars();
+    
     useEffect(() => {
-        getUserCars();  
+      getUserCars();   
     }, [getUserCars]);
+
+    const handleDeleteCar = (carId) => {
+      setUserCars(prevCars => prevCars.filter(car => car.carId !== carId));
+    };
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -22,12 +26,11 @@ export default function MyCars() {
                 </h2>
                 <div className="space-y-6">
                     {userCars.map((car) => (
-                        
                         <MyCarsCard
                             key={car.carId}
                             car={car}
-                        />
-                        
+                            onDelete={handleDeleteCar}
+                        /> 
                     ))}
                     
                 </div>
