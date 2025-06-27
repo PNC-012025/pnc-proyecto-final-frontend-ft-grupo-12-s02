@@ -12,16 +12,14 @@ const Filters = ({ setFilter }) => {
   const [resetKey, setResetKey] = useState(0);
 
   useEffect(() => {
-    // Update the filter when the selected brand changes
     setFilter((prevFilter) => ({
       ...prevFilter,
       brand: selectedBrand,
-      model: "", // Reset model when brand changes
+      model: "", 
     }));
   },[selectedBrand, setFilter]);
 
   const handleOnClick = () => {
-    // Reset all filters to their default values
     setFilter({
       year: null,
       brand: "",
@@ -30,9 +28,9 @@ const Filters = ({ setFilter }) => {
       passengers: null,
       minPrice: null,
       maxPrice: null,
-    });
-    setSelectedBrand(""); // Reset selected brand
-    setResetKey(prevKey => prevKey + 1); // Increment key to force re-render if needed
+    });   
+    setSelectedBrand(""); 
+    setResetKey(prevKey => prevKey + 1); 
   }
 
   return (
@@ -44,14 +42,10 @@ const Filters = ({ setFilter }) => {
         <TransmissionFilter setFilter={setFilter} resetKey={resetKey}/>
         <PassengersFilter setFilter={setFilter} resetKey={resetKey}/>
         <PriceRangeFilter setFilter={setFilter} resetKey={resetKey}/>
-      </div>
-
-      <div className="flex gap-2">
-        {
-          //<Button>Aplicar</Button>
-        }
-        <Button onClick={handleOnClick}>Reiniciar</Button>
-      </div>
+        </div>
+        <div className="mr-8">
+          <Button onClick={handleOnClick}>Reiniciar filtros</Button>
+        </div>
     </div>
   );
 };
