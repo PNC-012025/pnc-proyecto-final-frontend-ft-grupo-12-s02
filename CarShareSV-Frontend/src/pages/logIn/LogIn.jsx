@@ -38,9 +38,9 @@ export default function Login() {
                 isOpen: true,
                 message: "Inicio de sesión con éxito."
             });
-            if (user?.data?.roles?.includes(ROLES.ADMIN)) navigate("/Admin/AdminHome");
-            else if (user?.data?.roles?.includes(ROLES.SYSADMIN)) navigate("/Admin/AdminHome");
-            else if (user?.data?.roles?.includes(ROLES.USER)) navigate("/explore");
+            if (user?.roles?.includes(ROLES.ADMIN)) navigate("/Admin/AdminHome");
+            if (user?.roles?.includes(ROLES.SYSADMIN)) navigate("/Admin/AdminHome");
+            if (user?.roles?.includes(ROLES.USER)) navigate("/explore");
         }
     }, [hasLoginError, isLogged, user, navigate]);
 

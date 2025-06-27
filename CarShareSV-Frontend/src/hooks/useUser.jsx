@@ -18,7 +18,7 @@ export default function useUser() {
 
     window.sessionStorage.setItem("user", user);
     console.log("useUser - user:", user);
-  }, [token]);
+  }, [token, setUser]);
 
   const login = useCallback(({ username, password }) => {
     setState({ loading: true, error: false });
