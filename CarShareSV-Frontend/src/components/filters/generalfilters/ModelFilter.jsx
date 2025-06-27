@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const modelsByBrand = {
   Toyota: ["Corolla", "Yaris", "RAV4", "Hilux", "Land Cruiser", "4Runner", "Fortuner", "Corolla Cross", "Tacoma" ],
@@ -19,8 +19,13 @@ const modelsByBrand = {
   Jeep: ["Wrangler", "Cherokee", "Compass", "Renegade", "Grand Cherokee", "Gladiator", "Patriot"],
 };
 
-const ModelFilter = ({ selectedBrand, className, setFilter }) => {
+const ModelFilter = ({ selectedBrand, className, setFilter, resetKey }) => {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue(""); // Reset value when resetKey changes
+  }, [resetKey]);
 
   const handleMouseEnter = () => {
     if (!selectedBrand) setShowTooltip(true);
@@ -31,6 +36,7 @@ const ModelFilter = ({ selectedBrand, className, setFilter }) => {
   };
 
   const handleChange = (e) => {
+    setValue(e.target.value); // Update local state with the selected model
     const model = e.target.value ? e.target.value : ""; // Set to empty string if no model is selected
     setFilter((prevFilter) => ({
       ...prevFilter,
@@ -46,6 +52,7 @@ const ModelFilter = ({ selectedBrand, className, setFilter }) => {
     >
       <select
         className={className}
+        value={value}
         disabled={!selectedBrand}
         onChange={handleChange}
       >

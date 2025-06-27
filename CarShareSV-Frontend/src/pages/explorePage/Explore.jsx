@@ -26,9 +26,12 @@ export default function Explore() {
   }, [getVisibleCars]);
 
   const filterCars = (cars) => {
-    console.log("CARS: ",  JSON.stringify(cars, null, 2));
+    //console.log("CARS: ",  JSON.stringify(cars, null, 2));
 
     return Array.isArray(cars) ? cars.filter(car => {
+
+      //console.log("Selected Filter: ", JSON.stringify(selectedFilter, null, 2));
+
       return (
         (selectedFilter.year !== null ? (car.year === selectedFilter.year) : car.year) &&
         (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.brand) &&

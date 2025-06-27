@@ -27,7 +27,7 @@ export default function CarCard({ car }) {
         </div>
 
         <div className="pt-2 text-base font-semibold text-gray-900">
-          ${car.price} <span className="text-sm text-gray-500 font-normal">/día</span>
+          ${car.price} <span className="text-sm text-gray-500 font-normal">{ car.dailyPrice }/día</span>
         </div>
       </div>
     </div>

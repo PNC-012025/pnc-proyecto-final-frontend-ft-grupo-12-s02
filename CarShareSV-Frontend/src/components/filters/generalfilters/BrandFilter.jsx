@@ -1,4 +1,5 @@
 const BrandFilter = ({ selectedBrand, onBrandChange, className }) => {
+
   return (
     <select
       className={className}

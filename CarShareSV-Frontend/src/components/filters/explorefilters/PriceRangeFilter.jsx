@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PriceRangeFilter = ({ setFilter }) => {
+const PriceRangeFilter = ({ setFilter, resetKey }) => {
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+
+  useEffect(() => {
+    // Reset min and max values when resetKey changes
+    setMin("");
+    setMax("");
+  }, [resetKey]);
 
   const handleMinChange = (e) => {
     const minPrice = e.target.value;

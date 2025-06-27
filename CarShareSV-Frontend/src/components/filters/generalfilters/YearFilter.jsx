@@ -1,8 +1,19 @@
-const YearFilter = ( {className, setFilter} ) => {
+import { useEffect, useState } from "react";
+
+const YearFilter = ( {className, setFilter, resetKey} ) => {
+
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue(""); 
+  }, [resetKey]);
+
   return (
     <select
+    value={value}
      className={className}
       onChange={(e) => {
+        setValue(e.target.value);
         const year = e.target.value ? parseInt(e.target.value) : null;
         setFilter((prevFilter) => ({
           ...prevFilter,
