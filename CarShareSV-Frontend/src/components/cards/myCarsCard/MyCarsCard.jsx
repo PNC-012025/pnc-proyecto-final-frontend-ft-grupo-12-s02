@@ -8,6 +8,7 @@ export default function MyCarsCard({car, onDelete}) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
   ? car.images[0]: null;
   const [visibility, setVisibility] = useState(car.visible);
+  const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
   const { changeVisibility, deleteCar } = useManageCars();
 
   const handleOnClick = () => {
@@ -16,10 +17,17 @@ export default function MyCarsCard({car, onDelete}) {
   }
 
   const handleDeleteClick = () => {
-    if (window.confirm("¿Estás seguro de que deseas eliminar este auto? Esta acción no se puede deshacer.")) {
-      deleteCar(car.carId);
-      onDelete(car.carId);
-    }
+    setShowConfirm(true);
+  }
+
+  const handleConfirmDelete = () => {
+    deleteCar(car.carId);
+    onDelete(car.carId);
+    setShowConfirm(false);
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirm(false);
   }
 
   return (
@@ -77,14 +85,23 @@ export default function MyCarsCard({car, onDelete}) {
         </div>
       </div>
 
-      
       <div className="flex flex-col space-y-3"> 
-        <Button onClick={handleDeleteClick}> 
-          Eliminar
-        </Button>
-         <Button onClick={handleOnClick}> 
-          {visibility ? "Visible" : "Oculto"}
-        </Button>
+        {!showConfirm ? (
+          <>
+            <Button onClick={handleDeleteClick}> 
+              Eliminar
+            </Button>
+            <Button onClick={handleOnClick}> 
+              {visibility ? "Visible" : "Oculto"}
+            </Button>
+          </>
+        ) : (
+          <div className="flex flex-col space-y-2">
+            <span className="text-sm text-gray-700">¿Confirmar eliminación?</span>
+            <Button onClick={handleConfirmDelete} className="bg-red-600 hover:bg-red-700">Confirmar</Button>
+            <Button onClick={handleCancelDelete} className="bg-gray-300 hover:bg-gray-400 text-gray-800">Cancelar</Button>
+          </div>
+        )}
       </div>
     </div>
   );

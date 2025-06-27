@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ImageSlider from "../../components/imageslider/imageslider";
 import Button from "../../components/button/Button";
 import Alert from "../../components/alerts/alert";
@@ -45,6 +46,8 @@ const CAPACITY = [2, 4, 5, 7];
 const DOORS = [2, 4];
 
 const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
+
+  const navigate = useNavigate();
 
   let images = editMode ? toEditPost.images : [];
 
@@ -367,7 +370,7 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
         <Alert
           message={alertMessage}
           isOpen={alertOpen}
-          onClose={() => setAlertOpen(false)}
+          onClose={() => { setAlertOpen(false); navigate("/explore"); }}
         />
       </div>
     </div>
