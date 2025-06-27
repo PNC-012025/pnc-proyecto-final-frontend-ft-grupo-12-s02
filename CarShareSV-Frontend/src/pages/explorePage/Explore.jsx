@@ -30,7 +30,7 @@ export default function Explore() {
     return cars.filter(car => {
       return (
         (selectedFilter.year !== null ? (car.year === selectedFilter.year) : car.year) &&
-        (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.service) &&
+        (selectedFilter.brand !== "" ? (car.brand === selectedFilter.brand) : car.brand) &&
         (selectedFilter.model !== "" ? (car.model === selectedFilter.model) : car.model) &&
         (selectedFilter.transmission !== "" ? (car.transmission === selectedFilter.transmission) : car.transmission) &&
         (selectedFilter.passengers !== null ? (car.capacity === selectedFilter.passengers) : car.capacity) &&
@@ -45,8 +45,8 @@ export default function Explore() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      {loading ? <p>Cars Loading...</p> :
-      <div className="max-w-6xl mx-auto pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+   
+      <div className="max-w-6xl mx-auto pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h2 className="text-4xl font-semibold text-gray-900 mb-12">
           Explorar Vehículos
@@ -54,13 +54,15 @@ export default function Explore() {
           <Filters setFilter={setSelectedFilter}/>
         </div>
 
+        {loading ? <p>Cars Loading...</p> :
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {filteredCars.map((car, index) => (
             <CarCard key={index} car={car} onClick={() => navigate(`/car-details/${car.carId || index}`, { state: { car } })} />
           ))}
         </div>
+        }
       </div>
-      }
     </div>
   );
 }

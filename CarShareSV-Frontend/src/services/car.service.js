@@ -32,7 +32,8 @@ export function postCar ({
   year,
   model,
   brand,
-  transmission
+  transmission,
+  images
  }) {
   return fetch(`${BASE_URL}/cars/create`, {
     method: 'POST',
@@ -50,7 +51,8 @@ export function postCar ({
       year,
       model,
       brand,
-      transmission
+      transmission,
+      images
     })
   }).then(response => {
     if (!response.ok) {
