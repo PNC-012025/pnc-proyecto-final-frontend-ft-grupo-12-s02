@@ -20,7 +20,8 @@ export default function useManageCars() {
     year,
     model,
     brand,
-    transmission
+    transmission,
+    images
   }) => {
     setState({ loading: true, error: false });
 
@@ -34,7 +35,8 @@ export default function useManageCars() {
       year,
       model,
       brand,
-      transmission
+      transmission,
+      images
     }, token)
       .then(() => {
         setState({ loading: false, error: false });

@@ -133,6 +133,7 @@ const PostPage = ( {editMode = false, postId = null, toEditPost = {} }) => {
       };
 
       console.log("Datos del vehículo a publicar:", carData);
+      console.log("Imágenes a publicar:", images);
       await uploadCar(carData);
 
       setAlertMessage("Vehículo publicado con éxito.");
