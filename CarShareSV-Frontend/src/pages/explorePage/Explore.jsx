@@ -83,20 +83,22 @@ export default function Explore() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      {loading ? <p>Cars Loading...</p> :
+   
       <div className="max-w-6xl mx-auto pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h1 className="text-3xl font-semibold text-gray-900 mb-6">Explorar vehículos</h1>
           <Filters setFilter={setSelectedFilter}/>
         </div>
 
+        {loading ? <p>Cars Loading...</p> :
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {filteredCars.map((car, index) => (
             <CarCard key={index} car={car} onClick={() => navigate(`/car-details/${car.carId || index}`, { state: { car } })} />
           ))}
         </div>
+        }
       </div>
-      }
     </div>
   );
 }
