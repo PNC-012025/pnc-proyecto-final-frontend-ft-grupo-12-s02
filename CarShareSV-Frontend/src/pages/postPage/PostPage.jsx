@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import card1 from "../../assets/images/card1.jpg";
 import card2 from "../../assets/images/card2.jpg";
 import card3 from "../../assets/images/card3.jpg";
@@ -45,14 +45,14 @@ const CAPACITY = [2, 4, 5, 7];
 const DOORS = [2, 4];
 
 const PostPage = () => {
-  const images = [card1, card2, card3];
+  let images = [];
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [rawImages, setRawImages] = useState([]);
   const [preview, setPreview] = useState([]);
 
-  //const { uploadImages, imagesLoading } = 
-  //const { uploadCar, isLoading, hasError } = 
+  const { uploadImages, imagesLoading } = useUploadImage();
+  const { uploadCar, isLoading, hasError } = useManageCars();
 
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -68,6 +68,20 @@ const PostPage = () => {
   const availableModels = brand ? MODELS_BY_BRAND[brand] || [] : [];
 
   const [errors, setErrors] = useState({});
+
+   const onDrop = useCallback(acceptedFiles => {
+    setRawImages(acceptedFiles);
+    let imgPrevs = [];
+
+    for (const acceptedFile of acceptedFiles) {
+      imgPrevs.push({
+        name: acceptedFile.name,
+        url: URL.createObjectURL(acceptedFile)
+      });
+    }
+
+    setPreview(imgPrevs);
+  }, [])
 
   const handlePost = async () => {
     const newErrors = {};
@@ -97,6 +111,9 @@ const PostPage = () => {
     setErrors({})
 
     try {
+
+      images = await uploadImages(rawImages);
+
       const carData = {
         brand,
         model,
@@ -107,17 +124,21 @@ const PostPage = () => {
         doors,
         plateNumber,
         location,
-        description
+        description,
+        images
       };
-      // await uploadCar(carData);
+
+      await uploadCar(carData);
 
       setAlertMessage("Vehículo publicado con éxito.");
       setAlertOpen(true);
     } catch (error) {
+      console.error("Error al publicar el vehículo:", error);
       setAlertMessage("Ocurrió un error al publicar, intenta de nuevo.");
       setAlertOpen(true);
     }
   };
+
   const commonClass =
     "rounded-full px-4 py-2 border border-gray-300 w-full max-w-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300";
 

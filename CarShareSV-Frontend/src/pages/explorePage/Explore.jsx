@@ -72,8 +72,8 @@ export default function Explore() {
         (selectedFilter.model !== "" ? (car.model === selectedFilter.model) : car.model) &&
         (selectedFilter.transmission !== "" ? (car.transmission === selectedFilter.transmission) : car.transmission) &&
         (selectedFilter.passengers !== null ? (car.capacity === selectedFilter.passengers) : car.capacity) &&
-        (selectedFilter.minPrice !== null ? (car.price >= selectedFilter.minPrice) : car.price) &&
-        (selectedFilter.maxPrice !== null ? (car.price <= selectedFilter.maxPrice) : car.price)
+        (selectedFilter.minPrice !== null ? (car.dailyPrice >= selectedFilter.minPrice) : car.dailyPrice) &&
+        (selectedFilter.maxPrice !== null ? (car.dailyPrice <= selectedFilter.maxPrice) : car.dailyPrice)
       );
     })
   }
