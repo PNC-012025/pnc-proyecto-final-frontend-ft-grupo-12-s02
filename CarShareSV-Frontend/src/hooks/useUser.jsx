@@ -20,21 +20,22 @@ export default function useUser() {
     console.log("useUser - user:", user);
   }, [token, setUser]);
 
-  const login = useCallback(({ username, password }) => {
-    setState({ loading: true, error: false });
+ const login = useCallback(async ({ username, password }) => {
+  setState({ loading: true, error: false });
 
-    loginService({ username, password })
-      .then(async (token) => {
-        window.sessionStorage.setItem("token", token);
-        setState({ loading: false, error: false });
-        setToken(token); 
-      })
-      .catch(err => {
-        window.sessionStorage.removeItem("token");
-        setState({ loading: false, error: true });
-        console.error(err);
-      });
-  }, [setToken]);
+  try {
+    const token = await loginService({ username, password });
+    window.sessionStorage.setItem("token", token);
+    setToken(token);
+    setState({ loading: false, error: false });
+    return token;
+  } catch (err) {
+    window.sessionStorage.removeItem("token");
+    setState({ loading: false, error: true });
+    console.error(err);
+    throw err;
+  }
+}, [setToken]);
 
   const logout = useCallback(() => {
     window.sessionStorage.removeItem("token");
