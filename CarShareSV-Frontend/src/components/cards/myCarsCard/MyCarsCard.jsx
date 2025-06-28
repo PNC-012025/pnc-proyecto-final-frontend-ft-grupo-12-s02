@@ -7,6 +7,7 @@ import useReservation from '../../../hooks/useReservation';
 import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
 import Alert from '../../alerts/alert';
+import { isSameDay } from 'date-fns';
 
 export default function MyCarsCard({ car, onDelete }) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
@@ -22,13 +23,16 @@ export default function MyCarsCard({ car, onDelete }) {
 
   useEffect(() => {
     getCarReservations(car.carId);
-    getCarReservedDates(car.carID);
+    getCarReservedDates(car.carId);
   }, [getCarReservations]);
 
   useEffect(() => {
-    const dates = reservedDates.map(date => new Date(date));
-    setReserved(dates.includes(new Date()));
-  });
+    const today = new Date();
+    const isReserved = reservedDates.some(date => isSameDay(new Date(date), today));
+    setReserved(isReserved);
+    console.log("DATES: ", reservedDates);
+    console.log("NOW: ", today);
+}, [reservedDates]);
 
   const handleOnClick = () => {
     if (carReservations.length > 0 && car.visible) {
@@ -44,16 +48,16 @@ export default function MyCarsCard({ car, onDelete }) {
   }
 
   const handleConfirmDelete = () => {
-  if (carReservations.length > 0) {
-    setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
-    setAlertOpen(true);
+    if (carReservations.length > 0) {
+      setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
+      setAlertOpen(true);
+    }
+    else {
+      deleteCar(car.carId);
+      onDelete(car.carId);
+      setShowConfirm(false);
+    }
   }
-  else {
-    deleteCar(car.carId);
-    onDelete(car.carId);
-    setShowConfirm(false);
-  }
-}
 
   const handleCancelDelete = () => {
     setShowConfirm(false);
@@ -95,18 +99,18 @@ export default function MyCarsCard({ car, onDelete }) {
 
               <div className="text-sm text-gray-600">
                 <span className="font-medium">Estado: </span>
-                { reserved ? "Reservado" : "Disponible" }
+                {reserved ? "Reservado" : "Disponible"}
               </div>
             </div>
 
             <div className="ml-6">
-                <ImgSlider images={car.images} />
+              <ImgSlider images={car.images} />
             </div>
           </div>
         </div>
       </div>
 
-            <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-3">
         {!showConfirm ? (
           <>
             <Button onClick={handleDeleteClick}>
@@ -114,7 +118,7 @@ export default function MyCarsCard({ car, onDelete }) {
             </Button>
             <Button
               onClick={handleOnClick}
-             >
+            >
               {visibility ? "Ocultar" : "Mostrar"}
             </Button>
           </>
