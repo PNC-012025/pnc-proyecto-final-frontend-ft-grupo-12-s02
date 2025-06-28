@@ -6,60 +6,64 @@ import { useEffect, useState } from 'react';
 import useReservation from '../../../hooks/useReservation';
 import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
+import Alert from '../../alerts/alert';
 
-export default function MyCarsCard({car, onDelete}) {
+export default function MyCarsCard({ car, onDelete }) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
-  ? car.images[0]: null;
+    ? car.images[0] : null;
   const [visibility, setVisibility] = useState(car.visible);
   const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
   const { changeVisibility, deleteCar } = useManageCars();
   const { getCarReservations, carReservations } = useReservation();
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
 
   useEffect(() => {
     getCarReservations(car.carId);
   }, [getCarReservations]);
 
   const handleOnClick = () => {
-    if(carReservations.length > 0 && car.visible) {
-      alert("No se puede ocultar el vehículo porque tiene reservas asociadas.");
+    if (carReservations.length > 0 && car.visible) {
+      setAlertMessage("No se puede ocultar el vehículo porque tiene reservas asociadas.");
+      setAlertOpen(true);
     } else {
-    changeVisibility(car.carId, !car.visible);
-    setVisibility(!visibility);
-      //debug
+      changeVisibility(car.carId, !car.visible);
+      setVisibility(!visibility);
     }
-  }
-
+  };
   const handleDeleteClick = () => {
     setShowConfirm(true);
   }
 
   const handleConfirmDelete = () => {
-    if(carReservations.length > 0) {
-      alert("No se puede eliminar el vehículo porque tiene reservas asociadas.");
-    }
-    else {
+  if (carReservations.length > 0) {
+    setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
+    setAlertOpen(true);
+  }
+  else {
     deleteCar(car.carId);
     onDelete(car.carId);
     setShowConfirm(false);
   }
-  }
+}
 
   const handleCancelDelete = () => {
     setShowConfirm(false);
   }
 
   return (
-    <div className="flex items-center space-x-6"> 
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[650px]"> 
+    <div className="flex items-center space-x-6">
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[800px]">
         <div className="p-6">
           <div className="flex justify-between items-start">
-  
+
             <div className="flex-1">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 {car.brand} {car.model}
               </h3>
               <p className="text-gray-600 mb-4">{car.year}</p>
-              
+
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
                 <div className="flex items-center">
                   <FaUser className="mr-1 text-primary" />
@@ -92,21 +96,23 @@ export default function MyCarsCard({car, onDelete}) {
               </div>
             </div>
 
-            <div className="ml-6 w-[420px] h-[300px] rounded-4xl">
-              <ImgSlider images={car.images} />
+            <div className="ml-6">
+                <ImgSlider images={car.images} />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col space-y-3"> 
+            <div className="flex flex-col space-y-3">
         {!showConfirm ? (
           <>
-            <Button onClick={handleDeleteClick}> 
+            <Button onClick={handleDeleteClick}>
               Eliminar
             </Button>
-            <Button onClick={handleOnClick}> 
-              {visibility ? "Visible" : "Oculto"}
+            <Button
+              onClick={handleOnClick}
+             >
+              {visibility ? "Ocultar" : "Mostrar"}
             </Button>
           </>
         ) : (
@@ -117,6 +123,12 @@ export default function MyCarsCard({car, onDelete}) {
           </div>
         )}
       </div>
+
+      <Alert
+        isOpen={alertOpen}
+        onClose={() => setAlertOpen(false)}
+        message={alertMessage}
+      />
     </div>
   );
 }

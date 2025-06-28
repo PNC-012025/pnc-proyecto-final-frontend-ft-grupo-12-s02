@@ -76,7 +76,7 @@ const ImageSlider = ({ images }) => {
   }
 
   return (
-    <div className="relative flex items-center justify-center w-80 h-56">
+    <div className="relative flex items-center justify-center w-100 h-75 ">
       <button
         onClick={prevImage}
         className="absolute left-2 z-10 bg-white/80 hover:bg-white text-2xl rounded-full w-8 h-8 flex items-center justify-center shadow"
@@ -87,7 +87,7 @@ const ImageSlider = ({ images }) => {
       <img
         src={images[currentIndex]}
         alt={`img-${currentIndex}`}
-        className="w-full h-full object-cover rounded cursor-pointer"
+        className="w-full h-full object-cover rounded-xl cursor-pointer"
         onClick={openFullscreen}
         title="Ver en pantalla completa"
       />

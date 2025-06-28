@@ -168,7 +168,7 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
               {/* Dropzone */}
               <div
                 {...getRootProps()}
-                className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-164 w-full max-w-[420px] flex flex-col items-center justify-center transition hover:bg-primary/10"
+                className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-85 w-full max-w-[420px] flex flex-col items-center justify-center transition hover:bg-primary/10"
               >
                 <input {...getInputProps()} />
                 {isDragActive ? (
