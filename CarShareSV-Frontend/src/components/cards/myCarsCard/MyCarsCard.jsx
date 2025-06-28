@@ -19,8 +19,12 @@ export default function MyCarsCard({car, onDelete}) {
   }, [getCarReservations]);
 
   const handleOnClick = () => {
-    changeVisibility(car.carId, !car.visible);
-    setVisibility(!visibility);
+    if(carReservations.length > 0 && car.visible) {
+      alert("No se puede ocultar el vehículo porque tiene reservas asociadas.");
+    } else {
+      changeVisibility(car.carId, !car.visible);
+      setVisibility(!visibility);
+    }
   }
 
   const handleDeleteClick = () => {
