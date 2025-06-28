@@ -1,6 +1,6 @@
 import Button from "../button/Button";
 import useUser from "../../hooks/useUser";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ROLES = {
     SYSADMIN: 'ROLE_SYSADMIN',
@@ -11,6 +11,9 @@ const ROLES = {
 export default function Header() {
     const { isLogged, user } = useUser();
     const roles = user?.roles || [];
+    const location = useLocation();
+
+    const isActive = (path) => location.pathname.startsWith(path);
 
     return (
         <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
@@ -20,11 +23,31 @@ export default function Header() {
                 </Link>
 
                 {isLogged && (
-                    <nav className="flex-1 flex justify-center gap-6 text-lg">
-                        <Link to="/explore" className="text-gray-700 hover:text-primary transition-colors">Explorar</Link>
-                        <Link to="/post/new" className="text-gray-700 hover:text-primary transition-colors">Publicar</Link>
-                        <Link to="/mycars" className="text-gray-700 hover:text-primary transition-colors">Mis Vehículos</Link>
-                        <Link to="/rents/actuals" className="text-gray-700 hover:text-primary transition-colors">Mis Rentas</Link>
+                       <nav className="flex-1 flex justify-center gap-6 text-lg">
+                        <Link
+                            to="/explore"
+                            className={`transition-colors ${isActive("/explore") ? "text-primary" : "text-gray-700"} hover:text-primary`}
+                        >
+                            Explorar
+                        </Link>
+                        <Link
+                            to="/post/new"
+                            className={`transition-colors ${isActive("/post/new") ? "text-primary" : "text-gray-700"} hover:text-primary`}
+                        >
+                            Publicar
+                        </Link>
+                        <Link
+                            to="/mycars"
+                            className={`transition-colors ${isActive("/mycars") ? "text-primary" : "text-gray-700"} hover:text-primary`}
+                        >
+                            Mis Vehículos
+                        </Link>
+                        <Link
+                            to="/rents/actuals"
+                            className={`transition-colors ${isActive("/rents/actuals") ? "text-primary" : "text-gray-700"} hover:text-primary`}
+                        >
+                            Mis Rentas
+                        </Link>
                     </nav>
                 )}
 
