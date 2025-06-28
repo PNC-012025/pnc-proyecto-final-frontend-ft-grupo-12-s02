@@ -14,14 +14,21 @@ export default function MyCarsCard({ car, onDelete }) {
   const [visibility, setVisibility] = useState(car.visible);
   const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
   const { changeVisibility, deleteCar } = useManageCars();
-  const { getCarReservations, carReservations } = useReservation();
+  const { getCarReservations, carReservations, getCarReservedDates, reservedDates } = useReservation();
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [reserved, setReserved] = useState(false);
 
 
   useEffect(() => {
     getCarReservations(car.carId);
+    getCarReservedDates(car.carID);
   }, [getCarReservations]);
+
+  useEffect(() => {
+    const dates = reservedDates.map(date => new Date(date));
+    setReserved(dates.includes(new Date()));
+  });
 
   const handleOnClick = () => {
     if (carReservations.length > 0 && car.visible) {
@@ -88,11 +95,7 @@ export default function MyCarsCard({ car, onDelete }) {
 
               <div className="text-sm text-gray-600">
                 <span className="font-medium">Estado: </span>
-                {car.status === 'rented' && car.renterName && car.rentalPeriod ? (
-                  <span>Rentado por {car.renterName} {car.rentalPeriod}</span>
-                ) : (
-                  <span>{car.status}</span>
-                )}
+                { reserved ? "Reservado" : "Disponible" }
               </div>
             </div>
 
