@@ -2,7 +2,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import Header from "../../components/header/Header";
 import MyRentsCard from "../../components/cards/myRentsCard/MyRentsCard";
 import Button from "../../components/button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRange } from "react-date-range";
 import { ca, es } from "date-fns/locale";
 import 'react-date-range/dist/styles.css';
@@ -24,9 +24,13 @@ function formatDate(date) {
 export default function CarDetails() {
     const location = useLocation();
     const car = location.state?.car;
-    const { createReservation, isLoading, hasError } = useReservation();
+    const { createReservation, getCarReservedDates, reservedDates, isLoading, hasError } = useReservation();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+
+    useEffect(() => {
+      getCarReservedDates(car.id);
+    }, [getCarReservedDates]);
 
     //console.log("Car Details: ", car);
     const [range, setRange] = useState({
@@ -37,6 +41,7 @@ export default function CarDetails() {
 
     const handleSelect = (ranges) => {
         setRange(ranges.selection);
+        console.log(reservedDates ? reservedDates : "No hay fechas reservadas");
     };
 
     const totalDays = Math.ceil((range.endDate - range.startDate) / (1000 * 60 * 60 * 24)) + 1;
