@@ -10,6 +10,7 @@ import 'react-date-range/dist/theme/default.css';
 import Alert from "../../components/alerts/alert";
 import { useLocation } from "react-router-dom";
 import useReservation from '../../hooks/useReservation';
+import ImageSlider from '../../components/imageslider/imageslider';
 //import card1 from "../../assets/images/card1.jpg";
 
 
@@ -119,7 +120,7 @@ export default function CarDetails() {
                     {/* Columna derecha - Detalle de precio */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">${car.dailyPrice} <span className="text-sm text-gray-600"> al día</span></h3>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-4">${car.dailyPrice} <span className="text-sm text-gray-600"> al día</span></h3>
                             <ul className="text-sm text-gray-700 mb-6 space-y-1">
                                 <li>- Cancelación gratis antes de la fecha de reservación</li>
                                 <li>- Pago al recoger el vehículo</li>
@@ -130,19 +131,19 @@ export default function CarDetails() {
                             <h4 className="font-semibold mb-3 text-gray-900">Detalle de precio:</h4>
                             <div className="space-y-2 text-sm text-gray-700 mb-4">
                                 <div className="flex justify-between">
-                                    <span>Tarifa de servicio / día: {car.dailyPrice}</span>
+                                    <span>Tarifa de servicio / día: ${car.dailyPrice}</span>
                                     <span></span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Tarifa de alquiler  días: {totalDays}</span>
+                                    <span>Tarifa de alquiler  días: ${totalDays}</span>
                                     <span></span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Tarifa por {totalDays} días: {rentalCost}</span>
+                                    <span>Tarifa por {totalDays} días: ${rentalCost}</span>
                                     <span></span>
                                 </div>
                                 <div className="flex justify-between">
-                                    <span>Tarifa de servicio: {serviceFee.toFixed(2)}</span>
+                                    <span>Tarifa de servicio: ${serviceFee.toFixed(2)}</span>
                                     <span></span>
                                 </div>
                                 <hr className="border-gray-200" />
@@ -150,11 +151,11 @@ export default function CarDetails() {
                                     <span>Total:</span>
                                     <span></span>
                                 </div>
-                                <div className="flex justify-between text-gray-600">
+                                <div className="flex justify-between text-gray-600 font-semibold">
                                     <span>Pagar al recoger:</span>
                                     <span></span>
                                 </div>
-                                <div className="flex justify-between text-gray-600">
+                                <div className="flex justify-between text-gray-600 font-semibold">
                                     <span>Pagar ahorita:</span>
                                     <span>${total}</span>
                                 </div>

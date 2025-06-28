@@ -31,7 +31,7 @@ const ImageSlider = ({ images }) => {
             key={i}
             src={img}
             alt={`img-${i}`}
-            className="w-45 h-45 object-cover cursor-pointer rounded"
+            className="w-40 h-40 object-cover cursor-pointer rounded shadow"
             onClick={() => openModal(i)}
           />
         ))}
@@ -54,7 +54,7 @@ const ImageSlider = ({ images }) => {
         <img
           src={images[currentIndex]}
           alt={`img-full-${currentIndex}`}
-          className="max-w-full max-h-full rounded"
+          className="max-w-3xl max-h-[80vh] rounded shadow-lg"
           onClick={(e) => e.stopPropagation()}
         />
 

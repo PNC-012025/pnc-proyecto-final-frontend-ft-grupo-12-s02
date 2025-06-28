@@ -1,5 +1,6 @@
 import { FaUser, FaCar, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
+import ImageSlider from '../../imageslider/imageslider';
 
 export default function MyRentsCard({ car }) {
   return (
@@ -11,7 +12,7 @@ export default function MyRentsCard({ car }) {
             <div className="flex-1 flex flex-col justify-between">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-900">{car.model}</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900">{car.brand} {car.model}</h3>
                   <p className="text-gray-600 text-lg">{car.year}</p>
                 </div>
 
@@ -44,12 +45,8 @@ export default function MyRentsCard({ car }) {
               </div>
             </div>
 
-            <div className="ml-6 self-center">
-              <img
-                src={car.images[0]}
-                alt={car.model}
-                className="w-80 h-[250px] object-cover rounded-lg"
-              />
+            <div className="self-center">
+              <ImageSlider images={car.images} />
             </div>
           </div>
         </div>

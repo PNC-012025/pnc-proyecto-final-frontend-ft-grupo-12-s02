@@ -53,7 +53,7 @@ export default function MyCarsCard({car, onDelete}) {
                 </div>
                 <div className="flex items-center">
                   <GiGearStick className="mr-1 text-primary" />
-                  <span>{car.transmission}</span>
+                  <span>{car.transmission === 'Automatic' ? 'Automático' : 'Manual'}</span>
                 </div>
               </div>
 
