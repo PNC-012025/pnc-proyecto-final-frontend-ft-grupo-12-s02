@@ -162,6 +162,12 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
           Publica tu vehículo
         </h2>
 
+     {(isLoading || imagesLoading) ? (
+  <div className="flex justify-center items-center h-64">
+    <span className="text-primary text-4xl font-semibold">Creando Publicación...</span>
+  </div>
+) : (
+
         <div className="flex flex-col lg:flex-row gap-10">
           <div className="">
             <div className="rounded-2xl border border-gray-200 bg-white shadow-md p-4">
@@ -366,7 +372,7 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
             </div>
           </div>
         </div>
-
+      )}
         <Alert
           message={alertMessage}
           isOpen={alertOpen}
