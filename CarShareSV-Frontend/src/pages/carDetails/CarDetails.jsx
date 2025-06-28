@@ -30,7 +30,7 @@ export default function CarDetails() {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-      getCarReservedDates(car.id);
+      getCarReservedDates(car.carId);
     }, [getCarReservedDates]);
 
     //console.log("Car Details: ", car);
