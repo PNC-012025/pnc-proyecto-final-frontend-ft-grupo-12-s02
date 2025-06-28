@@ -55,3 +55,15 @@ export async function fetchAllCarReservations(carId) {
     throw error;
   }
 }
+
+
+export async function fetchAllUserReservations(userId) {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/reservation/getAllByUser?id=${userId}`);
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching car reservations:", error);
+    throw error;
+  }
+}

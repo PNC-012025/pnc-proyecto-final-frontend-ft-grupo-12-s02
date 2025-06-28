@@ -1,11 +1,12 @@
 import { useCallback, useState, useContext } from "react";
 import Context from "../context/UserContext";
-import { postReservation, fetchAllCarReservedDates, fetchAllCarReservations } from "../services/reservation.service";
+import { postReservation, fetchAllCarReservedDates, fetchAllCarReservations, fetchAllUserReservations } from "../services/reservation.service";
 
 export default function useReservation() {
   const { token } = useContext(Context);
   const [carReservedDates, setCarReservedDates] = useState([]);
   const [carReservations, setCarReservations] = useState([]);
+  const [userReservations, setUserReservations] = useState([]);
   const [state, setState] = useState({
     loading: false,
     error: false
@@ -54,8 +55,8 @@ export default function useReservation() {
     try {
       setState({ loading: true, error: false });
 
-      const dates = await fetchAllCarReservations(carId);
-      setCarReservations(dates);
+      const reservations = await fetchAllCarReservations(carId);
+      setCarReservations(reservations);
 
       setState({ loading: false, error: false });
     } catch (error) {
@@ -64,10 +65,26 @@ export default function useReservation() {
     }
   }, []);
 
+  const getUserReservations = useCallback(async (userId) => {
+    try {
+      setState({ loading: true, error: false });
+
+      const reservations = await fetchAllUserReservations(userId);
+      setUserReservations(reservations);
+
+      setState({ loading: false, error: false });
+    } catch (error) {
+      console.error("Error fetching user reservations: ", error);
+      setState({ loading: false, error: true });
+    }
+  }, []);
+
   return {
     createReservation,
     getCarReservedDates,
     getCarReservations,
+    getUserReservations,
+    userReservations,
     carReservations,
     reservedDates: carReservedDates,
     isLoading: state.loading,

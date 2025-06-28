@@ -6,6 +6,7 @@ import card1 from '../../assets/images/card1.jpg';
 import card2 from '../../assets/images/card2.jpg';
 import RentsSwitcher from '../../components/rentsSwitcher/RentsSwitcher';
 
+
 export default function ActualRents() {
 
     const allRents = [
@@ -55,6 +56,9 @@ export default function ActualRents() {
 
     const [cars] = useState(allRents);
 
+    const reservations = location.state?.activeReservations || [];
+
+    
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
@@ -66,7 +70,7 @@ export default function ActualRents() {
                 <RentsSwitcher />
 
                 <div className="space-y-10">
-                    {cars.map((car) => (
+                    {cars?.map((car) => (
                         <div key={car.id} className="flex justify-between items-start gap-6">
                             <div className="flex-1">
                                 <MyRentsCard car={car} />
