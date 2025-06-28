@@ -5,7 +5,6 @@ import useManageCars from '../../../hooks/useManageCars';
 import { useEffect, useState } from 'react';
 import useReservation from '../../../hooks/useReservation';
 import { ca } from 'date-fns/locale';
-import { useState } from 'react';
 import ImgSlider from '../../imageslider/imageslider';
 
 export default function MyCarsCard({car, onDelete}) {
