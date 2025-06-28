@@ -30,7 +30,7 @@ export default function CarDetails() {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-      getCarReservedDates(car.carId);
+        getCarReservedDates(car.carId);
     }, [getCarReservedDates]);
 
     //console.log("Car Details: ", car);
@@ -53,21 +53,22 @@ export default function CarDetails() {
     const handleCarDetails = async () => {
 
         try {
-        const reservationDetails = {
-            startDate: range.startDate.toISOString().split('T')[0],
-            endDate: range.endDate.toISOString().split('T')[0],
-            address: car.location,
-            carPlateNumber: car.plateNumber
+            const reservationDetails = {
+                startDate: range.startDate.toISOString().split('T')[0],
+                endDate: range.endDate.toISOString().split('T')[0],
+                address: car.location,
+                carPlateNumber: car.plateNumber
+            }
+            console.log("Reservation Details: ", reservationDetails);
+            createReservation(reservationDetails);
+            setAlertMessage("Reserva publicada con éxito.");
+            setAlertOpen(true);
+        } catch (error) {
+            console.error("Error al crear la reserva:", error);
+            setAlertMessage("Error al crear la reserva. Inténtalo de nuevo más tarde.");
+            setAlertOpen(true);
         }
-        console.log("Reservation Details: ", reservationDetails);
-        createReservation(reservationDetails);
-        setAlertMessage("Reserva publicada con éxito.");
-        setAlertOpen(true);
-    } catch (error) {
-        console.error("Error al crear la reserva:", error);
-        setAlertMessage("Error al crear la reserva. Inténtalo de nuevo más tarde.");
-        setAlertOpen(true);
-    }};
+    };
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -165,6 +166,18 @@ export default function CarDetails() {
                                 onClick={handleCarDetails}>
                                 Reservar
                             </Button>
+                            <Button
+                                className="w-full mt-4"
+                                onClick={() => {
+                                    const message = `Hola, estoy interesado en reservar tu vehículo con placa ${car.plateNumber} ubicado en ${car.location}. Me gustaría rentarlo desde el ${formatDate(range.startDate)} hasta el ${formatDate(range.endDate)}. Veo que el total a pagar es $${total.toFixed(2)}. ¿Podrías confirmarme si está disponible?`;
+                                    const url = `https://web.whatsapp.com/send?phone=${car.phoneNumber}&text=${encodeURIComponent(message)}`;
+                                    window.open(url, '_blank');
+                                }}
+                            >
+                                Contactar
+                            </Button>
+
+
                         </div>
                     </div>
                 </div>
