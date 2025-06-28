@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import useSignIn from '../../hooks/useSignIn';
@@ -10,7 +10,17 @@ export default function SignIn() {
     const [redirectOnClose, setRedirectOnClose] = useState(false);
     const navigate = useNavigate();
 
-    const { isLoading, hasError, registerUser } = useSignIn();
+    const { isLoading, hasError, registerUser, isLogged } = useSignIn();
+
+    useEffect(() => {
+        if(isLogged) {
+            navigate('/explore');
+        } else if (!isLogged && hasError){
+            setAlertMessage("Hubo error en el registro");
+            setAlertOpen(true)
+        }
+    }, [isLogged, hasError, navigate]);
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -81,7 +91,7 @@ export default function SignIn() {
         setErrors(validate(formData));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
@@ -102,15 +112,14 @@ export default function SignIn() {
             setRedirectOnClose(false);
             return;
         }
-        Promise.resolve(registerUser(formData)).then(() => {
-            setAlertMessage("Registrado exitosamente");
-            setAlertOpen(true);
-            setRedirectOnClose(true);
-        }).catch(() => {
+        try {
+            await registerUser(formData);
+        } catch {
             setAlertMessage("Ocurrió un error al registrarse. Intenta de nuevo.");
             setAlertOpen(true);
             setRedirectOnClose(false);
-        });
+        }
+
     };
 
     const handleAlertClose = () => {
