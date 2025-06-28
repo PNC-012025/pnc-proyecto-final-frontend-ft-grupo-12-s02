@@ -20,7 +20,7 @@ export default function Header() {
                 </Link>
 
                 {isLogged && (
-                    <nav className="flex-1 flex justify-center gap-6 text-xl">
+                    <nav className="flex-1 flex justify-center gap-6 text-lg">
                         <Link to="/explore" className="text-gray-700 hover:text-primary transition-colors">Explorar</Link>
                         <Link to="/post/new" className="text-gray-700 hover:text-primary transition-colors">Publicar</Link>
                         <Link to="/mycars" className="text-gray-700 hover:text-primary transition-colors">Mis Vehículos</Link>
@@ -41,9 +41,9 @@ export default function Header() {
                         </>
                     ) : (
                         <>
-                            <Link to="/myprofile" className="text-gray-700 hover:text-primary transition-colors mr-10 text-xl">Perfil</Link>
+                            <Link to="/myprofile" className="text-gray-700 hover:text-primary transition-colors mr-10 text-lg">Perfil</Link>
                             {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
-                                <Link to="/admin/users" className="text-gray-700 hover:text-primary transition-colors text-xl">Usuarios</Link>
+                                <Link to="/admin/users" className="text-gray-700 hover:text-primary transition-colors text-lg">Usuarios</Link>
                             )}
                         </>
                     )}

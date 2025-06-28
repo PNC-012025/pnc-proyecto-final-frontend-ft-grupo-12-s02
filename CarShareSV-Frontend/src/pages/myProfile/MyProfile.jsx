@@ -16,8 +16,8 @@ export default function MyProfile() {
       setUserData(user.data);
     } else if (isLogged && user && Object.keys(user).length > 0 && !user.data) {
       console.log("MyProfile useEffect: user existe pero user.data no. User object:", user);
-      if(user.firstName || user.email) { 
-         setUserData(user);
+      if (user.firstName || user.email) {
+        setUserData(user);
       }
     } else {
       console.log("MyProfile useEffect: isLogged o user no están listos. isLogged:", isLogged, "User:", user);
@@ -49,21 +49,27 @@ export default function MyProfile() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center pt-20">
-        <div className="w-full max-w-2xl pt-12 pb-16 px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            <div className="px-6 py-8">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center pt-20">
+      <h2 className="text-4xl font-semibold text-gray-900 mb-8">
+       Mi Perfil
+      </h2>
+      <div className="w-full max-w-2xl pt-12 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="px-6 py-8">
+
               <div className="flex flex-col items-center text-center">
-                <div className="w-32 h-32 bg-gray-300 rounded-full flex items-center justify-center mb-6">
-                  <FaUser size={64} className="text-gray-500" />
+
+                <div className="flex items-center justify-center mb-6 gap-4">
+
+                  <FaUser size={48} className="text-gray-500" />
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    {userData.firstName || 'N/A'} {userData.lastName || ''}
+                  </h1>
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                  {userData.firstName || 'N/A'} {userData.lastName || ''}
-                </h1>
                 <p className="text-gray-600 mb-2">{userData.username || 'N/A'}</p>
                 <p className="text-gray-600 mb-4">{userData.email || 'N/A'}</p>
                 <Button className="mb-2">
-                  Editar perfil 
+                  Editar perfil
                 </Button>
               </div>
               <div className="border-t border-gray-200 my-8"></div>
@@ -74,7 +80,7 @@ export default function MyProfile() {
                 <div className="flex items-center text-sm text-gray-600">
                   <FaCar size={16} className="mr-2 text-primary" />
                   <span>Vehículos publicados: </span>
-                  <span className="font-medium text-gray-900 ml-1">0</span> 
+                  <span className="font-medium text-gray-900 ml-1">0</span>
                 </div>
                 <div className="flex items-center text-sm text-gray-600">
                   <FaCalendarAlt size={16} className="mr-2 text-primary" />
@@ -84,7 +90,7 @@ export default function MyProfile() {
               </div>
               <div className="flex justify-center mt-8">
                 <Button onClick={() => {
-                  logout(); 
+                  logout();
                   navigate('/');
                 }} className="bg-primary hover:bg-primary/90">
                   Cerrar sesión
