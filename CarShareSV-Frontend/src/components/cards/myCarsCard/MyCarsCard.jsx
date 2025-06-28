@@ -2,7 +2,9 @@ import { FaUser, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import Button from '../../button/Button';
 import useManageCars from '../../../hooks/useManageCars';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useReservation from '../../../hooks/useReservation';
+import { ca } from 'date-fns/locale';
 
 export default function MyCarsCard({car, onDelete}) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
@@ -10,6 +12,11 @@ export default function MyCarsCard({car, onDelete}) {
   const [visibility, setVisibility] = useState(car.visible);
   const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
   const { changeVisibility, deleteCar } = useManageCars();
+  const { getCarReservations, carReservations } = useReservation();
+
+  useEffect(() => {
+    getCarReservations(car.carId);
+  }, [getCarReservations]);
 
   const handleOnClick = () => {
     changeVisibility(car.carId, !car.visible);
@@ -21,9 +28,14 @@ export default function MyCarsCard({car, onDelete}) {
   }
 
   const handleConfirmDelete = () => {
-    deleteCar(car.carId);
-    onDelete(car.carId);
-    setShowConfirm(false);
+    if(carReservations.length > 0) {
+      alert("No se puede eliminar el vehículo porque tiene reservas asociadas.");
+    }
+    else {
+      deleteCar(car.carId);
+      onDelete(car.carId);
+      setShowConfirm(false);
+    }
   }
 
   const handleCancelDelete = () => {

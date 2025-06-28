@@ -44,3 +44,14 @@ export async function fetchAllCarReservedDates(carId) {
     throw error;
   }
 }
+
+export async function fetchAllCarReservations(carId) {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/reservation/getAll?id=${carId}`);
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching car reservations:", error);
+    throw error;
+  }
+}
