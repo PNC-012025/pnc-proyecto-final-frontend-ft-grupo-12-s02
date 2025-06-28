@@ -12,7 +12,7 @@ export default function useReservation() {
     error: false
   });
 
-  const createReservation = useCallback(({
+  const createReservation = useCallback(async ({
     startDate,
     endDate,
     address,
@@ -20,21 +20,20 @@ export default function useReservation() {
   }) => {
     setState({ loading: true, error: false });
 
-    console.log("ttoken: ", token);
-
-    postReservation({
-      startDate,
-      endDate,
-      address,
-      carPlateNumber
-    }, token)
-      .then(() => {
-        setState({ loading: false, error: false });
-      })
-      .catch(error => {
-        console.error("Error creating reservation:", error);
-        setState({ loading: false, error: true });
-      });
+    try {
+      const apiResponse = await postReservation({
+        startDate,
+        endDate,
+        address,
+        carPlateNumber
+      }, token);
+      setState({ loading: false, error: false });
+      return { success: true, apiResponse };
+    } catch (error) {
+      console.error("Error creating reservation:", error);
+      setState({ loading: false, error: true });
+      return { success: false, error };
+    }
   }, [token]);
 
   const getCarReservedDates = useCallback(async (carId) => {

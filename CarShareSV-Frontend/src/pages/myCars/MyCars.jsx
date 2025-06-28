@@ -5,7 +5,6 @@ import useCars from '../../hooks/useCars';
 
 export default function MyCars() {
 
-    //const [cars] = useState(allCars);
     const { getUserCars, userCars, loading, setUserCars } = useCars();
     
     useEffect(() => {
@@ -36,7 +35,6 @@ export default function MyCars() {
                 </div>
             </div>
             }
-
             
         </div>
 
