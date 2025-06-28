@@ -1,7 +1,4 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import useUser from "../../hooks/useUser";
-import { useEffect, useState } from "react";
-import useReservation from "../../hooks/useReservation";
 
 export default function RentsSwitcher() {
     
