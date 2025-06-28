@@ -3,12 +3,13 @@ import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import Button from '../../button/Button';
 import useManageCars from '../../../hooks/useManageCars';
 import { useState } from 'react';
+import ImgSlider from '../../imageslider/imageslider';
 
 export default function MyCarsCard({car, onDelete}) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
   ? car.images[0]: null;
   const [visibility, setVisibility] = useState(car.visible);
-  const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
+  const [showConfirm, setShowConfirm] = useState(false);
   const { changeVisibility, deleteCar } = useManageCars();
 
   const handleOnClick = () => {
@@ -74,12 +75,8 @@ export default function MyCarsCard({car, onDelete}) {
               </div>
             </div>
 
-            <div className="ml-6">
-              <img 
-                src={mainImage} 
-                alt={car.model}
-                className="w-56 h-40 object-cover rounded-lg" 
-              />
+            <div className="ml-6 w-[420px] h-[300px] rounded-4xl">
+              <ImgSlider images={car.images} />
             </div>
           </div>
         </div>
