@@ -1,6 +1,6 @@
 import { useCallback, useState, useContext } from "react";
 import Context from "../context/UserContext";
-import { postReservation, fetchAllCarReservedDates, fetchAllCarReservations, fetchAllUserReservations } from "../services/reservation.service";
+import { postReservation, fetchAllCarReservedDates, fetchAllCarReservations, fetchAllUserReservations, cancelReservation as cancelReservationService } from "../services/reservation.service";
 
 export default function useReservation() {
   const { token } = useContext(Context);
@@ -79,11 +79,25 @@ export default function useReservation() {
     }
   }, []);
 
+  const cancelReservation = useCallback((reservationId) => {
+    setState({ loading: true, error: false });
+
+    cancelReservationService(reservationId, token)
+      .then(() => {
+        setState({ loading: false, error: false });
+      })
+      .catch(error => {
+        console.error("Error canceling reservation:", error);
+        setState({ loading: false, error: true });
+      });
+  }, [token]);
+
   return {
     createReservation,
     getCarReservedDates,
     getCarReservations,
     getUserReservations,
+    cancelReservation,
     userReservations,
     carReservations,
     reservedDates: carReservedDates,

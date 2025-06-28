@@ -67,3 +67,24 @@ export async function fetchAllUserReservations(userId) {
     throw error;
   }
 }
+
+export function cancelReservation(reservationId, token) {
+return fetch(`${BASE_URL}/reservation/cancel/${reservationId}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+}).then((response) => {
+        if (!response.ok) {
+            throw new Error('Error canceling reservation: ' + response.statusText);
+        }
+        return response.json();
+    }).then(response => {
+        const {message} = response;
+        console.log("API RESPONSE:", message);
+
+        return message;
+    });
+};

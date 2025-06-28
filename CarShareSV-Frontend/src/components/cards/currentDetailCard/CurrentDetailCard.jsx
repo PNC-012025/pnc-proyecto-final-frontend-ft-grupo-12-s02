@@ -1,3 +1,4 @@
+import useReservation from "../../../hooks/useReservation";
 import Button from "../../button/Button";
 
 function formatDate(dateString) {
@@ -7,6 +8,11 @@ function formatDate(dateString) {
 
 
 export default function CurrentDetailCard({ rent }) {
+  const { cancelReservation } = useReservation();
+
+  const handleOnClick = () => {
+    cancelReservation(rent.reservationId);
+  }
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-80 h-82">
@@ -36,7 +42,7 @@ export default function CurrentDetailCard({ rent }) {
             </div>
 
             <div className="flex justify-center">
-                <Button className="w-full mt-5">
+                <Button onClick={handleOnClick} className="w-full mt-5">
                     Cancelar
                 </Button>
             </div>
