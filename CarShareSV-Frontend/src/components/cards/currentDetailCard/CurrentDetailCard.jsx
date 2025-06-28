@@ -9,7 +9,7 @@ function formatDate(dateString) {
 export default function CurrentDetailCard({ rent }) {
 
     return (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-80 h-82">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-100 h-87">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Detalle de renta:</h3>
 
             <div className="space-y-3 mb-6">
@@ -24,7 +24,7 @@ export default function CurrentDetailCard({ rent }) {
                 </div>
             </div>
 
-            <div className="space-y-2 mb-6 text-sm">
+            <div className="space-y-2 mb-3 mt-3 text-sm">
                 <div className="flex justify-between">
                     <span className="text-gray-600">Inicio:</span>
                     <span>{formatDate(rent.startDate)}</span>
@@ -36,7 +36,7 @@ export default function CurrentDetailCard({ rent }) {
             </div>
 
             <div className="flex justify-center">
-                <Button className="w-full mt-5">
+                <Button className="w-full mt-8">
                     Cancelar
                 </Button>
             </div>
