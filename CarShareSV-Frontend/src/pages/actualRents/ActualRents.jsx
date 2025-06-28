@@ -1,64 +1,28 @@
 import Header from '../../components/header/Header';
 import MyRentsCard from '../../components/cards/myRentsCard/MyRentsCard';
 import CurrentDetailCard from '../../components/cards/currentDetailCard/CurrentDetailCard';
-import { useState } from 'react';
-import card1 from '../../assets/images/card1.jpg';
-import card2 from '../../assets/images/card2.jpg';
+import { useState, useEffect } from 'react';
 import RentsSwitcher from '../../components/rentsSwitcher/RentsSwitcher';
-
+import useReservation from '../../hooks/useReservation';
+import useUser from '../../hooks/useUser';
 
 export default function ActualRents() {
+    const { user } = useUser();
+    const { userReservations, getUserReservations } = useReservation();
+    const [activeReservations, setActiveReservations] = useState([]);
 
-    const allRents = [
-        {
-            id: '1',
-            model: 'Kia Soul',
-            year: 2016,
-            capacity: 5,
-            doors: 4,
-            transmission: 'Automático',
-            type: 'SUV',
-            rating: 4.8,
-            reviewCount: 3,
-            renterName: 'Carlos Canjura',
-            image: card1,
-            rent: {
-                period: 3,
-                rentalCost: 135,
-                serviceFee: 15,
-                total: 150,
-                startDate: '2025-05-23',
-                endDate: '2025-05-26'
-            }
-        },
-        {
-            id: '2',
-            model: 'Kia Soul',
-            year: 2013,
-            capacity: 5,
-            doors: 4,
-            transmission: 'Automático',
-            type: 'SUV',
-            rating: 4.5,
-            reviewCount: 1,
-            renterName: 'Luis Martínez',
-            image: card2,
-            rent: {
-                period: 2,
-                rentalCost: 90,
-                serviceFee: 10,
-                total: 100,
-                startDate: '2025-06-10',
-                endDate: '2025-06-12'
-            }
-        }
-    ];
+    useEffect(() => {
+      if (user && user.userId) {
+        getUserReservations(user.userId);
 
-    const [cars] = useState(allRents);
+        setActiveReservations(userReservations.filter(r => r.status === 'ACTIVE'));
+      }
 
-    const reservations = location.state?.activeReservations || [];
+      console.log("Active Reservations: ", activeReservations);
+    }, [user, getUserReservations]);
 
-    
+    const cars = []
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />

@@ -1,10 +1,12 @@
 import Header from '../../components/header/Header';
 import MyRentsCard from '../../components/cards/myRentsCard/MyRentsCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import card1 from '../../assets/images/card1.jpg';
 import card2 from '../../assets/images/card2.jpg';
 import PastDetailCard from '../../components/cards/pastDetailCard/PastDetailCard';
 import RentsSwitcher from '../../components/rentsSwitcher/RentsSwitcher';
+import useReservation from '../../hooks/useReservation';
+import useUser from '../../hooks/useUser';
 
 export default function PastRents() {
 
@@ -53,6 +55,8 @@ export default function PastRents() {
         }
     ];
 
+    const cars=[];
+
     /* 
     [
 		{
@@ -86,9 +90,19 @@ export default function PastRents() {
 				]
 			} */
 
-    const [cars] = useState(allRents);
+    const { user } = useUser();
+    const { userReservations, getUserReservations } = useReservation();
+    const [finishedReservations, setFinishedReservations] = useState([]);
 
-    const reservations = location.state?.finishedReservations || [];
+    useEffect(() => {
+      if (user && user.userId) {
+        getUserReservations(user.userId);
+
+        setFinishedReservations(userReservations.filter(r => r.status === 'FINISHED'));
+      }
+
+      console.log("Finished Reservations: ", finishedReservations);
+    }, [user, getUserReservations]);
 
     return (
         <div className="min-h-screen bg-gray-50">
