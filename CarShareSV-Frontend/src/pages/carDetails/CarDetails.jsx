@@ -51,7 +51,6 @@ export default function CarDetails() {
     const total = rentalCost + serviceFee;
 
     const handleCarDetails = async () => {
-
         try {
             const reservationDetails = {
                 startDate: range.startDate.toISOString().split('T')[0],
@@ -60,11 +59,15 @@ export default function CarDetails() {
                 carPlateNumber: car.plateNumber
             }
             console.log("Reservation Details: ", reservationDetails);
-            createReservation(reservationDetails);
-            setAlertMessage("Reserva publicada con éxito.");
+            const result = await createReservation(reservationDetails);
+
+            if (result.success) {
+                setAlertMessage("Reserva realizada con éxito.");
+            } else {
+                setAlertMessage("Error al crear la reserva. Inténtalo de nuevo más tarde.");
+            }
             setAlertOpen(true);
         } catch (error) {
-            console.error("Error al crear la reserva:", error);
             setAlertMessage("Error al crear la reserva. Inténtalo de nuevo más tarde.");
             setAlertOpen(true);
         }
@@ -92,6 +95,7 @@ export default function CarDetails() {
                                     minDate={new Date()}
                                     locale={es}
                                     rangeColors={["#d1285e"]}
+                                    disabledDates={reservedDates ? reservedDates.map(dateStr => new Date(dateStr)) : []}
                                 />
                             </div>
 
@@ -150,14 +154,6 @@ export default function CarDetails() {
                                 <hr className="border-gray-200" />
                                 <div className="flex justify-between font-semibold text-black">
                                     <span>Total:</span>
-                                    <span></span>
-                                </div>
-                                <div className="flex justify-between text-gray-600 font-semibold">
-                                    <span>Pagar al recoger:</span>
-                                    <span></span>
-                                </div>
-                                <div className="flex justify-between text-gray-600 font-semibold">
-                                    <span>Pagar ahorita:</span>
                                     <span>${total}</span>
                                 </div>
                             </div>

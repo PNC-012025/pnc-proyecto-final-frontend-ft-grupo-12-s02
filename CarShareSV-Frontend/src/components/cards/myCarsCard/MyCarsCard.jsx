@@ -88,8 +88,8 @@ export default function MyCarsCard({ car, onDelete }) {
 
               <div className="text-sm text-gray-600">
                 <span className="font-medium">Estado: </span>
-                {car.status === 'rented' && car.renterName && car.rentalPeriod ? (
-                  <span>Rentado por {car.renterName} {car.rentalPeriod}</span>
+                {car.status === 'rented' && car.reservingUsername && car.reservedDates ? (
+                  <span>Rentado por {car.reservingUsername} {car.rentalPeriod}</span>
                 ) : (
                   <span>{car.status}</span>
                 )}
