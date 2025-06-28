@@ -12,6 +12,10 @@ export default function MyCars() {
       getUserCars();   
     }, [getUserCars]);
 
+    useEffect(() => {
+      localStorage.setItem("userPostedCarsCount", userCars.length);
+    }, [userCars]);
+
     const handleDeleteCar = (carId) => {
       setUserCars(prevCars => prevCars.filter(car => car.carId !== carId));
     };

@@ -79,13 +79,13 @@ export default function MyProfile() {
               <div className="flex justify-center space-x-12 mb-8">
                 <div className="flex items-center text-sm text-gray-600">
                   <FaCar size={16} className="mr-2 text-primary" />
-                  <span>Vehículos publicados: </span>
-                  <span className="font-medium text-gray-900 ml-1">0</span>
+                  <span>Vehículos publicados:  </span>
+                  <span className="font-medium text-gray-900 ml-1">{ localStorage.getItem("userPostedCarsCount") }</span>
                 </div>
                 <div className="flex items-center text-sm text-gray-600">
                   <FaCalendarAlt size={16} className="mr-2 text-primary" />
                   <span>Vehículos rentados: </span>
-                  <span className="font-medium text-gray-900 ml-1">0</span>
+                  <span className="font-medium text-gray-900 ml-1">{ localStorage.getItem("userReservationsCount") }</span>
                 </div>
               </div>
               <div className="flex justify-center mt-8">

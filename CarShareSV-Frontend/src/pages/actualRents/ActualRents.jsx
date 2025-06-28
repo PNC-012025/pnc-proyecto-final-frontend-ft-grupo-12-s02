@@ -52,6 +52,8 @@ export default function ActualRents() {
     }, [user, getUserReservations]);
 
     useEffect(() => {
+        localStorage.setItem("userReservationsCount", userReservations.length);
+
         if (userReservations && userReservations.length > 0) {
             setActiveReservations(userReservations.filter(r => r.status === 'ACTIVE'));
         }
