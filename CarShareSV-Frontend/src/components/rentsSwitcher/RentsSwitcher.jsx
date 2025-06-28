@@ -17,18 +17,18 @@ export default function RentsSwitcher() {
   const [finishedReservations, setFinishedReservations] = useState([]);
 
   useEffect(() => {
-      console.log("User ID: ", user.userId);
+    if (user && user.userId) {
       getUserReservations(user.userId);
-      
-      const fRes = userReservations.filter(reservation => reservation.status === "FINISHED");
-      setFinishedReservations(fRes);
+    }
+  }, [user, getUserReservations]);
 
-      const aRes = userReservations.filter(reservation => reservation.status === "ACTIVE");
-      setActiveReservations(aRes);
+  useEffect(() => {
+    const fRes = userReservations.filter(reservation => reservation.status === "FINISHED");
+    setFinishedReservations(fRes);
 
-      console.log("Active Reservations: ", aRes);
-      console.log("Finished Reservations: ", fRes);
-  }, [getUserReservations]);
+    const aRes = userReservations.filter(reservation => reservation.status === "ACTIVE");
+    setActiveReservations(aRes);
+  }, [userReservations]);
 
 
   return (
