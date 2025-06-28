@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import RentsSwitcher from '../../components/rentsSwitcher/RentsSwitcher';
 import useReservation from '../../hooks/useReservation';
 import useUser from '../../hooks/useUser';
+import PastDetailCard from '../../components/cards/pastDetailCard/PastDetailCard';
 
 
 /* 

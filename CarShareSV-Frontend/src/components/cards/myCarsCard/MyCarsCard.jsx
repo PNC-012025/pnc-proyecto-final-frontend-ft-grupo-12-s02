@@ -7,6 +7,7 @@ import useReservation from '../../../hooks/useReservation';
 import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
 import Alert from '../../alerts/alert';
+import { isSameDay } from 'date-fns';
 
 export default function MyCarsCard({ car, onDelete }) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
@@ -14,14 +15,24 @@ export default function MyCarsCard({ car, onDelete }) {
   const [visibility, setVisibility] = useState(car.visible);
   const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
   const { changeVisibility, deleteCar } = useManageCars();
-  const { getCarReservations, carReservations } = useReservation();
+  const { getCarReservations, carReservations, getCarReservedDates, reservedDates } = useReservation();
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [reserved, setReserved] = useState(false);
 
 
   useEffect(() => {
     getCarReservations(car.carId);
+    getCarReservedDates(car.carId);
   }, [getCarReservations]);
+
+  useEffect(() => {
+    const today = new Date();
+    const isReserved = reservedDates.some(date => isSameDay(new Date(date), today));
+    setReserved(isReserved);
+    console.log("DATES: ", reservedDates);
+    console.log("NOW: ", today);
+}, [reservedDates]);
 
   const handleOnClick = () => {
     if (carReservations.length > 0 && car.visible) {
@@ -37,16 +48,16 @@ export default function MyCarsCard({ car, onDelete }) {
   }
 
   const handleConfirmDelete = () => {
-  if (carReservations.length > 0) {
-    setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
-    setAlertOpen(true);
+    if (carReservations.length > 0) {
+      setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
+      setAlertOpen(true);
+    }
+    else {
+      deleteCar(car.carId);
+      onDelete(car.carId);
+      setShowConfirm(false);
+    }
   }
-  else {
-    deleteCar(car.carId);
-    onDelete(car.carId);
-    setShowConfirm(false);
-  }
-}
 
   const handleCancelDelete = () => {
     setShowConfirm(false);
@@ -88,22 +99,18 @@ export default function MyCarsCard({ car, onDelete }) {
 
               <div className="text-sm text-gray-600">
                 <span className="font-medium">Estado: </span>
-                {car.status === 'rented' && car.renterName && car.rentalPeriod ? (
-                  <span>Rentado por {car.renterName} {car.rentalPeriod}</span>
-                ) : (
-                  <span>{car.status}</span>
-                )}
+                {reserved ? "Reservado" : "Disponible"}
               </div>
             </div>
 
             <div className="ml-6">
-                <ImgSlider images={car.images} />
+              <ImgSlider images={car.images} />
             </div>
           </div>
         </div>
       </div>
 
-            <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-3">
         {!showConfirm ? (
           <>
             <Button onClick={handleDeleteClick}>
@@ -111,7 +118,7 @@ export default function MyCarsCard({ car, onDelete }) {
             </Button>
             <Button
               onClick={handleOnClick}
-             >
+            >
               {visibility ? "Ocultar" : "Mostrar"}
             </Button>
           </>
