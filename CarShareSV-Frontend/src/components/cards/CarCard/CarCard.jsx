@@ -1,12 +1,23 @@
+import { useRef, useEffect } from "react";
 import { FaStar, FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGearStick } from "react-icons/gi";
 
 export default function CarCard({ car, onClick }) {
-  let mainImage = null;
-  if (Array.isArray(car.images) && car.images.length > 0) {
-    const randomIndex = Math.floor(Math.random() * car.images.length);
-    mainImage = car.images[randomIndex];
-  }
+  const randomIndexRef = useRef(null);
+
+  useEffect(() => {
+    if (randomIndexRef.current === null || randomIndexRef.current.carId !== car.carId) {
+      randomIndexRef.current = {
+        carId: car.carId,
+        index: Math.floor(Math.random() * (car.images?.length || 1))
+      };
+    }
+  }, [car.carId, car.images]);
+
+  const mainImage =
+    Array.isArray(car.images) && car.images.length > 0
+      ? car.images[randomIndexRef.current?.index ?? 0]
+      : null;
 
   return (
     <div onClick={onClick} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:scale-[1.01] transition-transform duration-200">
@@ -16,7 +27,6 @@ export default function CarCard({ car, onClick }) {
           {car.brand} <span className="text-gray-500 font-normal"></span>
           {car.model} <span className="text-gray-500 font-normal">{car.year}</span>
         </h3>
-
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
           <div className="flex items-center gap-1">
             <FaStar className="text-primary" /> {car.rating}
@@ -31,7 +41,6 @@ export default function CarCard({ car, onClick }) {
             <GiGearStick className="text-primary" /> {car.transmission === 'Automatic' ? 'Automático' : 'Manual'}
           </div>
         </div>
-
         <div className="pt-2 text-base font-semibold text-gray-900">
           ${car.dailyPrice} <span className="text-sm text-gray-500 font-normal">/día</span>
         </div>

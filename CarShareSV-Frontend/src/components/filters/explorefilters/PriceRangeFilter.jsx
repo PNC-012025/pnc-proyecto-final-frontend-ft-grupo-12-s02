@@ -5,7 +5,6 @@ const PriceRangeFilter = ({ setFilter, resetKey }) => {
   const [max, setMax] = useState("");
 
   useEffect(() => {
-    // Reset min and max values when resetKey changes
     setMin("");
     setMax("");
   }, [resetKey]);
@@ -15,7 +14,7 @@ const PriceRangeFilter = ({ setFilter, resetKey }) => {
     setMin(minPrice);
     setFilter((prevFilter) => ({
       ...prevFilter,
-      min: minPrice ? parseFloat(minPrice) : null
+      minPrice: minPrice ? parseFloat(minPrice) : null
     }));
   }
 
@@ -24,7 +23,7 @@ const PriceRangeFilter = ({ setFilter, resetKey }) => {
     setMax(maxPrice);
     setFilter((prevFilter) => ({
       ...prevFilter,
-      max: maxPrice ? parseFloat(maxPrice) : null
+      maxPrice: maxPrice ? parseFloat(maxPrice) : null
     }));
   }
 
