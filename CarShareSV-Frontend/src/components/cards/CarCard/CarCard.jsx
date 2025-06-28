@@ -2,8 +2,11 @@ import { FaStar, FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGearStick } from "react-icons/gi";
 
 export default function CarCard({ car, onClick }) {
-  const mainImage = Array.isArray(car.images) && car.images.length > 0
-    ? car.images[0]: null;
+  let mainImage = null;
+  if (Array.isArray(car.images) && car.images.length > 0) {
+    const randomIndex = Math.floor(Math.random() * car.images.length);
+    mainImage = car.images[randomIndex];
+  }
 
   return (
     <div onClick={onClick} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md hover:scale-[1.01] transition-transform duration-200">
