@@ -5,6 +5,7 @@ import PastDetailCard from '../../components/cards/pastDetailCard/PastDetailCard
 import RentsSwitcher from '../../components/rentsSwitcher/RentsSwitcher';
 import useReservation from '../../hooks/useReservation';
 import useUser from '../../hooks/useUser';
+import { isBefore, parseISO, startOfDay } from 'date-fns';
 
 export default function PastRents() {
 
@@ -40,16 +41,19 @@ export default function PastRents() {
     }*/
     ]);
 
-    
     useEffect(() => {
-        if (user && user.userId) {
-            getUserReservations(user.userId);
+    if (user && user.userId) {
+        getUserReservations(user.userId);
 
-            setFinishedReservations(userReservations.filter(r => r.status === 'FINISHED'));
-        }
-
-        console.log("Finished Reservations: ", finishedReservations);
-    }, [user, getUserReservations]);
+        const today = startOfDay(new Date());
+        setFinishedReservations(
+            userReservations.filter(r =>
+                r.status === 'FINISHED' ||
+                isBefore(startOfDay(parseISO(r.endDate)), today)
+            )
+        );
+    }
+}, [user, getUserReservations, userReservations]);
     
 
     return (
