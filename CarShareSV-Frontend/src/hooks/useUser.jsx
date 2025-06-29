@@ -52,77 +52,77 @@ export default function useUser() {
   }, [setToken, setUser]); 
   
   //ADMIN FUNCTIONS:
-    const getAllUsers = useCallback(async () => {
-        try {
-          setState({ loading: true, error: false });
-          const fetchedUsers = await getAllUsersService();
-          setAllUsers(fetchedUsers);
-        } catch (error) {
-          console.error("Error fetching all users: ", error);
-          setState({ loading: false, error: true });
-        } finally {
-          setState({ loading: false, error: false });
-        }
-      }, []);
+  const getAllUsers = useCallback(async () => {
+    try {
+      setState({ loading: true, error: false });
+      const fetchedUsers = await getAllUsersService();
+      setAllUsers(fetchedUsers);
+    } catch (error) {
+      console.error("Error fetching all users: ", error);
+      setState({ loading: false, error: true });
+    } finally {
+      setState({ loading: false, error: false });
+    }
+  }, []);
 
-      const activateUser = useCallback((userId) => {
-        setState({ loading: true, error: false });
-        
-        activateUserService(userId, token)
-          .then(() => {
-            setState({ loading: false, error: false });
-            console.log(`User activated`);
-          })
-          .catch(error => {
-            setState({ loading: false, error: true });
-            console.error("Error activating user: ", error);
-          });
-      }, [token]);
-
-      const deactivateUser = useCallback((userId) => {
-        setState({ loading: true, error: false });
-        
-        deactivateUserService(userId, token)
-          .then(() => {
-            setState({ loading: false, error: false });
-            console.log(`User deactivated`);
-          })
-          .catch(error => {
-            setState({ loading: false, error: true });
-            console.error("Error deactivating user: ", error);
-          });
-      }, [token]);
-
-      //SYSADMIN FUNCTIONS
-
-      const grantAdminRole = useCallback((userId) => {
-        setState({ loading: true, error: false });
-        
-        grantAdminRoleService(userId, token)
-          .then(() => {
-            setState({ loading: false, error: false });
-            console.log(`granted admin role to user`);
-          })
-          .catch(error => {
-            setState({ loading: false, error: true });
-            console.error("Error granting admin role to user: ", error);
-          });
-      }, [token]);
-
+    const activateUser = useCallback((userId) => {
+      setState({ loading: true, error: false });
       
-      const revokeAdminRole = useCallback((userId) => {
-        setState({ loading: true, error: false });
-        
-        revokeAdminRoleService(userId, token)
-          .then(() => {
-            setState({ loading: false, error: false });
-            console.log(`Revoked admin role to user`);
-          })
-          .catch(error => {
-            setState({ loading: false, error: true });
-            console.error("Error revoking admin role to user: ", error);
-          });
-      }, [token]);
+      activateUserService(userId, token)
+        .then(() => {
+          setState({ loading: false, error: false });
+          console.log(`User activated`);
+        })
+        .catch(error => {
+          setState({ loading: false, error: true });
+          console.error("Error activating user: ", error);
+        });
+    }, [token]);
+
+    const deactivateUser = useCallback((userId) => {
+      setState({ loading: true, error: false });
+      
+      deactivateUserService(userId, token)
+        .then(() => {
+          setState({ loading: false, error: false });
+          console.log(`User deactivated`);
+        })
+        .catch(error => {
+          setState({ loading: false, error: true });
+          console.error("Error deactivating user: ", error);
+        });
+    }, [token]);
+
+    //SYSADMIN FUNCTIONS
+
+    const grantAdminRole = useCallback((userId) => {
+      setState({ loading: true, error: false });
+      
+      grantAdminRoleService(userId, token)
+        .then(() => {
+          setState({ loading: false, error: false });
+          console.log(`granted admin role to user`);
+        })
+        .catch(error => {
+          setState({ loading: false, error: true });
+          console.error("Error granting admin role to user: ", error);
+        });
+    }, [token]);
+
+    
+    const revokeAdminRole = useCallback((userId) => {
+      setState({ loading: true, error: false });
+      
+      revokeAdminRoleService(userId, token)
+        .then(() => {
+          setState({ loading: false, error: false });
+          console.log(`Revoked admin role to user`);
+        })
+        .catch(error => {
+          setState({ loading: false, error: true });
+          console.error("Error revoking admin role to user: ", error);
+        });
+    }, [token]);
 
 
   return {
