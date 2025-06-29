@@ -1,6 +1,17 @@
+import { useEffect } from "react";
 import Header from "../../../components/header/Header";
+import useUser from "../../../hooks/useUser";
 
 export default function UsersList() {
+
+    const { loading, getAllUsers, allUsers} = useUser();
+
+    useEffect(() => {
+        getAllUsers();
+    }, [getAllUsers]);
+
+    console.log("Lista de los usuarios: ", allUsers )
+
     return (
         <div className="min-h-screen bg-gray-50 flex p-4 mt-20">
         <Header />
