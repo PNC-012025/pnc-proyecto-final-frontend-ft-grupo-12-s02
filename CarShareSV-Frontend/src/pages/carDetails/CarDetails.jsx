@@ -11,8 +11,10 @@ import Alert from "../../components/alerts/alert";
 import { useLocation } from "react-router-dom";
 import useReservation from '../../hooks/useReservation';
 import ImageSlider from '../../components/imageslider/imageslider';
+import useReview from '../../hooks/useReview';
+import ReviewCard from '../../components/carReviews/reviewCard';
 //import card1 from "../../assets/images/card1.jpg";
-
+import { FaStar } from 'react-icons/fa';
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString("es-ES", {
@@ -23,6 +25,7 @@ function formatDate(date) {
 }
 
 export default function CarDetails() {
+    const { carReviews, getCarReviews, isLoading: loadingReviews } = useReview();
     const location = useLocation();
     const car = location.state?.car;
     const { createReservation, getCarReservedDates, reservedDates, isLoading, hasError } = useReservation();
@@ -31,7 +34,8 @@ export default function CarDetails() {
 
     useEffect(() => {
         getCarReservedDates(car.carId);
-    }, [getCarReservedDates]);
+        getCarReviews(car.carId);
+    }, [getCarReservedDates, getCarReviews, car.carId]);
 
     //console.log("Car Details: ", car);
     const [range, setRange] = useState({
@@ -39,6 +43,14 @@ export default function CarDetails() {
         endDate: new Date(),
         key: "selection",
     });
+
+    const averageRating =
+        carReviews && carReviews.length > 0
+            ? (
+                carReviews.reduce((sum, review) => sum + (review.rating || 0), 0) /
+                carReviews.length
+            ).toFixed(1)
+            : null;
 
     const handleSelect = (ranges) => {
         setRange(ranges.selection);
@@ -177,11 +189,33 @@ export default function CarDetails() {
                         </div>
                     </div>
                 </div>
+                <hr className='mt-5'></hr>
+                <div className="mt-5">
+                    <h3 className="text-2xl font-semibold mb-4">Reseñas del vehículo</h3>
+                    {averageRating && (
+                        <div className="flex items-center mb-4">
+                            <span className='mr-2'><FaStar className="text-primary text-xl" /></span>
+                            <span className="font-semibold text-gray-800">{averageRating} / 5</span>
+                            <span className="ml-2 text-gray-500 text-sm">({carReviews.length} reseñas)</span>
+                        </div>
+                    )}
+                    {loadingReviews ? (
+                        <p>Cargando reseñas...</p>
+                    ) : carReviews && carReviews.length > 0 ? (
+                        carReviews.map((review, idx) => (
+                            <ReviewCard key={idx} review={review} />
+                        ))
+                    ) : (
+                        <p>No hay reseñas para este vehículo.</p>
+                    )}
+                </div>
+
                 <Alert
                     message={alertMessage}
                     isOpen={alertOpen}
                     onClose={() => setAlertOpen(false)}
                 />
+
             </div>
         </div>
     );

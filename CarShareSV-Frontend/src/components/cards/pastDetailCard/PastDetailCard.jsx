@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Button from "../../button/Button";
+import useReview from "../../../hooks/useReview";
 
 function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -6,6 +8,52 @@ function formatDate(dateString) {
 }
 
 export default function PastDetailCard({ rent }) {
+    const [rating, setRating] = useState("");
+    const [comment, setComment] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+    const { createReview, isLoading } = useReview();
+
+
+    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSuccess(false);
+        setError(false);
+
+        if (
+            !rating ||
+            !comment ||
+            comment.length < 10 ||
+            rating < 0 ||
+            rating > 5
+        ) {
+            setError("Completa ambos campos correctamente.");
+            return;
+        }
+
+        try {
+            await createReview(
+                { comment, rating: Number(rating) },
+                rent.reservedCar.carId
+            );
+            setSuccess(true);
+            setComment("");
+            setRating("");
+        } catch (err) {
+            if (
+                err.message &&
+                err.message.includes("llave duplicada") &&
+                err.message.includes("user_id")
+            ) {
+                setError("Ya has dejado una reseña para este vehículo.");
+            } else {
+                setError("Ocurrió un error al enviar la reseña.");
+            }
+        }
+    };
+
     return (
         <div className="flex gap-4 items-start"> 
         
@@ -35,23 +83,34 @@ export default function PastDetailCard({ rent }) {
                     </div>
                 </div>
 
-                <div className="flex flex-col space-y-3">
-                    <input
-                        type="number"
-                        placeholder="Calificación"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
-                    />
+                <form className="flex flex-col space-y-3" onSubmit={handleSubmit}>
+                    <select
+                        value={rating}
+                        onChange={e => setRating(Number(e.target.value))}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
+                        required
+                    >
+                        <option value="">Calificación (1-5)</option>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                    </select>
                     <input
                         type="text"
+                        value={comment}
+                        onChange={e => setComment(e.target.value)}
                         placeholder="Comentario"
                         className="w-full px-4 py-2 border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300"
                     />
-                </div>
+                    <Button className="self-center w-30" type="submit" disabled={isLoading}>
+                        {isLoading ? "Enviando..." : "Enviar"}
+                    </Button>
+                    {success && <span className="text-green-600 text-sm">¡Reseña enviada!</span>}
+                    {error && <span className="text-red-600 text-sm">{error}</span>}
+                </form>
             </div>
-
-            <Button className="self-center w-30">
-                Enviar
-            </Button>
         </div>
     );
 }

@@ -14,15 +14,14 @@ export function postReview({comment, rating}, carId, token) {
         comment,
         rating
     })
-  }).then((response) => {
+  }).then(async (response) => {
+        const text = await response.text();
         if (!response.ok) {
-            throw new Error('Error creating review: ' + response.statusText);
+            throw new Error('Error creating review: ' + response.statusText + " - " + text);
         }
-        return response.json();
+        return JSON.parse(text);
     }).then(response => {
         const {message} = response;
-        console.log("API RESPONSE:", message);
-
         return message;
     });
 }
@@ -30,10 +29,8 @@ export function postReview({comment, rating}, carId, token) {
 export async function fetchAllCarReviews(carId) {
   try {
     const { data } = await axios.get(`${BASE_URL}/reviews/getAllReviewByCarId/${carId}`);
-
     return data.data;
   } catch (error) {
-    console.error("Error fetching car reviews:", error);
     throw error;
   }
 }
