@@ -64,3 +64,94 @@ export async function getUser (token = null) {
 
   return data.data;
 }
+
+//admin endpoints
+export async function getAllUsers () { 
+  try {
+    const { data } = await axios.get(`${BASE_URL}/user/getAll`);
+
+    return data.data;
+  } catch (error) {
+    throw new Error('Error fetching all users: ' + error.message);
+  }
+}
+
+
+export function activeUser (userId, token) {
+  return fetch(`${BASE_URL}/user/activate/${userId}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error al activar usuario: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    console.log("usuario activado correctamente: " + response.message);
+  });
+}
+
+export function deactiveUser (userId, token) {
+  return fetch(`${BASE_URL}/user/deactivate/${userId}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error al desactivar usuario: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    console.log("usuario desactivado correctamente: " + response.message);
+  });
+}
+
+//sysadmin endpoints
+export function grantAdminRole (userId, token) {
+  return fetch(`${BASE_URL}/user/grantAdminRole/${userId}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error al otorgar admin rol a usuario: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    console.log("rol otorgado correctamente: " + response.message);
+  });
+}
+
+export function revokeAdminRole (userId, token) {
+  return fetch(`${BASE_URL}/user/revokeAdminRole/${userId}`, {
+    method: 'PATCH',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { 'Authorization': `Bearer ${token}` })
+    }
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Error al revocar admin rol a usuario: ' + response.statusText);
+    }
+
+    return response.json();
+  }).then(response => {
+    console.log("rol revocado correctamente: " + response.message);
+  });
+}
+
+
