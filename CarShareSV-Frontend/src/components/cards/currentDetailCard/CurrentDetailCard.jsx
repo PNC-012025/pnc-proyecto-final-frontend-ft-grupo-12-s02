@@ -41,7 +41,7 @@ export default function CurrentDetailCard({ rent }) {
                 </div>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-6">
                 <Button onClick={handleOnClick} className="w-full mt-5">
                     Cancelar
                 </Button>

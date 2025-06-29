@@ -8,6 +8,8 @@ import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
 import Alert from '../../alerts/alert';
 import { isSameDay } from 'date-fns';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 export default function MyCarsCard({ car, onDelete }) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
@@ -32,7 +34,7 @@ export default function MyCarsCard({ car, onDelete }) {
     setReserved(isReserved);
     console.log("DATES: ", reservedDates);
     console.log("NOW: ", today);
-}, [reservedDates]);
+  }, [reservedDates]);
 
   const handleOnClick = () => {
     if (carReservations.length > 0 && car.visible) {
@@ -63,8 +65,15 @@ export default function MyCarsCard({ car, onDelete }) {
     setShowConfirm(false);
   }
 
+  const navigate = useNavigate();
+
+    const handleCardClick = (e) => {
+    if (e.target.tagName === "BUTTON") return;
+    navigate(`/car/${car.carId}`, { state: { car } });
+  };
+
   return (
-    <div className="flex items-center space-x-6">
+    <div className="flex items-center space-x-6 cursor-pointer" onClick={handleCardClick}>
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[800px]">
         <div className="p-6">
           <div className="flex justify-between items-start">
@@ -75,32 +84,40 @@ export default function MyCarsCard({ car, onDelete }) {
               </h3>
               <p className="text-gray-600 mb-4">{car.year}</p>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4 mt-10">
                 <div className="flex items-center">
-                  <FaUser className="mr-1 text-primary" />
+                  <FaUser className="mr-2 text-primary" />
                   <span>{car.capacity} pasajeros</span>
                 </div>
                 <div className="flex items-center">
-                  <GiCarDoor className="mr-1 text-primary" />
+                  <GiCarDoor className="mr-2 text-primary" />
                   <span>{car.doors} puertas</span>
                 </div>
                 <div className="flex items-center">
-                  <GiGearStick className="mr-1 text-primary" />
+                  <GiGearStick className="mr-2 text-primary" />
                   <span>{car.transmission === 'Automatic' ? 'Automático' : 'Manual'}</span>
                 </div>
               </div>
 
-              <div className="flex items-center mb-4">
-                <span className="text-sm text-gray-600">Calificación:</span>
-                <FaStar className="ml-2 mr-1 text-primary" />
+              <div className="flex items-center mb-4 mt-5">
+                <FaStar className=" mr-1 text-primary" />
+                <span className="text-sm text-gray-600">Calificación:</span> 
                 <span className="font-medium text-gray-900">{car.rating}</span>
                 <span className="text-sm text-gray-500 ml-1">({car.reviewCount} reseñas)</span>
               </div>
 
-              <div className="text-sm text-gray-600">
+              <div className="flex items-center text-sm text-gray-600 mt-5 ">
+                  <FaMapMarkerAlt className="mr-2 text-primary" />
+                  <span className="font-medium">{car.location}</span>
+                </div>
+
+              <div className="text-sm text-gray-600 mt-5">
                 <span className="font-medium">Estado: </span>
                 {reserved ? "Reservado" : "Disponible"}
               </div>
+
+              
+
             </div>
 
             <div className="ml-6">
