@@ -1,6 +1,7 @@
 import { FaUser, FaCar, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import ImageSlider from '../../imageslider/imageslider';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function MyRentsCard({ car }) {
   return (
@@ -16,7 +17,7 @@ export default function MyRentsCard({ car }) {
                   <p className="text-gray-600 text-lg">{car.year}</p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-y-4 gap-x-6 text-sm text-gray-600">
+                <div className="flex flex-wrap items-center gap-y-5 gap-x-6 text-sm text-gray-600">
                   <div className="flex items-center">
                     <FaUser className="mr-2 text-primary" />
                     <span>{car.capacity} pasajeros</span>
@@ -32,16 +33,23 @@ export default function MyRentsCard({ car }) {
                 </div>
 
                 <div className="flex items-center text-base text-gray-800">
+                   <FaStar className="mr-1 text-primary" />
                   <span className="text-sm text-gray-600 mr-2">Calificación:</span>
-                  <FaStar className="mr-1 text-primary" />
+                 
                   <span className="font-medium">{car.rating}</span>
                   <span className="text-sm text-gray-500 ml-1">({car.reviewCount} reseñas)</span>
                 </div>
 
-                <div className="flex items-center text-sm text-gray-600 pt-2">
+                <div className="flex items-center text-sm text-gray-600">
                   <FaUser className="mr-2 text-primary" />
                   <span className="font-medium">{car.username}</span>
                 </div>
+
+                <div className="flex items-center text-sm text-gray-600 ">
+                  <FaMapMarkerAlt className="mr-2 text-primary" />
+                  <span className="font-medium">{car.location}</span>
+                </div>
+
               </div>
             </div>
 

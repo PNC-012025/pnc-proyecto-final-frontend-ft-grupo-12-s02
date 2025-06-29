@@ -49,7 +49,7 @@ export default function MyProfile() {
   return (
     <>
       <Header />
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center pt-20">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center">
       <h2 className="text-4xl font-semibold text-gray-900 mb-8">
        Mi Perfil
       </h2>

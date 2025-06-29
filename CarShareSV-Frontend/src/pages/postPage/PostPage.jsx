@@ -158,7 +158,7 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
     <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-16">
-        <h2 className="text-4xl font-semibold text-gray-900 mb-12">
+        <h2 className="text-3xl font-semibold text-gray-900 mb-8">
           Publica tu vehículo
         </h2>
 

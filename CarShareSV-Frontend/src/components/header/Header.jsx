@@ -40,14 +40,19 @@ export default function Header() {
                             to="/mycars"
                             className={`transition-colors ${isActive("/mycars") ? "text-primary" : "text-gray-700"} hover:text-primary`}
                         >
-                            Mis Vehículos
+                            Mis vehículos
                         </Link>
                         <Link
                             to="/rents/actuals"
                             className={`transition-colors ${isActive("/rents/actuals") ? "text-primary" : "text-gray-700"} hover:text-primary`}
                         >
-                            Mis Rentas
+                            Mis rentas
                         </Link>
+
+                         {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
+                                <Link to="/admin/users" className={`transition-colors ${isActive("/admin/users") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Usuarios</Link>
+                            )}
+
                     </nav>
                 )}
 
@@ -64,10 +69,9 @@ export default function Header() {
                         </>
                     ) : (
                         <>
-                            <Link to="/myprofile" className="text-gray-700 hover:text-primary transition-colors mr-10 text-lg">Perfil</Link>
-                            {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
-                                <Link to="/admin/users" className="text-gray-700 hover:text-primary transition-colors text-lg">Usuarios</Link>
-                            )}
+    
+                             <Link to="/myprofile" className={`transition-colors ${isActive("/myprofile") ? "text-primary" : "text-gray-700"} hover:text-primary mr-10 text-lg`}>Perfil</Link>
+                           
                         </>
                     )}
                 </div>

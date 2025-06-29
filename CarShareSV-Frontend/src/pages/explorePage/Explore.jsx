@@ -47,32 +47,32 @@ export default function Explore() {
   const filteredCars = filterCars(cars);
 
   console.log("Lista de autos filtrados y su orden:", filteredCars.map((car, idx) => ({
-  idx,
-  description: car.description,
-})));
+    idx,
+    description: car.description,
+  })));
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-   
+
       <div className="max-w-6xl mx-auto pt-28 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h2 className="text-4xl font-semibold text-gray-900 mb-8">
-          Explorar Vehículos Disponibles
+          <h2 className="text-3xl font-semibold text-gray-900 mb-8">
+            Vehículos Disponibles
           </h2>
-          <Filters setFilter={setSelectedFilter}/>
+          <Filters setFilter={setSelectedFilter} />
         </div>
 
         {loading ? <p>Cars Loading...</p> :
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 ">
-          {filteredCars.map((car, index) => (
-            <CarCard key={index} car={car} onClick={() => {
-              navigate(`/car/${car.carId || index}`, { state: { car } })
-            }
-            } />
-          ))}
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 ">
+            {filteredCars.map((car, index) => (
+              <CarCard key={index} car={car} onClick={() => {
+                navigate(`/car/${car.carId || index}`, { state: { car } })
+              }
+              } />
+            ))}
+          </div>
         }
       </div>
     </div>
