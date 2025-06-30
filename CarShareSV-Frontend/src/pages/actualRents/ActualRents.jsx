@@ -46,6 +46,11 @@ export default function ActualRents() {
     const { userReservations, getUserReservations } = useReservation();
     const [activeReservations, setActiveReservations] = useState([]);
 
+    const removeReservation = (reservationId) => {
+        setActiveReservations(prev => prev.filter(r => r.reservationId !== reservationId));
+    };
+
+
     useEffect(() => {
         if (user && user.userId) {
             getUserReservations(user.userId);
@@ -59,6 +64,8 @@ export default function ActualRents() {
             setActiveReservations(userReservations.filter(r => r.status === 'ACTIVE'));
         }
     }, [userReservations]);
+
+
 
 
 
@@ -79,7 +86,10 @@ export default function ActualRents() {
                                 <MyRentsCard car={activeReservation.reservedCar} />
                             </div>
 
-                           < CurrentDetailCard  rent={activeReservation}/>
+                            <CurrentDetailCard
+                                rent={activeReservation}
+                                onRemove={removeReservation}
+                            />
 
                         </div>
 
