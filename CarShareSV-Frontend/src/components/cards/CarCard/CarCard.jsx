@@ -1,9 +1,27 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FaStar, FaUser } from "react-icons/fa";
 import { GiCarDoor, GiGearStick } from "react-icons/gi";
+import useReview from "../../../hooks/useReview";
 
 export default function CarCard({ car, onClick }) {
   const randomIndexRef = useRef(null);
+  const { carReviews, getCarReviews } = useReview();
+  const [averageRating, setAverageRating] = useState(null);
+
+  useEffect(() => {
+    getCarReviews(car.carId);
+  }, [car.carId, getCarReviews]);
+
+  useEffect(() => {
+    if (carReviews && carReviews.length > 0) {
+      const avg =
+        carReviews.reduce((sum, review) => sum + (review.rating || 0), 0) /
+        carReviews.length;
+      setAverageRating(avg.toFixed(1));
+    } else {
+      setAverageRating(null);
+    }
+  }, [carReviews]);
 
   useEffect(() => {
     if (randomIndexRef.current === null || randomIndexRef.current.carId !== car.carId) {
@@ -29,7 +47,7 @@ export default function CarCard({ car, onClick }) {
         </h3>
         <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600">
           <div className="flex items-center gap-1">
-            <FaStar className="text-primary" /> {car.rating}
+            <FaStar className="text-primary" /> {averageRating ?? "N/A"}
           </div>
           <div className="flex items-center gap-1">
             <FaUser className="text-primary" /> {car.capacity}

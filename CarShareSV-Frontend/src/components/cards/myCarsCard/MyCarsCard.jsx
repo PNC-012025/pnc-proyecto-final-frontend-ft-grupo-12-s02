@@ -4,6 +4,7 @@ import Button from '../../button/Button';
 import useManageCars from '../../../hooks/useManageCars';
 import { useEffect, useState } from 'react';
 import useReservation from '../../../hooks/useReservation';
+import useReview from '../../../hooks/useReview'; // <-- Agrega esto
 import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
 import Alert from '../../alerts/alert';
@@ -15,13 +16,32 @@ export default function MyCarsCard({ car, onDelete }) {
   const mainImage = Array.isArray(car.images) && car.images.length > 0
     ? car.images[0] : null;
   const [visibility, setVisibility] = useState(car.visible);
-  const [showConfirm, setShowConfirm] = useState(false); // Nuevo estado
+  const [showConfirm, setShowConfirm] = useState(false);
   const { changeVisibility, deleteCar } = useManageCars();
   const { getCarReservations, carReservations, getCarReservedDates, reservedDates } = useReservation();
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [reserved, setReserved] = useState(false);
 
+  // --- Lógica de averageRating ---
+  const { carReviews, getCarReviews } = useReview();
+  const [averageRating, setAverageRating] = useState(null);
+
+  useEffect(() => {
+    getCarReviews(car.carId);
+  }, [car.carId, getCarReviews]);
+
+  useEffect(() => {
+    if (carReviews && carReviews.length > 0) {
+      const avg =
+        carReviews.reduce((sum, review) => sum + (review.rating || 0), 0) /
+        carReviews.length;
+      setAverageRating(avg.toFixed(1));
+    } else {
+      setAverageRating(null);
+    }
+  }, [carReviews]);
+  // --- Fin lógica de averageRating ---
 
   useEffect(() => {
     getCarReservations(car.carId);
@@ -67,7 +87,7 @@ export default function MyCarsCard({ car, onDelete }) {
 
   const navigate = useNavigate();
 
-    const handleCardClick = (e) => {
+  const handleCardClick = (e) => {
     if (e.target.tagName === "BUTTON") return;
     navigate(`/car/${car.carId}`, { state: { car } });
   };
@@ -101,9 +121,9 @@ export default function MyCarsCard({ car, onDelete }) {
 
               <div className="flex items-center mb-4 mt-5">
                 <FaStar className=" mr-1 text-primary" />
-                <span className="text-sm text-gray-600">Calificación:</span> 
-                <span className="font-medium text-gray-900">{car.rating}</span>
-                <span className="text-sm text-gray-500 ml-1">({car.reviewCount} reseñas)</span>
+                <span className="text-sm text-gray-600">Calificación:</span>
+                <span className="ml-2 text-sm text-gray-600">{averageRating ?? "N/A"}</span>
+                <span className="text-sm text-gray-500 ml-1">({carReviews ? carReviews.length : 0} reseñas)</span>
               </div>
 
               <div className="flex items-center text-sm text-gray-600 mt-5 ">
@@ -115,8 +135,6 @@ export default function MyCarsCard({ car, onDelete }) {
                 <span className="font-medium">Estado: </span>
                 {reserved ? "Reservado" : "Disponible"}
               </div>
-
-              
 
             </div>
 

@@ -2,14 +2,34 @@ import { FaUser, FaCar, FaStar } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import ImageSlider from '../../imageslider/imageslider';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import useReview from '../../../hooks/useReview';
 
 export default function MyRentsCard({ car }) {
+  // Lógica de averageRating
+  const { carReviews, getCarReviews } = useReview();
+  const [averageRating, setAverageRating] = useState(null);
+
+  useEffect(() => {
+    getCarReviews(car.carId);
+  }, [car.carId, getCarReviews]);
+
+  useEffect(() => {
+    if (carReviews && carReviews.length > 0) {
+      const avg =
+        carReviews.reduce((sum, review) => sum + (review.rating || 0), 0) /
+        carReviews.length;
+      setAverageRating(avg.toFixed(1));
+    } else {
+      setAverageRating(null);
+    }
+  }, [carReviews]);
+
   return (
     <div className="flex items-stretch space-x-6">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-[700px] min-h-[310px] h-full">
         <div className="p-6 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start h-full">
-         
             <div className="flex-1 flex flex-col justify-between">
               <div className="space-y-6">
                 <div>
@@ -33,11 +53,10 @@ export default function MyRentsCard({ car }) {
                 </div>
 
                 <div className="flex items-center text-base text-gray-800">
-                   <FaStar className="mr-1 text-primary" />
+                  <FaStar className="mr-1 text-primary" />
                   <span className="text-sm text-gray-600 mr-2">Calificación:</span>
-                 
-                  <span className="font-medium">{car.rating}</span>
-                  <span className="text-sm text-gray-500 ml-1">({car.reviewCount} reseñas)</span>
+                  <span className="text-sm">{averageRating ?? "N/A"}</span>
+                  <span className="text-sm text-gray-500 ml-1">({carReviews ? carReviews.length : 0} reseñas)</span>
                 </div>
 
                 <div className="flex items-center text-sm text-gray-600">
@@ -49,7 +68,6 @@ export default function MyRentsCard({ car }) {
                   <FaMapMarkerAlt className="mr-2 text-primary" />
                   <span className="font-medium">{car.location}</span>
                 </div>
-
               </div>
             </div>
 
