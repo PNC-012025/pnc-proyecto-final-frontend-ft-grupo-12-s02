@@ -13,9 +13,9 @@ export default function SignIn() {
     const { isLoading, hasError, registerUser, isLogged } = useSignIn();
 
     useEffect(() => {
-        if(isLogged) {
+        if (isLogged) {
             navigate('/explore');
-        } else if (!isLogged && hasError){
+        } else if (!isLogged && hasError) {
             setAlertMessage("Hubo error en el registro");
             setAlertOpen(true)
         }
@@ -53,7 +53,7 @@ export default function SignIn() {
             newErrors.password = 'Formato de contraseña inválido.';
         }
 
-    
+
         const birthdateRegex = /^\d{4}-\d{2}-\d{2}$/;
         if (!fieldValues.birthdate.trim()) {
             newErrors.birthdate = 'La fecha de nacimiento es requerida.';
@@ -67,7 +67,7 @@ export default function SignIn() {
         } else if (!phoneRegex.test(fieldValues.phoneNumber)) {
             newErrors.phoneNumber = 'El número de teléfono debe tener 8 dígitos';
         }
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!fieldValues.email.trim()) {
             newErrors.email = 'El correo electrónico es requerido';
@@ -175,10 +175,16 @@ export default function SignIn() {
                             {errors.username && touched.username && <p className="text-red-500 text-xs mt-1">{errors.username}</p>}
                         </div>
                         <div>
+                            <label
+                                htmlFor="birthdate"
+                                className="block text-gray-400 text-md mb-1 ml-2"
+                            >
+                                Fecha de nacimiento
+                            </label>
                             <input
                                 type="date"
                                 name="birthdate"
-                                placeholder="Fecha de nacimiento"
+                                id="birthdate"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 className={`w-full px-4 py-3 border ${errors.birthdate && touched.birthdate ? 'border-red-500' : 'border-gray-300'} rounded-full placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition duration-300`}

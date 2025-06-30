@@ -23,7 +23,7 @@ export default function useUser() {
     if(token) getUserFromApi();
 
     window.sessionStorage.setItem("user", user);
-    console.log("useUser - user:", user);
+    //console.log("useUser - user:", user);
   }, [token, setUser]);
 
  const login = useCallback(async ({ username, password }) => {
@@ -71,7 +71,7 @@ export default function useUser() {
       activateUserService(userId, token)
         .then(() => {
           setState({ loading: false, error: false });
-          console.log(`User activated`);
+          //console.log(`User activated`);
         })
         .catch(error => {
           setState({ loading: false, error: true });
@@ -85,7 +85,7 @@ export default function useUser() {
       deactivateUserService(userId, token)
         .then(() => {
           setState({ loading: false, error: false });
-          console.log(`User deactivated`);
+          //console.log(`User deactivated`);
         })
         .catch(error => {
           setState({ loading: false, error: true });
@@ -101,7 +101,7 @@ export default function useUser() {
       grantAdminRoleService(userId, token)
         .then(() => {
           setState({ loading: false, error: false });
-          console.log(`granted admin role to user`);
+          //console.log(`granted admin role to user`);
         })
         .catch(error => {
           setState({ loading: false, error: true });
@@ -116,7 +116,7 @@ export default function useUser() {
       revokeAdminRoleService(userId, token)
         .then(() => {
           setState({ loading: false, error: false });
-          console.log(`Revoked admin role to user`);
+          //console.log(`Revoked admin role to user`);
         })
         .catch(error => {
           setState({ loading: false, error: true });

@@ -46,11 +46,11 @@ export default function Explore() {
 
   const filteredCars = filterCars(cars);
 
-  console.log("Lista de autos filtrados y su orden:", filteredCars.map((car, idx) => ({
+  /*console.log("Lista de autos filtrados y su orden:", filteredCars.map((car, idx) => ({
     idx,
     description: car.description,
   })));
-
+  */
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
