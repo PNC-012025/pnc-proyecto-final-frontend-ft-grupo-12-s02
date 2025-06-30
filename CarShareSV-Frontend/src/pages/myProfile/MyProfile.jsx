@@ -1,4 +1,4 @@
-import { FaUser, FaCar, FaCalendarAlt } from 'react-icons/fa';
+import { FaUser, FaCar, FaCalendarAlt, FaUser, FaUserCog, FaUserTie, FaUserShield } from 'react-icons/fa';
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import useUser from '../../hooks/useUser';
@@ -9,6 +9,12 @@ export default function MyProfile() {
   const { user, isLogged, logout } = useUser();
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+
+  const roleIcons = {
+  "ROLE_USER": <FaUser className="text-primary" title="Usuario" />,
+  "ROLE_ADMIN": <FaUserCog className="text-blue-500" title="Admin" />,
+  "ROLE_SYSADMIN": <FaUserTie className="text-yellow-500" title="SysAdmin" />
+  };
 
   useEffect(() => {
     if (isLogged && user && user.data) {
@@ -68,9 +74,21 @@ export default function MyProfile() {
                 </div>
                 <p className="text-gray-600 mb-2">{userData.username || 'N/A'}</p>
                 <p className="text-gray-600 mb-4">{userData.email || 'N/A'}</p>
-                <Button className="mb-2">
-                  Editar perfil
-                </Button>
+                <div className="flex flex-wrap items-center gap-2 justify-center mb-4">
+                  {userData.roles?.length
+                    ? userData.roles.map((role) => (
+                        <span key={role} className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-xs font-medium">
+                          {roleIcons[role] || <FaUserShield className="text-gray-400" />}
+                          {role.replace("ROLE_", "")}
+                        </span>
+                      ))
+                    : (
+                        <span className="flex items-center gap-1 bg-gray-100 px-2 py-1 rounded text-xs font-medium">
+                          <FaUser className="text-primary" /> Usuario
+                        </span>
+                      )
+                  }
+                </div>
               </div>
               <div className="border-t border-gray-200 my-8"></div>
               <div className="text-center mb-8">
