@@ -1,5 +1,5 @@
 import { useState, useCallback, useContext } from "react";
-import { fetchVisibleCars, fetchUserCars } from "../services/car.service";
+import { fetchVisibleCars, fetchUserCars, fetchAllCars } from "../services/car.service";
 import Context from "../context/UserContext";
 
 export default function useCars() {
@@ -20,6 +20,19 @@ export default function useCars() {
       setLoading(false);
     }
   }, []);
+
+  const getHiddenCars = useCallback(async () => {
+    try {
+      setLoading(true);
+      const fetchedCars = await fetchAllCars(); // Esto ya retorna solo los ocultos
+      setCars(fetchedCars);
+    } catch (error) {
+      console.error("Error fetching hidden cars:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [])
+
 
   const getUserCars = useCallback(async () => {
     try {
@@ -42,6 +55,7 @@ export default function useCars() {
     loading,
     getVisibleCars,
     getUserCars,
+    getHiddenCars,
     setUserCars
   };
 }

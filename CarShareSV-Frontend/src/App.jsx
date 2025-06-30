@@ -13,6 +13,7 @@ import AdminProfile from "./pages/adminView/myProfileAdmin/myProfileAdmin";
 import UsersList from "./pages/adminView/UsersList/userlist";
 import CarDetailsAdmin from "./pages/adminView/carDetails/carDetailsAdmin";
 import { UserContextProvider } from "./context/UserContext";
+import HiddenCars from "./pages/adminView/hiddenCars/HiddenCars";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/admin/myprofile" element={<AdminProfile />} />
           <Route path="/admin/users" element={<UsersList />} />
           <Route path="/admin/cardetails" element={<CarDetailsAdmin />} />
+          <Route path="/admin/hiddenCars" element={<HiddenCars/>} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

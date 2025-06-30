@@ -1,15 +1,28 @@
 import { useCallback, useState, useContext } from "react";
 import { postCar, setCarVisibility, deleteCar as deleteCarService } from "../services/car.service";
 import Context from "../context/UserContext";
+import { fetchAllCars } from "../services/car.service";
 
 export default function useManageCars() {
+
   const { token } = useContext(Context);
   const [state, setState] = useState({
     loading: false,
     error: false
   });
-  
 
+  const getAllCars = useCallback(async () => {
+  setState({ loading: true, error: false });
+  try {
+    const cars = await fetchAllCars();
+    setState({ loading: false, error: false });
+    return cars;
+  } catch (error) {
+    setState({ loading: false, error: true });
+    throw error;
+  }
+}, []);
+  
   const uploadCar = useCallback(({
     doors,
     capacity,
@@ -79,7 +92,10 @@ export default function useManageCars() {
     uploadCar,
     changeVisibility,
     deleteCar,
+    getAllCars,
     isLoading: state.loading,
     hasError: state.error
   };
+
+  
 }

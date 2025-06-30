@@ -49,10 +49,13 @@ export default function Header() {
                             Mis rentas
                         </Link>
 
-                        {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
-                            <Link to="/admin/users" className={`transition-colors ${isActive("/admin/users") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Usuarios</Link>
-                        )}
-
+                         {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
+                                <Link to="/admin/users" className={`transition-colors ${isActive("/admin/users") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Usuarios</Link>
+                            )}
+                          {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
+                               <Link to="/admin/hiddenCars" className={`transition-colors ${isActive("/admin/hiddenCars") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Vehiculos Ocultos</Link>
+                            )}
+                          
                     </nav>
                 )}
 

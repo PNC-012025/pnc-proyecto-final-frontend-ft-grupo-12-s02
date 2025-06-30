@@ -101,7 +101,7 @@ export function postCar ({
   });
  };
 
-  export function deleteCar (carId, token ) {
+ export function deleteCar(carId, token) {
   return fetch(`${BASE_URL}/cars/delete/${carId}`, {
     method: 'DELETE',
     mode: 'cors',
@@ -109,16 +109,24 @@ export function postCar ({
       'Content-Type': 'application/json',
       ...(token && { 'Authorization': `Bearer ${token}` })
     }
-  }).then(response => {
+  }).then(async response => {
+    const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error('Error en deleteCar: ' + response.statusText);
+      throw new Error(data.message || 'Error en deleteCar: ' + response.statusText);
     }
-
-    return response.json();
-  }).then(response => {
-    const { message } =  response;
-    console.log("API RESPONSE: ", message);
-
-    return message;
+    console.log("API RESPONSE: ", data.message);
+    return data.message;
   });
- };
+}
+
+ export async function fetchAllCars () {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/cars/getAll`);
+    const hiddenCars = Array.isArray(data.data)
+      ? data.data.filter(car => car.visible === false)
+      : [];
+    return hiddenCars;
+  } catch (error) {
+    throw new Error('Error fetching hidden cars: ' + error.message);
+  }
+}

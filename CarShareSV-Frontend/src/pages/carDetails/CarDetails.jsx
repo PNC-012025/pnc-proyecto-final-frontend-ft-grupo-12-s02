@@ -14,6 +14,11 @@ import ImageSlider from '../../components/imageslider/imageslider';
 import useReview from '../../hooks/useReview';
 import ReviewCard from '../../components/carReviews/reviewCard';
 import { FaStar } from 'react-icons/fa';
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
+import useManageCars from '../../hooks/useManageCars';
+import { deleteCar as deleteCarService } from "../../services/car.service";
+import { useNavigate } from 'react-router-dom';
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString("es-ES", {
@@ -24,12 +29,17 @@ function formatDate(date) {
 }
 
 export default function CarDetails() {
+
+    const { user } = useContext(UserContext);
+    const { deleteCar, changeVisibility, isLoading: isLoadingManage } = useManageCars();
+    const { createReservation, getCarReservedDates, reservedDates, isLoading: isLoadingReservation, hasError } = useReservation();
     const { carReviews, getCarReviews, isLoading: loadingReviews } = useReview();
     const location = useLocation();
     const car = location.state?.car;
-    const { createReservation, getCarReservedDates, reservedDates, isLoading, hasError } = useReservation();
     const [alertOpen, setAlertOpen] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const navigate = useNavigate();
+    const [redirectOnClose, setRedirectOnClose] = useState(false);
 
     useEffect(() => {
         getCarReservedDates(car.carId);
@@ -177,6 +187,56 @@ export default function CarDetails() {
                                 Contactar
                             </Button>
 
+                            <hr className='mt-6 text-gray-500'></hr>
+
+                            {(user?.roles?.includes("ROLE_ADMIN") || user?.roles?.includes("ROLE_SYSADMIN")) && (
+                                <div className="flex flex-col gap-2 mt-6">
+                                    <h3 className='text-sm font-semibold'>Funciones de Administrador</h3>
+                                    <Button
+                                        className="w-full"
+                                        onClick={async () => {
+                                            try {
+                                                await deleteCarService(car.carId, user.token);
+                                                setAlertMessage("Vehículo eliminado correctamente.");
+                                            } catch (e) {
+                                                const msg = e.message?.toLowerCase();
+                                                if (msg && (msg.includes("reserva") || msg.includes("referida") || msg.includes("constraint"))) {
+                                                    setAlertMessage("No se puede eliminar el vehículo porque tiene reservas asociadas.");
+                                                } else if (e.message && e.message !== "Error en deleteCar: ") {
+                                                    setAlertMessage(e.message);
+                                                } else {
+                                                    setAlertMessage("Error al eliminar el vehículo. Ya cuenta con reservas asociadas");
+                                                }
+                                            }
+                                            setAlertOpen(true);
+                                        }}
+                                        disabled={isLoadingManage}
+                                    >
+                                        Eliminar vehículo
+                                    </Button>
+                                    <Button
+                                        className="w-full"
+                                        onClick={async () => {
+                                            try {
+                                                await changeVisibility(car.carId, !car.visible);
+                                                setAlertMessage(
+                                                    car.visible
+                                                        ? "Vehículo ocultado correctamente."
+                                                        : "Vehículo hecho visible correctamente."
+                                                );
+                                                if (car.visible) setRedirectOnClose(true);
+                                            } catch (e) {
+                                                setAlertMessage("Error al cambiar la visibilidad.");
+                                            }
+                                            setAlertOpen(true);
+                                        }}
+                                        disabled={isLoadingManage}
+                                    >
+                                        {car.visible ? "Ocultar vehículo" : "Hacer visible"}
+                                    </Button>
+                                </div>
+                            )}
+
 
                         </div>
                     </div>
@@ -205,7 +265,12 @@ export default function CarDetails() {
                 <Alert
                     message={alertMessage}
                     isOpen={alertOpen}
-                    onClose={() => setAlertOpen(false)}
+                    onClose={() => {
+                        setAlertOpen(false);
+                        if (redirectOnClose) {
+                            navigate("/explore");
+                        }
+                    }}
                 />
 
             </div>
