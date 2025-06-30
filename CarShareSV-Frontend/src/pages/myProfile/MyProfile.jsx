@@ -1,4 +1,4 @@
-import { FaUser, FaCar, FaCalendarAlt, FaUser, FaUserCog, FaUserTie, FaUserShield } from 'react-icons/fa';
+import { FaUser, FaCar, FaCalendarAlt, FaUserCog, FaUserTie, FaUserShield } from 'react-icons/fa';
 import Button from '../../components/button/Button';
 import Header from '../../components/header/Header';
 import useUser from '../../hooks/useUser';
