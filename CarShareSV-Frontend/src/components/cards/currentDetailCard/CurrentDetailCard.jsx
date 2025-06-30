@@ -1,18 +1,55 @@
+import { useState } from "react";
 import useReservation from "../../../hooks/useReservation";
 import Button from "../../button/Button";
+import Alert from "../../alerts/alert";
+import useUser from "../../../hooks/useUser";
 
 function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('es-ES', options);
 }
 
+export default function CurrentDetailCard({ rent, onRemove }) {
+    const { cancelReservation } = useReservation();
+    const { user, token } = useUser();
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [cancelSuccess, setCancelSuccess] = useState(false);
 
-export default function CurrentDetailCard({ rent }) {
-  const { cancelReservation } = useReservation();
+    const handleOnClick = async () => {
+        setLoading(true);
+        try {
+            await cancelReservation(rent.reservationId, token);
+            setAlertMessage("Reserva cancelada exitosamente."); // Solo aquí el mensaje de éxito
+            setCancelSuccess(true);
+        } catch (error) {
+            let msg = "Error al cancelar la reserva. Inténtalo de nuevo.";
+            if (error?.response && typeof error.response.json === "function") {
+                try {
+                    const data = await error.response.json();
+                    msg = data.message || msg;
+                } catch { }
+            } else if (error?.message) {
+                msg = error.message;
+            }
+            setAlertMessage(msg); // Aquí solo mensaje de error
+            setCancelSuccess(false);
+        } finally {
+            setAlertOpen(true);
+            setLoading(false);
+        }
+    };
 
-  const handleOnClick = () => {
-    cancelReservation(rent.reservationId);
-  }
+    const handleAlertClose = () => {
+        setAlertOpen(false);
+        // Si fue exitosa, pide al padre quitar la card
+        if (cancelSuccess && onRemove) {
+            onRemove(rent.reservationId);
+        }
+    };
+
+    const isCancelable = rent.status === "ACTIVE";
 
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 w-100 h-87">
@@ -42,11 +79,20 @@ export default function CurrentDetailCard({ rent }) {
             </div>
 
             <div className="flex justify-center mt-6">
-                <Button onClick={handleOnClick} className="w-full mt-5">
-                    Cancelar
+                <Button
+                    onClick={handleOnClick}
+                    className="w-full mt-5"
+                    disabled={!isCancelable || loading}
+                >
+                    {loading ? "Cancelando..." : "Cancelar"}
                 </Button>
             </div>
+
+            <Alert
+                isOpen={alertOpen}
+                onClose={handleAlertClose}
+                message={alertMessage}
+            />
         </div>
     );
-
 }
