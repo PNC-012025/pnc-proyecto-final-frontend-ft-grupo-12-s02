@@ -61,7 +61,6 @@ export async function getUser (token = null) {
   axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
 
   const { data } = await axios.get(`${BASE_URL}/auth/whoami`);
-
   return data.data;
 }
 
