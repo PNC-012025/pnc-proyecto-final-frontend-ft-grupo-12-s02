@@ -62,7 +62,7 @@ export default function CarDetails() {
 
     const handleSelect = (ranges) => {
         setRange(ranges.selection);
-        console.log(reservedDates ? reservedDates : "No hay fechas reservadas");
+        //console.log(reservedDates ? reservedDates : "No hay fechas reservadas");
     };
 
     const totalDays = Math.ceil((range.endDate - range.startDate) / (1000 * 60 * 60 * 24)) + 1;
@@ -78,7 +78,7 @@ export default function CarDetails() {
                 address: car.location,
                 carPlateNumber: car.plateNumber
             }
-            console.log("Reservation Details: ", reservationDetails);
+            //console.log("Reservation Details: ", reservationDetails);
             const result = await createReservation(reservationDetails);
 
             if (result.success) {

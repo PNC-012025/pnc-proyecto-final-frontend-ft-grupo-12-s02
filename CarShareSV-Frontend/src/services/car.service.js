@@ -73,7 +73,7 @@ export function postCar ({
     return response.json();
   }).then(response => {
     const { message } =  response;
-    console.log("API RESPONSE: ", message);
+    //console.log("API RESPONSE: ", message);
 
     return message;
   });
@@ -95,7 +95,7 @@ export function postCar ({
     return response.json();
   }).then(response => {
     const { message } =  response;
-    console.log("API RESPONSE: ", message);
+    //console.log("API RESPONSE: ", message);
 
     return message;
   });
@@ -114,7 +114,7 @@ export function postCar ({
     if (!response.ok) {
       throw new Error(data.message || 'Error en deleteCar: ' + response.statusText);
     }
-    console.log("API RESPONSE: ", data.message);
+    //console.log("API RESPONSE: ", data.message);
     return data.message;
   });
 }

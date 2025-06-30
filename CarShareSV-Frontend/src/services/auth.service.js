@@ -51,7 +51,7 @@ export function login ({ username, password }) {
     return response.json();
   }).then(response => {
     const { accessToken } = response;
-    console.log("Successful login");
+    //console.log("Successful login");
 
     return accessToken;
   });
@@ -92,7 +92,7 @@ export function activeUser (userId, token) {
 
     return response.json();
   }).then(response => {
-    console.log("usuario activado correctamente: " + response.message);
+    //console.log("usuario activado correctamente: " + response.message);
   });
 }
 
@@ -111,7 +111,7 @@ export function deactiveUser (userId, token) {
 
     return response.json();
   }).then(response => {
-    console.log("usuario desactivado correctamente: " + response.message);
+    //console.log("usuario desactivado correctamente: " + response.message);
   });
 }
 
@@ -131,7 +131,7 @@ export function grantAdminRole (userId, token) {
 
     return response.json();
   }).then(response => {
-    console.log("rol otorgado correctamente: " + response.message);
+    //console.log("rol otorgado correctamente: " + response.message);
   });
 }
 
@@ -150,7 +150,7 @@ export function revokeAdminRole (userId, token) {
 
     return response.json();
   }).then(response => {
-    console.log("rol revocado correctamente: " + response.message);
+    //console.log("rol revocado correctamente: " + response.message);
   });
 }
 

@@ -28,7 +28,7 @@ return fetch(`${BASE_URL}/reservation/create`, {
         return response.json();
     }).then(response => {
         const {message} = response;
-        console.log("API RESPONSE:", message);
+        //console.log("API RESPONSE:", message);
 
         return message;
     });
@@ -83,7 +83,7 @@ return fetch(`${BASE_URL}/reservation/cancel/${reservationId}`, {
         return response.json();
     }).then(response => {
         const {message} = response;
-        console.log("API RESPONSE:", message);
+        //console.log("API RESPONSE:", message);
 
         return message;
     });

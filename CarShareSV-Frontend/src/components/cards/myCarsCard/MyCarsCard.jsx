@@ -50,8 +50,8 @@ export default function MyCarsCard({ car, onDelete }) {
     const today = new Date();
     const isReserved = reservedDates.some(date => isSameDay(new Date(date), today));
     setReserved(isReserved);
-    console.log("DATES: ", reservedDates);
-    console.log("NOW: ", today);
+    //console.log("DATES: ", reservedDates);
+    //console.log("NOW: ", today);
   }, [reservedDates]);
 
   const handleOnClick = () => {

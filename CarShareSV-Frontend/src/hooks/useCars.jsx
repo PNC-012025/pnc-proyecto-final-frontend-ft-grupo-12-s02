@@ -36,9 +36,9 @@ export default function useCars() {
 
   const getUserCars = useCallback(async () => {
     try {
-      console.log("Fetching user cars for userId:", user.userId);
+      //console.log("Fetching user cars for userId:", user.userId);
       setLoading(true);
-      console.log("useCars - user:", user.userId);
+      //console.log("useCars - user:", user.userId);
       const fetchedUserCars = await fetchUserCars(user.userId);
       setUserCars(fetchedUserCars);
     } catch (error) {

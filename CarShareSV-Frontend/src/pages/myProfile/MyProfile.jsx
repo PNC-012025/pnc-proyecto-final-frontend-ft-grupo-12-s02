@@ -18,15 +18,15 @@ export default function MyProfile() {
 
   useEffect(() => {
     if (isLogged && user && user.data) {
-      console.log("MyProfile useEffect: user.data existe", user.data);
+      //console.log("MyProfile useEffect: user.data existe", user.data);
       setUserData(user.data);
     } else if (isLogged && user && Object.keys(user).length > 0 && !user.data) {
-      console.log("MyProfile useEffect: user existe pero user.data no. User object:", user);
+      //console.log("MyProfile useEffect: user existe pero user.data no. User object:", user);
       if (user.firstName || user.email) {
         setUserData(user);
       }
     } else {
-      console.log("MyProfile useEffect: isLogged o user no están listos. isLogged:", isLogged, "User:", user);
+      //console.log("MyProfile useEffect: isLogged o user no están listos. isLogged:", isLogged, "User:", user);
     }
   }, [user, isLogged]);
 

@@ -66,7 +66,7 @@ export default function useManageCars() {
     setCarVisibility(carId, visible, token)
       .then(() => {
         setState({ loading: false, error: false });
-        console.log(`Car visibility changed to ${visible} for carId: ${carId}`);
+        //console.log(`Car visibility changed to ${visible} for carId: ${carId}`);
       })
       .catch(error => {
         setState({ loading: false, error: true });
@@ -80,7 +80,7 @@ export default function useManageCars() {
     deleteCarService(carId, token)
       .then(() => {
         setState({ loading: false, error: false });
-        console.log(`Car with ID ${carId} deleted successfully`);
+        //console.log(`Car with ID ${carId} deleted successfully`);
       })
       .catch(error => {
         setState({ loading: false, error: true });
