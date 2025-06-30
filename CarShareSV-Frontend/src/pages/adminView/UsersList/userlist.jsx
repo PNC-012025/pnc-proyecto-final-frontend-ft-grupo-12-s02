@@ -21,7 +21,6 @@ export default function UsersList() {
 
     const currentUserRoles = user?.roles || [];
 
-    // Lógica para cambiar rol
     const handleToggleRole = (userId, isAdmin) => {
         if (isAdmin) {
             revokeAdminRole(userId);
@@ -33,8 +32,8 @@ export default function UsersList() {
     return (
         <div className="min-h-screen bg-gray-50 pt-20">
             <Header />
-            <div className="max-w-4xl mx-auto pt-12 pb-16 px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl font-semibold text-gray-900 mb-8">Usuarios Registrados</h1>
+            <div className="max-w-5xl mx-auto pt-12 pb-16 px-4 sm:px-6 lg:px-8">
+                <h1 className="text-2xl font-semibold text-gray-900 mb-8">Usuarios Registrados</h1>
                 <div className="space-y-4">
                     {loading ? (
                         <p className="text-gray-500">Cargando usuarios...</p>

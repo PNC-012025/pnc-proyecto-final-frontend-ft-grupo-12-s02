@@ -13,10 +13,7 @@ export default function PastDetailCard({ rent }) {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const { createReview, isLoading } = useReview();
-
-
     
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);

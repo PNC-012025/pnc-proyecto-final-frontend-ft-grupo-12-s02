@@ -1,7 +1,6 @@
 import { FaUser, FaEnvelope, FaPhone, FaBirthdayCake, FaUserShield, FaUserCog, FaUserTie } from "react-icons/fa";
 import Button from "../../button/Button";
 
-// Mapeo de iconos por rol
 const roleIcons = {
     "ROLE_USER": <FaUser className="text-primary" title="Usuario" />,
     "ROLE_ADMIN": <FaUserCog className="text-blue-500" title="Admin" />,
@@ -16,8 +15,8 @@ export default function UserCard({ user, currentUserRoles, onActivate, onDeactiv
 
     return (
         <div className="flex items-stretch">
-            {/* Card de usuario */}
-            <div className="flex bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-4 items-center hover:shadow-md transition-shadow duration-200 flex-1">
+
+            <div className="flex bg-white rounded-xl shadow-sm border border-gray-200 p-10 mb-6 items-center hover:shadow-md transition-shadow duration-200 flex-1 h-[180px]">
                 <div className="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mr-6">
                     <FaUser className="text-3xl text-primary" />
                 </div>
@@ -68,18 +67,24 @@ export default function UserCard({ user, currentUserRoles, onActivate, onDeactiv
                     </div>
                 </div>
             </div>
-            {/* Botones de acción fuera de la card */}
+
             <div className="flex flex-col gap-2 ml-6 justify-center">
                 {(isCurrentAdmin || isSysAdmin) && (
                     isActive ? (
                         <Button
-                            onClick={() => onDeactivate(user.userId || user.id)}
+                            onClick={async () => {
+                                await onDeactivate(user.userId || user.id);
+                                window.location.reload();
+                            }}
                         >
                             Desactivar
                         </Button>
                     ) : (
                         <Button
-                            onClick={() => onActivate(user.userId || user.id)}
+                            onClick={async () => {
+                                await onActivate(user.userId || user.id);
+                                window.location.reload();
+                            }}
                         >
                             Activar
                         </Button>
@@ -87,7 +92,10 @@ export default function UserCard({ user, currentUserRoles, onActivate, onDeactiv
                 )}
                 {isSysAdmin && (
                     <Button
-                        onClick={() => onToggleRole(user.userId || user.id, isAdmin)}
+                        onClick={async () => {
+                            await onToggleRole(user.userId || user.id, isAdmin);
+                            window.location.reload();
+                        }}
                         disabled={user.roles?.includes("ROLE_SYSADMIN")}
                         title={user.roles?.includes("ROLE_SYSADMIN") ? "No puedes cambiar el rol de un SYSADMIN" : ""}
                     >

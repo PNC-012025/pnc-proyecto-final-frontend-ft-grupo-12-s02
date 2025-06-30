@@ -21,7 +21,7 @@ export default function CurrentDetailCard({ rent, onRemove }) {
         setLoading(true);
         try {
             await cancelReservation(rent.reservationId, token);
-            setAlertMessage("Reserva cancelada exitosamente."); // Solo aquí el mensaje de éxito
+            setAlertMessage("Reserva cancelada exitosamente."); 
             setCancelSuccess(true);
         } catch (error) {
             let msg = "Error al cancelar la reserva. Inténtalo de nuevo.";
@@ -33,7 +33,7 @@ export default function CurrentDetailCard({ rent, onRemove }) {
             } else if (error?.message) {
                 msg = error.message;
             }
-            setAlertMessage(msg); // Aquí solo mensaje de error
+            setAlertMessage(msg);
             setCancelSuccess(false);
         } finally {
             setAlertOpen(true);
@@ -43,7 +43,6 @@ export default function CurrentDetailCard({ rent, onRemove }) {
 
     const handleAlertClose = () => {
         setAlertOpen(false);
-        // Si fue exitosa, pide al padre quitar la card
         if (cancelSuccess && onRemove) {
             onRemove(rent.reservationId);
         }

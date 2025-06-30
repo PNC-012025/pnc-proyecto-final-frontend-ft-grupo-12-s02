@@ -5,12 +5,12 @@ const TransmissionFilter = ( {className, setFilter, resetKey} ) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    setValue(""); // Reset value when resetKey changes
+    setValue(""); 
   }, [resetKey]);
 
   const handleChange = (e) => {
-    setValue(e.target.value); // Update local state with the selected transmission
-    const transmission = e.target.value ? e.target.value : ""; // Set to empty string if no transmission is selected
+    setValue(e.target.value); 
+    const transmission = e.target.value ? e.target.value : ""; 
     setFilter((prevFilter) => ({
       ...prevFilter,
       transmission: transmission,

@@ -171,7 +171,7 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
         <div className="flex flex-col lg:flex-row gap-10">
           <div className="">
             <div className="rounded-2xl border border-gray-200 bg-white shadow-md p-4">
-              {/* Dropzone */}
+           
               <div
                 {...getRootProps()}
                 className="cursor-pointer border-2 border-dashed border-primary rounded-xl h-85 w-full max-w-[420px] flex flex-col items-center justify-center transition hover:bg-primary/10"
@@ -209,11 +209,10 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
 
           </div>
 
-          {/* Formulario */}
           <div className="lg:w-2/3 w-full">
             <div className="bg-white p-8 rounded-2xl border border-gray-200 shadow-md space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                {/* Marca */}
+          
                 <div>
                   <select
                     className={commonClass}
@@ -231,7 +230,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   </select>
                 </div>
 
-                {/* Modelo */}
                 <div>
                   <select
                     className={commonClass}
@@ -247,7 +245,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   </select>
                 </div>
 
-                {/* Año */}
                 <div>
                   <select
                     className={commonClass}
@@ -262,7 +259,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   </select>
                 </div>
 
-                {/* Transmisión */}
                 <div>
                   <select
                     className={commonClass}
@@ -277,7 +273,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   </select>
                 </div>
 
-                {/* Pasajeros */}
                 <div>
                   <select
                     className={commonClass}
@@ -292,7 +287,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   </select>
                 </div>
 
-                {/* Precio */}
                 <div>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
@@ -310,7 +304,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                   {errors.dailyPrice && <p className="text-red-500 text-sm">{errors.dailyPrice}</p>}
                 </div>
 
-                {/* Puertas */}
                 <div>
                   <select
                     className={commonClass}
@@ -326,7 +319,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                 </div>
               </div>
 
-              {/* Placa del carro */}
               <div>
                 <input
                   type="text"
@@ -340,7 +332,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                 {errors.plateNumber && <p className="text-red-500">{errors.plateNumber}</p>}
               </div>
 
-              {/* Ubicación */}
               <input
                 type="text"
                 placeholder="Ubicación de entrega"
@@ -350,7 +341,6 @@ const PostPage = ({ editMode = false, postId = null, toEditPost = {} }) => {
                 required
               />
 
-              {/* Descripción */}
               <textarea
                 placeholder="Descripción (detalles adicionales del vehículo)"
                 className="w-full rounded-xl px-4 py-3 border border-gray-300 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition h-32 resize-none"

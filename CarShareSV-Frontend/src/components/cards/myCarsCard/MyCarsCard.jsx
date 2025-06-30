@@ -1,10 +1,10 @@
-import { FaUser, FaStar } from 'react-icons/fa';
+import { FaUser, FaStar, FaInfoCircle } from 'react-icons/fa';
 import { GiCarDoor, GiGearStick } from 'react-icons/gi';
 import Button from '../../button/Button';
 import useManageCars from '../../../hooks/useManageCars';
 import { useEffect, useState } from 'react';
 import useReservation from '../../../hooks/useReservation';
-import useReview from '../../../hooks/useReview'; // <-- Agrega esto
+import useReview from '../../../hooks/useReview'; 
 import { ca } from 'date-fns/locale';
 import ImgSlider from '../../imageslider/imageslider';
 import Alert from '../../alerts/alert';
@@ -23,7 +23,6 @@ export default function MyCarsCard({ car, onDelete }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [reserved, setReserved] = useState(false);
 
-  // --- Lógica de averageRating ---
   const { carReviews, getCarReviews } = useReview();
   const [averageRating, setAverageRating] = useState(null);
 
@@ -41,7 +40,6 @@ export default function MyCarsCard({ car, onDelete }) {
       setAverageRating(null);
     }
   }, [carReviews]);
-  // --- Fin lógica de averageRating ---
 
   useEffect(() => {
     getCarReservations(car.carId);
@@ -127,13 +125,14 @@ export default function MyCarsCard({ car, onDelete }) {
               </div>
 
               <div className="flex items-center text-sm text-gray-600 mt-5 ">
-                  <FaMapMarkerAlt className="mr-2 text-primary" />
-                  <span className="font-medium">{car.location}</span>
+                  <FaMapMarkerAlt className="mr-1 text-primary" />
+                  <span className="ml-1 text-sm text-gray-600">{car.location}</span>
                 </div>
 
-              <div className="text-sm text-gray-600 mt-5">
-                <span className="font-medium">Estado: </span>
-                {reserved ? "Reservado" : "Disponible"}
+              <div className="flex items-center mb-4 mt-5">
+                  <FaInfoCircle className="mr-1 text-primary" />
+                <span className="text-sm text-gray-600">Estado: </span>
+               <span className="ml-3 text-sm text-gray-600">  {reserved ? "Reservado" : "Disponible"} </span>
               </div>
 
             </div>

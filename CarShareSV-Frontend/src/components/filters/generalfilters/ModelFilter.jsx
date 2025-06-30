@@ -24,7 +24,7 @@ const ModelFilter = ({ selectedBrand, className, setFilter, resetKey }) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    setValue(""); // Reset value when resetKey changes
+    setValue(""); 
   }, [resetKey]);
 
   const handleMouseEnter = () => {
@@ -36,8 +36,8 @@ const ModelFilter = ({ selectedBrand, className, setFilter, resetKey }) => {
   };
 
   const handleChange = (e) => {
-    setValue(e.target.value); // Update local state with the selected model
-    const model = e.target.value ? e.target.value : ""; // Set to empty string if no model is selected
+    setValue(e.target.value); 
+    const model = e.target.value ? e.target.value : ""; 
     setFilter((prevFilter) => ({
       ...prevFilter,
       model: model,

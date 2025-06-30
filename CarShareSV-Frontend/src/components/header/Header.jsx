@@ -23,7 +23,7 @@ export default function Header() {
                 </Link>
 
                 {isLogged && (
-                       <nav className="flex-1 flex justify-center gap-6 text-lg">
+                    <nav className="flex-1 flex justify-center gap-6 text-lg">
                         <Link
                             to="/explore"
                             className={`transition-colors ${isActive("/explore") ? "text-primary" : "text-gray-700"} hover:text-primary`}
@@ -49,14 +49,13 @@ export default function Header() {
                             Mis rentas
                         </Link>
 
-                         {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
-                                <Link to="/admin/users" className={`transition-colors ${isActive("/admin/users") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Usuarios</Link>
-                            )}
+                        {(roles.includes(ROLES.ADMIN) || roles.includes(ROLES.SYSADMIN)) && (
+                            <Link to="/admin/users" className={`transition-colors ${isActive("/admin/users") ? "text-primary" : "text-gray-700"} hover:text-primary`}>Usuarios</Link>
+                        )}
 
                     </nav>
                 )}
 
-                {/* Derecha */}
                 <div className="flex gap-4 items-center ml-auto">
                     {!isLogged ? (
                         <>
@@ -69,9 +68,9 @@ export default function Header() {
                         </>
                     ) : (
                         <>
-    
-                             <Link to="/myprofile" className={`transition-colors ${isActive("/myprofile") ? "text-primary" : "text-gray-700"} hover:text-primary mr-10 text-lg`}>Perfil</Link>
-                           
+
+                            <Link to="/myprofile" className={`transition-colors ${isActive("/myprofile") ? "text-primary" : "text-gray-700"} hover:text-primary mr-10 text-lg`}>Perfil</Link>
+
                         </>
                     )}
                 </div>

@@ -13,32 +13,7 @@ export default function PastRents() {
     const { user } = useUser();
     const { userReservations, getUserReservations } = useReservation();
     const [finishedReservations, setFinishedReservations] = useState([
-         /* {
-        startDate: "2025-06-20",
-        endDate: "2025-06-22",
-        address: "Dirección de ejemplo",
-        total: 120.0,
-        status: "FINISHED",
-        reservingUsername: "EjemploUser",
-        reservedCar: {
-            carId: "mock-car-id-1",
-            plateNumber: "P123456",
-            description: "Auto de prueba, 4 puertas, aire acondicionado.",
-            visible: true,
-            doors: 4,
-            capacity: 5,
-            dailyPrice: 60.0,
-            location: "Dirección de ejemplo",
-            year: 2020,
-            username: "EjemploOwner",
-            model: "ModeloX",
-            brand: "MarcaY",
-            transmission: "Manual",
-            images: [
-                "https://via.placeholder.com/300"
-            ]
-        }
-    }*/
+    
     ]);
 
     useEffect(() => {

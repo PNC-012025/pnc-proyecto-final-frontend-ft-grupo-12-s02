@@ -3,7 +3,7 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-primary: "Poppins", sans-serif; /* Your font stack for --font-primary */
+  --font-primary: "Poppins", sans-serif; 
   --color-primary: #d1285e;
   --color-secondary: #28115F;
 }

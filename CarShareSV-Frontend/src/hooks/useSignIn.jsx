@@ -39,12 +39,6 @@ try {
     console.error("Error en el registro:", error);
     throw error;
   }
-    //.then(() => {
-      //setState({ loading: false, error: false });
-    //}).catch((error) => {
-      //setState({ loading: false, error: true });
-      //console.error("Error en el registro:", error);
-    //});
   };
 
   return { 

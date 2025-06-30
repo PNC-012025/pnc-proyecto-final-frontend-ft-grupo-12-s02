@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import useReview from '../../../hooks/useReview';
 
 export default function MyRentsCard({ car }) {
-  // Lógica de averageRating
+
   const { carReviews, getCarReviews } = useReview();
   const [averageRating, setAverageRating] = useState(null);
 
@@ -48,7 +48,7 @@ export default function MyRentsCard({ car }) {
                   </div>
                   <div className="flex items-center">
                     <GiGearStick className="mr-2 text-primary" />
-                    <span>{car.transmission}</span>
+                    <span>{car.transmission === 'Automatic' ? 'Automático' : 'Manual'}</span>
                   </div>
                 </div>
 
@@ -66,12 +66,12 @@ export default function MyRentsCard({ car }) {
 
                 <div className="flex items-center text-sm text-gray-600 ">
                   <FaMapMarkerAlt className="mr-2 text-primary" />
-                  <span className="font-medium">{car.location}</span>
+                  <span className="text-sm text-gray-600">{car.location}</span>
                 </div>
               </div>
             </div>
 
-            <div className="self-center">
+            <div className="self-center pl-6">
               <ImageSlider images={car.images} />
             </div>
           </div>

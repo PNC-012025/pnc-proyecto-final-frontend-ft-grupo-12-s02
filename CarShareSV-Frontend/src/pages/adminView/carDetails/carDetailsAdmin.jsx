@@ -7,8 +7,6 @@ import { DateRange } from "react-date-range";
 import { es } from "date-fns/locale";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import card1 from "../../../assets/images/card1.jpg";
-
 
 function formatDate(date) {
     return new Date(date).toLocaleDateString("es-ES", {
@@ -57,14 +55,13 @@ export default function CarDetails() {
             <Header />
             <div className="max-w-6xl mx-auto pt-25 pb-16 px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Columna izquierda */}
+                 
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Card del carro */}
+                      
                         <MyRentsCard car={car} />
 
-                        {/* Calendario + resumen */}
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-center md:items-stretch">
-                            {/* Calendario más pequeño */}
+                          
                             <div className="scale-[0.9] -ml-4">
                                 <h3 className="text-base font-medium text-gray-900 mb-2">Elige tu fecha de reservación:</h3>
                                 <DateRange
@@ -77,7 +74,6 @@ export default function CarDetails() {
                                 />
                             </div>
 
-                            {/* Texto centrado verticalmente */}
                             <div className="flex-1 flex flex-col justify-center space-y-8 text-sm text-gray-700">
                                 <div className="flex items-center gap-2 text-primary font-medium">
                                     <FaMapMarkerAlt />
@@ -92,15 +88,12 @@ export default function CarDetails() {
                             </div>
                         </div>
 
-
-                        {/* Descripción */}
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Descripción:</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">{car.description}</p>
                         </div>
                     </div>
 
-                    {/* Columna derecha - Detalle de precio */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">$17 <span className="text-sm text-gray-600">al día</span></h3>

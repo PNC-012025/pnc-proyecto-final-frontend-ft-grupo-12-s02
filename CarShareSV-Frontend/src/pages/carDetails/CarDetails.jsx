@@ -13,7 +13,6 @@ import useReservation from '../../hooks/useReservation';
 import ImageSlider from '../../components/imageslider/imageslider';
 import useReview from '../../hooks/useReview';
 import ReviewCard from '../../components/carReviews/reviewCard';
-//import card1 from "../../assets/images/card1.jpg";
 import { FaStar } from 'react-icons/fa';
 
 function formatDate(date) {
@@ -37,7 +36,6 @@ export default function CarDetails() {
         getCarReviews(car.carId);
     }, [getCarReservedDates, getCarReviews, car.carId]);
 
-    //console.log("Car Details: ", car);
     const [range, setRange] = useState({
         startDate: new Date(),
         endDate: new Date(),
@@ -90,14 +88,13 @@ export default function CarDetails() {
             <Header />
             <div className="max-w-6xl mx-auto pt-25 pb-16 px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Columna izquierda */}
+                 
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Card del carro */}
+                    
                         <MyRentsCard car={car} />
 
-                        {/* Calendario + resumen */}
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-center md:items-stretch">
-                            {/* Calendario más pequeño */}
+        
                             <div className="scale-[0.9] -ml-4">
                                 <h3 className="text-base font-medium text-gray-900 mb-2">Elige tu fecha de reservación:</h3>
                                 <DateRange
@@ -111,11 +108,9 @@ export default function CarDetails() {
                                 />
                             </div>
 
-                            {/* Texto centrado verticalmente */}
                             <div className="flex-1 flex flex-col justify-center space-y-8 text-sm text-gray-700">
-                                <div className="flex items-center gap-2 text-primary font-medium">
-                                    <FaMapMarkerAlt />
-                                    {car.location}
+                                <div>
+                                    <p><span className="font-semibold">Ubicación :</span> {car.location}</p>
                                 </div>
                                 <div>
                                     <p><span className="font-semibold">Reserva:</span> {formatDate(range.startDate)} - {formatDate(range.endDate)}</p>
@@ -126,15 +121,12 @@ export default function CarDetails() {
                             </div>
                         </div>
 
-
-                        {/* Descripción */}
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Descripción:</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">{car.description}</p>
                         </div>
                     </div>
 
-                    {/* Columna derecha - Detalle de precio */}
                     <div className="lg:col-span-1">
                         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
                             <h3 className="text-xl font-semibold text-gray-900 mb-4">${car.dailyPrice} <span className="text-sm text-gray-600"> al día</span></h3>
@@ -144,7 +136,7 @@ export default function CarDetails() {
                                 <li>- Reserve sin necesidad de tarjeta de crédito</li>
                             </ul>
 
-                            <hr className="my-4" />
+                             <div className="border-t border-gray-200 my-5"></div>
                             <h4 className="font-semibold mb-3 text-gray-900">Detalle de precio:</h4>
                             <div className="space-y-2 text-sm text-gray-700 mb-4">
                                 <div className="flex justify-between">
@@ -163,7 +155,7 @@ export default function CarDetails() {
                                     <span>Tarifa de servicio: ${serviceFee.toFixed(2)}</span>
                                     <span></span>
                                 </div>
-                                <hr className="border-gray-200" />
+                                 <div className="border-t border-gray-200 my-5"></div>
                                 <div className="flex justify-between font-semibold text-black">
                                     <span>Total:</span>
                                     <span>${total}</span>
@@ -177,7 +169,7 @@ export default function CarDetails() {
                             <Button
                                 className="w-full mt-4"
                                 onClick={() => {
-                                    const message = `Hola, estoy interesado en reservar tu vehículo con placa ${car.plateNumber} ubicado en ${car.location}. Me gustaría rentarlo desde el ${formatDate(range.startDate)} hasta el ${formatDate(range.endDate)}. Veo que el total a pagar es $${total.toFixed(2)}. ¿Podrías confirmarme si está disponible?`;
+                                    const message = `Hola, estoy interesado en reservar tu ${car.brand} ${car.model} ${car.year}, ubicado en ${car.location}. Me gustaría rentarlo desde el ${formatDate(range.startDate)} hasta el ${formatDate(range.endDate)}. Veo que el total a pagar es $${total.toFixed(2)}. ¿Podrías confirmarme si está disponible?`;
                                     const url = `https://web.whatsapp.com/send?phone=${car.phoneNumber}&text=${encodeURIComponent(message)}`;
                                     window.open(url, '_blank');
                                 }}
@@ -189,7 +181,7 @@ export default function CarDetails() {
                         </div>
                     </div>
                 </div>
-                <hr className='mt-5'></hr>
+                 <div className="border-t border-gray-200 my-8"></div>
                 <div className="mt-5">
                     <h3 className="text-2xl font-semibold mb-4">Reseñas del vehículo</h3>
                     {averageRating && (

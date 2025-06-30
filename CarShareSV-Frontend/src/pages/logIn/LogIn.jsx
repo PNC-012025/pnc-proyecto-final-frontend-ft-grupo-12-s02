@@ -18,7 +18,6 @@ export default function Login() {
         password: ''
     });
 
-    // Estado para el alert
     const [alert, setAlert] = useState({
         isOpen: false,
         message: ''
@@ -62,14 +61,13 @@ export default function Login() {
 
     return (
         <div className="h-screen flex">
-            {/* Alert */}
+          
             <AlertPopup
                 isOpen={alert.isOpen}
                 message={alert.message}
                 onClose={handleCloseAlert}
             />
 
-            {/* Izquierda */}
             <div className="w-3/5 bg-white flex items-center justify-center p-8 h-full">
                 <div className="w-full max-w-md">
                     {isLoginLoading ? (
@@ -118,7 +116,7 @@ export default function Login() {
                     )}
                 </div>
             </div>
-            {/* Derecha */}
+            
             <div className="w-2/5 bg-gradient-to-br from-primary to-secondary via-[#7a2c7d] flex items-center justify-center text-white h-full">
                 <div className="text-center px-8">
                     <h2 className="text-6xl font-bold leading-tight hover:scale-105 transition-transform duration-300">
