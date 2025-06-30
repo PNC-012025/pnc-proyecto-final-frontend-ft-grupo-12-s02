@@ -40,9 +40,10 @@ export default function MyProfile() {
               </div>
               <div className="flex items-center text-sm text-gray-600">
                 <FaCalendarAlt size={16} className="mr-2 text-primary" />
-                <span>Vehículos rentados: </span>
+                <span>Vehículos rentaditos: </span>
                 <span className="font-medium text-gray-900 ml-1">2</span>
-              </div>
+                
+              </div> 
             </div>
 
             <div className="flex justify-center">
